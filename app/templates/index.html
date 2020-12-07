@@ -45,262 +45,46 @@
    </head>
    <body>
       
-     <h1>Syncrator-API</h1>
-
-     <p>For POST and DELETE calls that alter state, you need to also pass an access token in the Authorization header.</p>
-     <p>
-      Use the form here to get your access token:
-     </p>
-     <form action="/login" method="POST">
-
-         <label>Username</label>
-         <input name="username"/> <br/>
-
-         <label>Password</label>
-         <input name="password" type="password"/>
-
-         <br/>
-       <input type="submit" value="Request access token"/>
-
-     </form>
-     <p>
-      When calling delete, or create jobs you pass in the 'access_token' in an 'Authorization' header
-      and add the word 'Bearer'. For instance if your token is 'xyz' your header should be
-      -H 'Authorization: Bearer xyz'. For the GET calls and dryrun calls you don't need a token which
-      makes it easier to craft your requests before worrying about authorization.
-     </p>
-     <p>
-     You can also request a token from the commandline with curl by issueing a POST request to the /login route
-     and just pass in username and password as form parameters : 
-      <pre>
-$ curl -X POST http://syncrator-api-prd-shared-components.apps.do-prd-okp-m0.do.viaa.be/login \
-  -F "username=somelogin@meemoo.be" \
-  -F "password=PW_HERE"
-      </pre>
-     </p>
-
-     <ul>
-        <li><a href="/jobs?page=1"> GET /jobs </a> 
-           - paginated list of active api started jobs 
-        </li>
-        
-        <li><a href="/jobs/1"> GET /jobs/&lt;id>  </a> 
-           - get api job and related sync_job details and progress 
-        </li>
-
-        <li>DELETE /jobs/&lt;id>  
-           - get api job, set status to "deleted" and run 
-             openshift oc call to delete any openshift jobs 
-             started with these parameters.<br/>
-             Example: 
-              curl -X DELETE -H 'Authorization: Bearer access_token' http://localhost:8080/jobs/123
-        </li>
-
-        <li><a href="/sync_jobs?page=1"> GET /sync_jobs </a>
-           - paginated list of all sync jobs 
-             (these include syncrator runs started with CRON)
-        </li>
-        <br/>
-     </ul>
-
+     <h1>AVO Subtitle Uploader</h1>
       
+     <p>
+     python flask app om subtitles snel online te krijgen.
+Vanilla javascript voor ajax calls en injecteren flow player...
+Biobaner logt in met oas.viaa.be (zien of ik account heb enz.)
+on prem openshift.
+mediahaven v2 api. (oauth v2 voor de rest calls van de app zelf).
+     </p>
+     
+     <p>
+Form :
+pid   -> geef je in , dan haal je het op uit MediaHaven en krijgt data /metadata terug:
+dan zie je:
+titel
+omschrijving
+createdatum
+     </p>
 
-      <h2>Example: AVO jobs sync to postgres in shared.items</h2>
-      <ul>
-        <li><a href="/delta/avo/qas">GET /delta/avo/qas</a> 
-           - delta synchronisation job dryrun
-        </li>
-        
-        <li> POST /delta/&lt;project>/&lt;env>             
-          - start a new delta synchronisation job
-        </li>
-        <br/>
+     <p>
+je toont video met flowplayer op deze page metadata.
+en kan je een subtitle file uploaden.
+     </p>
 
-        <li><a href="/delete/avo/qas">GET /delete/avo/qas</a> 
-          - delete synchronisation job dryrun
-        </li>
-        <li> POST /delete/&lt;project>/&lt;env>            
-          - start a new delete synchronisation job
-        </li>
-        <br/>
+     <p>
+effectief submit button die gaat dan met ajax de file zelf uploaden.
+dit is ook een mediahaven rest-api call die het bestand zelf er zet.
 
-        <li><a href="/diff/avo/qas">GET /diff/avo/qas</a> 
-          - dryrun for delta followed by delete in one go for partial updates
-        </li>
-        <li> POST /diff/&lt;project>/&lt;env>             
-          - start delta job followed by a delete job
-        </li>
-        <br/>
-
-        <li><a href="/sync/avo/qas">GET /sync/avo/qas</a> 
-          - full synchronisation job dryrun
-        </li>
-        <li> POST /sync/&lt;project>/&lt;env>             
-          - start a new full synchronisation job
-        </li>
-        <br/>
-      </ul>
+srt file komt zo op juiste plaats op testbeeld en de rechten
 
 
+(later is er nog een redactie waarbij iemand iets aanvingt om hem online te zetten).
 
-      <h2>Example: AVO subtitle jobs sync to postgres in shared.collateral</h2>
-      <ul>
-        <li><a href="/delta/avosubtitles/qas">GET /delta/avosubtitles/qas</a> 
-           - delta synchronisation job dryrun
-        </li>
-        
-        <li> POST /delta/&lt;project>/&lt;env>             
-          - start a new delta synchronisation job
-        </li>
-        <br/>
-
-        <li><a href="/delete/avosubtitles/qas">GET /delete/avosubtitles/qas</a> 
-          - delete synchronisation job dryrun
-        </li>
-        <li> POST /delete/&lt;project>/&lt;env>            
-          - start a new delete synchronisation job
-        </li>
-        <br/>
-
-        <li><a href="/diff/avosubtitles/qas">GET /diff/avosubtitles/qas</a> 
-          - dryrun for delta followed by delete in one go for partial updates
-        </li>
-        <li> POST /diff/&lt;project>/&lt;env>             
-          - start delta job followed by a delete job
-        </li>
-        <br/>
-
-        <li><a href="/sync/avosubtitles/qas">GET /sync/avosubtitles/qas</a> 
-          - full synchronisation job dryrun
-        </li>
-        <li> POST /sync/&lt;project>/&lt;env>             
-          - start a new full synchronisation job
-        </li>
-        <br/>
-      </ul>
+Meeting met Rudolf of Matthias voor details api's etc.
+     </p>
 
 
-      <h2>Example: Cataloguspro sync to SOLR </h2>
-      <ul>
-        <li><a href="/delta/cataloguspro/qas">GET /delta/cataloguspro/qas</a> 
-           - delta synchronisation job dryrun
-        </li>
-        
-        <li> POST /delta/&lt;project>/&lt;env>             
-          - start a new delta synchronisation job
-        </li>
-        <br/>
-
-        <li><a href="/delete/cataloguspro/qas">GET /delete/cataloguspro/qas</a> 
-          - delete synchronisation job dryrun
-        </li>
-        <li> POST /delete/&lt;project>/&lt;env>            
-          - start a new delete synchronisation job
-        </li>
-        <br/>
-
-        <li><a href="/diff/cataloguspro/qas">GET /diff/cataloguspro/qas</a> 
-          - dryrun for delta followed by delete in one go for partial updates
-        </li>
-        <li> POST /diff/&lt;project>/&lt;env>             
-          - start delta job followed by a delete job
-        </li>
-        <br/>
-
-        <li><a href="/sync/cataloguspro/qas">GET /sync/cataloguspro/qas</a> 
-          - full synchronisation job dryrun
-        </li>
-        <li> POST /sync/&lt;project>/&lt;env>             
-          - start a new full synchronisation job
-        </li>
-        <br/>
-      </ul>
-
-      <h2>Example: Metadatacatalogus / Hetarchief sync to SOLR </h2>
-      <ul>
-        <li><a href="/delta/metadatacatalogus/qas">GET /delta/metadatacatalogus/qas</a> 
-           - delta synchronisation job dryrun
-        </li>
-        
-        <li> POST /delta/&lt;project>/&lt;env>             
-          - start a new delta synchronisation job
-        </li>
-        <br/>
-
-        <li><a href="/delete/metadatacatalogus/qas">GET /delete/metadatacatalogus/qas</a> 
-          - delete synchronisation job dryrun
-        </li>
-        <li> POST /delete/&lt;project>/&lt;env>            
-          - start a new delete synchronisation job
-        </li>
-        <br/>
-
-        <li><a href="/diff/metadatacatalogus/qas">GET /diff/metadatacatalogus/qas</a> 
-          - dryrun for delta followed by delete in one go for partial updates
-        </li>
-        <li> POST /diff/&lt;project>/&lt;env>             
-          - start delta job followed by a delete job
-        </li>
-        <br/>
-
-        <li><a href="/sync/metadatacatalogus/qas">GET /sync/metadatacatalogus/qas</a> 
-          - full synchronisation job dryrun
-        </li>
-        <li> POST /sync/&lt;project>/&lt;env>             
-          - start a new full synchronisation job
-        </li>
-        <br/>
-      </ul>
-
-
-      <b> In above examples you can replace the environment 'qas' to 'prd' for production </b>
-
-      <h2>Starting generic job with POST request</h2>
-      <ul>
-        <li> POST /run             
-          - start custom syncrator job by passing all 
-          template parameters (target, env, action_name, action, is_tag, options)
-
-          <h3>Example</h3>
-          This and any of the above POST calls does actual work (fire up a syncrator pod to sync data). Therefore you need a valid authorization jwt token.
-          <pre>
-$ curl -X POST http://syncrator-api-prd-shared-components.apps.do-prd-okp-m0.do.viaa.be/run \
-  -H 'Content-Type:application/json' \
-  -H 'Authorization: Bearer YOUR_PERSONAL_TOKEN' \
-  -d '{
-    "target":"avo",
-    "env":"qas",
-    "action_name": "delta",
-    "action": "delta",
-    "is_tag": "latest",
-    "options": "-n 1000 -c 1"
-    }'
-
-          </pre>
-
-        </li>
-        <li> POST /dryrun          
-          - dryrun custom job by passing all. 
-          template parameters (target, env, action_name, action, is_tag, options)
-          <h3>Example</h3>
-Dryrun and get requests don't need a token so you can test your call before doing any real server changes. It does return the same output as for an actual run call
-but does not start the actual pod to do the work in the background. Therefor a job_id wont be returned either.
-          <pre>
-$ curl -X POST http://syncrator-api-prd-shared-components.apps.do-prd-okp-m0.do.viaa.be/dryrun \
-  -H 'Content-Type:application/json' \
-  -d '{
-    "target":"avo",
-    "env":"qas",
-    "action_name": "delta",
-    "action": "delta",
-    "is_tag": "latest",
-    "options": "-n 1000 -c 1"
-    }'
-
-          </pre>
-        </li>
-     </ul>
-
+      <pre>
+$ curl some request here 
+      </pre>
 
       <h2>Health check call</h2>
       <ul>
