@@ -1,0 +1,24 @@
+.ONESHELL:
+SHELL = /bin/bash
+
+.PHONY: build app test lint
+
+VERSION = latest
+APP_NAME = syncrator-api
+
+build:
+	docker build -t "${APP_NAME}:${VERSION}" .
+
+app:
+	docker run -p 8080:8080 --rm "${APP_NAME}:${VERSION}"
+
+test:
+	docker run --name "${APP_NAME}_test" \
+					--entrypoint python "${APP_NAME}:${VERSION}" \
+					"-m" "pytest" "--cov=app"
+
+lint:
+	docker run --name "${APP_NAME}_lint" \
+					--entrypoint flake8 "${APP_NAME}:${VERSION}" \
+					--exit-zero \
+					--max-line-length=88

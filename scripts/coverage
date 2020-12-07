@@ -1,0 +1,5 @@
+source python_env/bin/activate
+
+# generate both htmlcov report and show results in terminal
+pytest --cov-config=.coveragerc --cov . .  --cov-report html --cov-report term
+
