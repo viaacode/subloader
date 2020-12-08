@@ -9,29 +9,32 @@ Ondertitels bestand verzenden
 
 {% block content %}
 
-<h1>Ondertitels bestand verzenden</h1>
-<p>
- <form class="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
 
-    <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
-    <label>PID</label>                <input readonly=readonly name="pid" value='{{pid}}'/> <br/>
-    <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
-    <label>Omschrijving</label>       <textarea readonly=readonly name="description"> {{description}} </textarea> <br/>
-    <label>Creatie datum</label>      <input readonly=readonly name="created" value='{{created}}'/> <br/>
-    <label>Archiverings datum</label> <input readonly=readonly name="archived" value='{{archived}}'/> <br/>
-    <label>Oorspronkelijke CP</label> <input readonly=readonly name="original_cp" value='{{original_cp}}'/> <br/>
+<div class="center_page">
+  <h1>Ondertitels bestand verzenden</h1>
+  <p>
+   <form class="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
 
-    <label>Ondertitels bestand</label> <input name="subtitle_file" type="file"> <br/>
+      <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
+      <label>PID</label>                <input readonly=readonly name="pid" value='{{pid}}'/> <br/>
+      <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
+      <label>Omschrijving</label>       <textarea readonly=readonly name="description"> {{description}} </textarea> <br/>
+      <label>Creatie datum</label>      <input readonly=readonly name="created" value='{{created}}'/> <br/>
+      <label>Archiverings datum</label> <input readonly=readonly name="archived" value='{{archived}}'/> <br/>
+      <label>Oorspronkelijke CP</label> <input readonly=readonly name="original_cp" value='{{original_cp}}'/> <br/>
 
-    {% if validation_errors %}
-    <span class="form_errors">{{validation_errors}}</span>
-    {% endif %}
+      <label>Ondertitels bestand</label> <input name="subtitle_file" type="file"> <br/>
 
-  <input type="submit" value="Opladen"/>
+      {% if validation_errors %}
+      <span class="form_errors">{{validation_errors}}</span>
+      {% endif %}
 
-</form>
+    <input type="submit" value="Opladen"/>
 
-</p>
+  </form>
+  </p>
+</div>
+
 
      <p>
 TODO: je toont video met flowplayer op deze page metadata.
