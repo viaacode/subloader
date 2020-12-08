@@ -145,26 +145,26 @@ def post_upload():
 
     if file and allowed_file(file.filename):
         subtitle_file = secure_filename(file.filename)
-        # we don't need to actually store it
+        # we don't need to actually store it we can read the contents here
+        # and supply it later as template data to post_upload.html
         # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         subtitle_content = file.stream.readlines()
-        print(f"subtitle content={subtitle_content}", flush=True)
+        subtitle_content = '\n'.join([line.decode('utf-8').strip() for line in subtitle_content])
 
-    # todo subtitle file etc here...
-    # subtitle_file = request.form.get('subtitle_file')
     if not subtitle_pid:
         logger.info(
             'post_upload',
             data={
                 'error': 'invalid pid supplied',
-                'tok=': auth_token})
-        # return redirect(url_for('.get_upload', token=auth_token,
-        # validation_errors='Error you must supply pid'))
+                'tok=': auth_token
+            }
+        )
         return render_template(
             'upload.html',
             token=auth_token,
             subtitle_file=subtitle_file,
-            validation_errors='Geef een correcte pid in')
+            validation_errors='Geef een correcte pid in'
+        )
     elif not subtitle_file:
         logger.info(
             'post_upload',
@@ -176,10 +176,16 @@ def post_upload():
             token=auth_token,
             pid=subtitle_pid,
             subtitle_file='',
-            validation_errors='Kies een correct ondertitels bestand')
+            validation_errors='Kies een correct ondertitels bestand'
+        )
     else:
         logger.info('post_upload', data={'pid': subtitle_pid, 'file': subtitle_file})
-        return render_template('post_upload.html', pid=subtitle_pid, subtitle_file=subtitle_file)
+        return render_template(
+            'post_upload.html', 
+            pid=subtitle_pid, 
+            subtitle_file=subtitle_file,
+            subtitle_content=subtitle_content
+        )
 
 
 @app.route("/health/live")
