@@ -4,7 +4,7 @@ SHELL = /bin/bash
 .PHONY: build app test lint
 
 VERSION = latest
-APP_NAME = syncrator-api
+APP_NAME = subloader
 
 build:
 	docker build -t "${APP_NAME}:${VERSION}" .
