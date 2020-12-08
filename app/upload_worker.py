@@ -7,7 +7,7 @@
 #  description: upload subtitle file in background
 #
 import threading
-from app.openshift_utils import oc_create_syncrator_pod
+# from app.openshift_utils import oc_create_syncrator_pod
 
 
 class UploadWorker(threading.Thread):
