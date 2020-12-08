@@ -1,0 +1,30 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title> Avo Subtitle Uploader </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='app.js') }}"></script>
+  </head>
+
+<body>
+    <nav>
+      <span class="appname"> <a href="{{ url_for('index') }}">Avo Subtitle Uploader</a> 
+      <span class="title"> &gt;&gt; {% block title %}{% endblock %}</span>
+      </span>
+    </nav>
+    <section class="content">
+      <header>
+        {% block header %}{% endblock %}
+      </header>
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+      {% block content %}{% endblock %}
+    </section>
+
+</body>
+</html>
+
+

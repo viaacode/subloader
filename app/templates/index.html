@@ -1,79 +1,40 @@
-  <html>
-   <head>
-      <style>
-        body{
-          background-color: #ffffff; 
-          color: #333333;
-          margin: auto;
-          width: 1024px;
-          padding: 1em;
-        }
-        h1, h2, h3, h4 {
-          color: #007487;
-        }
-        a {
-          color: #007487;
-        }
-        pre {
-          background-color: #ddefef;
-          border: 1px solid #5ca8af;
-          padding: 1em;
-          padding-bottom: 0;
-          border-radius: 5px;
-        }
-        label {
-          display:inline-block;
-          width: 5em;
-          text-align: right;
-        }
-        form {
-          padding: 0.5em;
-          border: 2px solid #007487;
-          border-radius: 3px;
-          background-color: #fff;
-          width: 22em;
-        }
-        input {
-          margin: 0.5em;
-          width: 18em;
-        }
-        input[type=submit]{
-          width: 14em;
-          margin-left: 10.8em;
-        }
+{% extends 'base.html' %}
 
-        .login_page{
-          width: 25em;
-          margin: auto;
-          margin-top: 4em;
-        }
-      </style>
-   </head>
-   <body>
-      
-     <div class="login_page">
-     <h1>AVO Subtitle Uploader</h1>
-      
-     <p>
-      Login met je meemoo account om subtitles toe te voegen.
+{% block header %}
+{% endblock %}
 
-      <form action="/login" method="POST">
+{% block title %}
+Login
+{% endblock %}
 
-         <label>Username</label>
-         <input name="username"/> <br/>
+{% block content %}
 
-         <label>Password</label>
-         <input name="password" type="password"/>
+  <div class="login_page">
+  <p>
+   Login met je meemoo account om subtitles toe te voegen.
 
-         <br/>
-       <input type="submit" value="Login"/>
+   <form action="/login" method="POST">
 
-     </form>
+      <label>E-mailadres</label>
+      <input name="username"/> <br/>
 
-     </p>
-     </div>
-     
+      <label>Wachtwoord</label>
+      <input name="password" type="password"/><br/>
+
+      {% if validation_errors %}
+      <span class="form_errors">{{validation_errors}}</span>
+      {% endif %}
+
+    <input type="submit" value="Login"/>
+
+  </form>
+
+  </p>
+  </div>
+
+{% endblock %}
 
 
    </body>
 </html> 
+

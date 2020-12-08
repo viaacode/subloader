@@ -1,11 +1,39 @@
+{% extends 'base.html' %}
 
-     <p>
-Form :
-pid   -> geef je in , dan haal je het op uit MediaHaven en krijgt data /metadata terug:
-dan zie je:
+{% block header %}
+{% endblock %}
+
+{% block title %}
+Metadata opzoeken
+{% endblock %}
+
+{% block content %}
+
+<h1>Metadata met PID opzoeken</h1>
+<p>
+ <form action="/upload" method="POST">
+
+    <label>PID</label>
+    <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
+    <input name="pid"/> <br/>
+
+    {% if validation_errors %}
+    <span class="form_errors">{{validation_errors}}</span>
+    {% endif %}
+
+  <input type="submit" value="Opzoeken"/>
+
+</form>
+
+</p>
+
+<pre>
+TODO toon deze velden na opvraging metadata met pid:
+
 titel
 omschrijving
 createdatum
+</pre>
      </p>
 
      <p>
@@ -25,14 +53,4 @@ Meeting met Rudolf of Matthias voor details api's etc.
 
 
 
-      <pre>
-$ curl some request here 
-      </pre>
-
-      <h2>Health check call</h2>
-      <ul>
-        <li> 
-          <a href="/health/live"> GET /health/live </a> 
-            - healthcheck route for openshift
-        </li>
-      </ul>
+{% endblock %}

@@ -29,7 +29,8 @@ def get_token(username, password):
             username, password))
 
     if result.status_code == 401:
-        abort(401, jsonify(message='wrong username or password'))
+        #abort(401, jsonify(message='wrong username or password'))
+        return None
     else:
         return result.json()
 
@@ -38,14 +39,8 @@ def skip_signature_check():
     return len(OAS_JWT_SECRET) == 0
 
 
-def verify_token(auth_token):
+def verify_token(jwt_token):
     try:
-        if 'Bearer' not in auth_token:
-            return False
-
-        # first strip 'Bearer ' from auth_token string to get jwt token
-        jwt_token = auth_token.strip().replace("Bearer ", "")
-
         # we only validate signature if OAS_JWT_SECRET is supplied
         if skip_signature_check():
             print(
@@ -84,11 +79,14 @@ def verify_token(auth_token):
 def requires_authorization(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        jwt_token = request.headers.get('authorization')
+        #jwt_token = request.headers.get('authorization')
+        jwt_token = request.args.get('token')
+        if not jwt_token or len(jwt_token)<1:
+            jwt_token = request.form.get('token')
 
         # for GET requests, no token is required
-        if request.method == 'GET':
-            return f(*args, **kwargs)
+        #if request.method == 'GET':
+        #    return f(*args, **kwargs)
 
         # for PUT, POST, DELETE require jwt_token as this creates/destroys
         # actual syncrator jobs
