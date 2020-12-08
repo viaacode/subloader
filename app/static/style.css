@@ -4,58 +4,14 @@ body{
   margin: auto;
   padding: 0px;
 }
+
 h1, h2, h3, h4 {
   color: #007487;
 }
+
 a {
   color: #007487;
 }
-pre {
-  background-color: #ddefef;
-  border: 1px solid #5ca8af;
-  padding: 1em;
-  padding-bottom: 0;
-  border-radius: 5px;
-  padding-bottom: 1.2em;
-}
-label {
-  display:inline-block;
-  width: 7em;
-  text-align: right;
-}
-form {
-  padding: 0.5em;
-  border: 2px solid #007487;
-  border-radius: 8px;
-  background-color: #fff;
-  width: 25em;
-}
-input {
-  margin: 0.5em;
-  width: 18em;
-  border: 1px solid #007487;
-  height: 2em;
-  border-radius: 5px;
-}
-input[type=submit]{
-  width: 8em;
-  margin-left: 19.2em;
-  background-color: #007487;
-  color: #fff;
-}
-
-.login_page{
-  width: 25em;
-  margin: auto;
-  margin-top: 4em;
-}
-
-.opzoeken_page{
-  width: 25em;
-  margin: auto;
-  margin-top: 4em;
-}
-
 
 nav {
   background-color: #fff;
@@ -82,6 +38,89 @@ section.content {
   margin:auto;
   width: 1024px;
 }
+
+pre {
+  background-color: #ddefef;
+  border: 1px solid #5ca8af;
+  padding: 1em;
+  padding-bottom: 0;
+  border-radius: 5px;
+  padding-bottom: 1.2em;
+}
+
+label {
+  display:inline-block;
+  width: 7em;
+  text-align: right;
+}
+
+form {
+  padding: 0.5em;
+  border: 2px solid #007487;
+  border-radius: 8px;
+  background-color: #fff;
+  width: 25em;
+}
+input {
+  margin: 0.5em;
+  width: 18em;
+  border: 1px solid #007487;
+  height: 2em;
+  border-radius: 5px;
+}
+input[type=submit]{
+  width: 8em;
+  margin-left: 19.2em;
+  background-color: #007487;
+  color: #fff;
+}
+textarea {
+  vertical-align: top;
+  width: 18em;
+  height: 5em;
+}
+
+
+form.upload_form {
+  width: 30em;
+}
+
+form.upload_form label {
+  width: 9em;
+}
+
+form.upload_form input[type=submit]{
+  margin-left: 21.8em;
+}
+
+input:read-only {
+  border: none;
+  background-color: #fff;
+}
+
+textarea:read-only {
+  border: none;
+  background-color: #fff;
+}
+
+input:disabled {
+  border: none;
+  background-color: #fff;
+}
+
+textarea:disabled {
+  border: none;
+  background-color: #fff;
+}
+
+
+.center_page{
+  width: 25em;
+  margin: auto;
+  margin-top: 4em;
+}
+
+
 
 .form_errors {
   float: right;

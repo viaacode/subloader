@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block title %}
+Metadata opzoeken
+{% endblock %}
+
+{% block content %}
+
+
+<div class="center_page">
+<h1>PID opzoeken</h1>
+  <p>
+   <form action="/search_media" method="POST">
+
+      <label>PID</label>
+      <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
+      <input name="pid"/> <br/>
+
+      {% if validation_errors %}
+      <span class="form_errors">{{validation_errors}}</span>
+      {% endif %}
+
+    <input type="submit" value="Opzoeken"/>
+
+  </form>
+
+  </p>
+</div>
+
+
+{% endblock %}

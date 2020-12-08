@@ -4,40 +4,37 @@
 {% endblock %}
 
 {% block title %}
-Metadata opzoeken
+Ondertitels bestand verzenden
 {% endblock %}
 
 {% block content %}
 
-<h1>Metadata met PID opzoeken</h1>
+<h1>Ondertitels bestand verzenden</h1>
 <p>
- <form action="/upload" method="POST">
+ <form class="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
 
-    <label>PID</label>
     <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
-    <input name="pid"/> <br/>
+    <label>PID</label>                <input readonly=readonly name="pid" value='{{pid}}'/> <br/>
+    <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
+    <label>Omschrijving</label>       <textarea readonly=readonly name="description"> {{description}} </textarea> <br/>
+    <label>Creatie datum</label>      <input readonly=readonly name="created" value='{{created}}'/> <br/>
+    <label>Archiverings datum</label> <input readonly=readonly name="archived" value='{{archived}}'/> <br/>
+    <label>Oorspronkelijke CP</label> <input readonly=readonly name="original_cp" value='{{original_cp}}'/> <br/>
+
+    <label>Ondertitels bestand</label> <input name="subtitle_file" type="file"> <br/>
 
     {% if validation_errors %}
     <span class="form_errors">{{validation_errors}}</span>
     {% endif %}
 
-  <input type="submit" value="Opzoeken"/>
+  <input type="submit" value="Opladen"/>
 
 </form>
 
 </p>
 
-<pre>
-TODO toon deze velden na opvraging metadata met pid:
-
-titel
-omschrijving
-createdatum
-</pre>
-     </p>
-
      <p>
-je toont video met flowplayer op deze page metadata.
+TODO: je toont video met flowplayer op deze page metadata.
 en kan je een subtitle file uploaden.
      </p>
 
