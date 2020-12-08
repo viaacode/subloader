@@ -29,7 +29,6 @@ def get_token(username, password):
             username, password))
 
     if result.status_code == 401:
-        #abort(401, jsonify(message='wrong username or password'))
         return None
     else:
         return result.json()
@@ -79,14 +78,9 @@ def verify_token(jwt_token):
 def requires_authorization(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        #jwt_token = request.headers.get('authorization')
         jwt_token = request.args.get('token')
-        if not jwt_token or len(jwt_token)<1:
+        if not jwt_token or len(jwt_token) < 1:
             jwt_token = request.form.get('token')
-
-        # for GET requests, no token is required
-        #if request.method == 'GET':
-        #    return f(*args, **kwargs)
 
         # for PUT, POST, DELETE require jwt_token as this creates/destroys
         # actual syncrator jobs

@@ -33,7 +33,6 @@ def index():
     return render_template('index.html')
 
 
-
 @app.route('/login', methods=['POST'])
 def login():
     username = request.form.get('username')
@@ -44,11 +43,13 @@ def login():
                     'password': '[FILTERED]'
                 }
                 )
-    token = get_token(username,password)
+    token = get_token(username, password)
     if token:
         return redirect(url_for('.get_upload', token=token['access_token']))
     else:
-        return render_template('index.html', validation_errors='Fout email of wachtwoord')
+        return render_template('index.html',
+                               validation_errors='Fout email of wachtwoord')
+
 
 @app.route('/upload', methods=['GET'])
 @requires_authorization
@@ -56,7 +57,10 @@ def get_upload():
     auth_token = request.args.get('token')
     errors = request.args.get('validation_errors')
     logger.info('get_upload')
-    return render_template('upload.html', token=auth_token, validation_errors=errors)
+    return render_template(
+        'upload.html',
+        token=auth_token,
+        validation_errors=errors)
 
 
 @app.route('/upload', methods=['POST'])
@@ -66,9 +70,17 @@ def post_upload():
     subtitle_pid = request.form.get('pid')
 
     if not subtitle_pid:
-        logger.info('post_upload', data={'error': 'invalid pid supplied', 'tok=':auth_token})
-        #return redirect(url_for('.get_upload', token=auth_token, validation_errors='Error you must supply pid'))
-        return render_template('upload.html', token=auth_token, validation_errors='Geef een correcte pid in')
+        logger.info(
+            'post_upload',
+            data={
+                'error': 'invalid pid supplied',
+                'tok=': auth_token})
+        # return redirect(url_for('.get_upload', token=auth_token,
+        # validation_errors='Error you must supply pid'))
+        return render_template(
+            'upload.html',
+            token=auth_token,
+            validation_errors='Geef een correcte pid in')
     else:
         logger.info('post_upload', data={'pid': subtitle_pid})
         return render_template('post_upload.html', pid=subtitle_pid)
@@ -87,5 +99,3 @@ def unauthorized(e):
 @app.errorhandler(404)
 def page_not_found(e):
     return "<h1>404</h1><p>Page not found</p>", 404
-
-
