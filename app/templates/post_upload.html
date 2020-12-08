@@ -4,17 +4,48 @@
 {% endblock %}
 
 {% block title %}
-Subtitles bewaart
+Ondertitels valideren
 {% endblock %}
 
 {% block content %}
 
-<h1>Ondertitels bewaart</h1>
-De ondertitels met pid={{pid}} zijn bewaart in bestand={{subtitle_file}}.
+<h1>Ondertitels valideren</h1>
 
-<pre>
-{{subtitle_content}}
-</pre>
+<div class="left_page">
+
+<!-- p class="info-box">
+De ondertitels {{subtitle_file}} zijn opgeladen.
+</p-->
+
+<form class="validate_form" action="/validate" method="POST" enctype="multipart/form-data">
+      <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
+
+      <label>PID</label>                <input readonly=readonly name="pid" value='{{pid}}'/> <br/>
+      <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
+      <label>Omschrijving</label>       <textarea readonly=readonly name="description"> {{description}} </textarea> <br/>
+      <label>Creatie datum</label>      <input readonly=readonly name="created" value='{{created}}'/> <br/>
+      <label>Archiverings datum</label> <input readonly=readonly name="archived" value='{{archived}}'/> <br/>
+      <label>Oorspronkelijke CP</label> <input readonly=readonly name="original_cp" value='{{original_cp}}'/> <br/>
+
+
+      <input type="hidden" name="subtitle_file" value='{{subtitle_file}}'/>
+      <label>Ondertitels</label> <br/>
+      <textarea readonly=readonly name="subtitle_content" class="subtitles"> {{subtitle_content}} </textarea> <br/> 
+
+      {% if validation_errors %}
+      <span class="form_errors">{{validation_errors}}</span>
+      {% endif %}
+
+    <a href="javascript:history.back()" class="cancel-button">Andere ondertitels kiezen</a>
+    <input type="submit" value="Versturen naar Mediahaven"/>
+
+  </form>
+
+</div>
+
+<div class="right_page">
+Flowplayer met subtiles erbij hier
+</div>
 
 {% endblock %}
 

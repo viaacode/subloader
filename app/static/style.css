@@ -86,12 +86,47 @@ form.upload_form {
 }
 
 form.upload_form label {
+  padding-left: 1em;
   width: 9em;
+  text-align:left;
 }
 
 form.upload_form input[type=submit]{
-  margin-left: 21.8em;
+  margin-left: 22.8em;
 }
+
+
+a.cancel-button {
+  display: inline-block;
+  float: left;
+  border: 1px solid #c00;
+  color: #c00;
+  border-radius: 5px;
+  padding: 0.2em;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+form.validate_form label {
+  padding-left: 1em;
+  width: 9em;
+  text-align: left;
+}
+
+form.validate_form input[type=submit]{
+  margin-top: 20px;
+  margin-left: 1em;
+  width: 13em;
+}
+
+form.validate_form{
+  width: 100%;
+}
+
+form.validate_form a.cancel-button {
+  margin-left: 6em;
+}
+
 
 input:read-only {
   border: none;
@@ -121,9 +156,26 @@ textarea:disabled {
 }
 
 
-
 .form_errors {
   float: right;
   margin-right: 2em;
   color: #aa0000;
+}
+
+.left_page {
+  width: 48%;
+  float: left;
+}
+
+.right_page{
+  width: 48%;
+  float: right;
+}
+
+
+textarea.subtitles {
+  margin-left: 1em;
+  width: 33em;
+  height: 10em;
+  background-color: #ddefef;
 }

@@ -10,12 +10,12 @@ Ondertitels bestand verzenden
 {% block content %}
 
 
-<div class="center_page">
-  <h1>Ondertitels bestand verzenden</h1>
-  <p>
-   <form class="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
+<h1>Ondertitels bestand verzenden</h1>
 
+<div class="left_page">
+   <form class="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
       <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
+
       <label>PID</label>                <input readonly=readonly name="pid" value='{{pid}}'/> <br/>
       <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
       <label>Omschrijving</label>       <textarea readonly=readonly name="description"> {{description}} </textarea> <br/>
@@ -32,25 +32,14 @@ Ondertitels bestand verzenden
     <input type="submit" value="Opladen"/>
 
   </form>
-  </p>
 </div>
 
-
+<div class="right_page">
      <p>
-TODO: je toont video met flowplayer op deze page metadata.
+Toon video met flowplayer op deze page aan de hand van de metadata.
 en kan je een subtitle file uploaden.
      </p>
-
-     <p>
-effectief submit button die gaat dan met ajax de file zelf uploaden.
-dit is ook een mediahaven rest-api call die het bestand zelf er zet.
-
-srt file komt zo op juiste plaats op testbeeld en de rechten
-
-(later is er nog een redactie waarbij iemand iets aanvingt om hem online te zetten).
-Meeting met Rudolf of Matthias voor details api's etc.
-     </p>
-
+</div>
 
 
 {% endblock %}

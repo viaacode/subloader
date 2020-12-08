@@ -14,9 +14,9 @@ Metadata opzoeken
 <h1>PID opzoeken</h1>
   <p>
    <form action="/search_media" method="POST">
-
-      <label>PID</label>
       <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
+
+      <label>Media PID</label>
       <input name="pid"/> <br/>
 
       {% if validation_errors %}
