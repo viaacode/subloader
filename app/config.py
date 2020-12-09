@@ -3,7 +3,7 @@
 #  @Author: Walter Schreppers
 #
 #  file: app/config.py
-#  description: database connection and flags per environment
+#  description: configuration per environment
 
 import os
 
@@ -24,10 +24,7 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = 'somesecret_key_here234232425223faifaf'
-    JOBS_PER_PAGE = 50
-    SQLALCHEMY_DATABASE_URI = os.environ.get(
-        'DATABASE_URL', 'postgresql://postgres@localhost:5432/syncrator_dev')
-    API_KEY = os.environ.get('API_KEY', 'secret123')
+    UPLOAD_FOLDER = 'subtitle_uploads'
 
 
 class PrdConfig(Config):
@@ -40,6 +37,5 @@ class DevConfig(Config):
 
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'sqlite://')
     DEVELOPMENT = True
     DEBUG = True

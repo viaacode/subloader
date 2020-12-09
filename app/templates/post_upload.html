@@ -16,27 +16,17 @@ Ondertitels valideren
 <form class="validate_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="token" value='{{token}}' /> <!-- supply auth token -->
       <input type="hidden" name="pid" value='{{pid}}'/> 
+      <input type="hidden" name="subtitle_file" value='{{subtitle_file}}'/> 
       <input type="hidden" name="vtt_file" value='{{vtt_file}}'/> 
 
       <label>PID</label>  <span class="pid-box">{{pid}} </span> <div class="check"></div> <br/> <br/>
-
-      <!--
-      <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
-      <label>Omschrijving</label>       <textarea readonly=readonly name="description"> {{description}} </textarea> <br/>
-      <label>Creatie datum</label>      <input readonly=readonly name="created" value='{{created}}'/> <br/>
-      <label>Archiverings datum</label> <input readonly=readonly name="archived" value='{{archived}}'/> <br/>
-      <label>Oorspronkelijke CP</label> <input readonly=readonly name="original_cp" value='{{original_cp}}'/> <br/>
-      <br/>
-      <label>Ondertitels</label> <br/>
-      <textarea readonly=readonly name="subtitle_content" class="subtitles"> {{subtitle_content}} </textarea> <br/> 
-      -->
 
       <label>Ondertitelbestand</label><br/> 
       <select name="subtitle_type" id="subtitle_type">
         <option value="open">Open</option>
         <option value="closed">Closed</option>
       </select>
-      <input readonly=readonly name="subtitle_file" id="subtitle_file" value='{{subtitle_file}}'/>
+      <input readonly=readonly name="subtitle_show_path" id="subtitle_file" value='{{subtitle_file}}'/>
 
       {% if validation_errors %}
       <span class="form_errors">{{validation_errors}}</span>
@@ -53,27 +43,22 @@ Ondertitels valideren
 <div class="right_page">
   <div id="player_container"></div>
 
-  <!-- TODO : subs proof of concept -->
-
-  <!-- //src: 'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4',-->
   <script>
-
-  flowplayer('#player_container', {
-    token: '{{flowplayer_token}}',
-    src: 'https://archief-media.viaa.be/viaa/TESTBEELD/28e1b37c37df4e5ab05e1dbd25ed6e8d7bb8e6221cea407c9ee8bf0295dc8965/browse.mp4',
-    subtitles:{ 
-      tracks:[
-        { 
-          src: "/subtitles/{{vtt_file}}",
-          label: "English",
-          id: "English-en",
-          default: true,
-          crossorigin: "anonymous" 
-        }
-      ]
-    }
-  })
-
+    flowplayer('#player_container', {
+      token: '{{flowplayer_token}}',
+      src: '{{video_url}}',
+      subtitles:{ 
+        tracks:[
+          { 
+            src: "/subtitles/{{vtt_file}}",
+            label: "English",
+            id: "English-en",
+            default: true,
+            crossorigin: "anonymous" 
+          }
+        ]
+      }
+    })
   </script>
 </div>
 
