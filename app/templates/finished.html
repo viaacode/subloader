@@ -9,15 +9,23 @@ Ondertitelbestand
 
 {% block content %}
 
-<h2>Bestand en metadata is doorgestuurd naar mediahaven</h2>
-<p>
-Bestand {{subtitle_file}} is verstuurd naar mediahaven voor media item {{pid}}.
-</p>
 
-<p>
-<a class="logout-button" href="/"> Uitloggen </a>
-<a class="button" href="/search_media?token={{token}}"> Nieuw ondertitelbestand uploaden </a>
-</p>
+<div class="center_page">
+  <h2>Bestand en metadata is verstuurd</h2>
+
+  <div class="box">
+    <p>
+    Bestand {{subtitle_file}} is verstuurd naar mediahaven voor media item {{pid}}.
+    </p>
+
+    <p>
+    <a class="grey-button" href="/"> Uitloggen </a>
+    <a class="button" href="/search_media?token={{token}}"> Nieuw ondertitelbestand uploaden </a>
+    </p>
+  </div>
+
+</div>
+
 
 
 

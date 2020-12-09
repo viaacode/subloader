@@ -113,6 +113,14 @@ label {
   border-radius: 8px;
 }
 
+.box {
+  padding: 0.5em;
+  border: 1px solid #324b5e;
+  border-radius: 8px;
+  background-color: #fff;
+  width: 440px;
+}
+
 form {
   padding: 0.5em;
   border: 1px solid #324b5e;
@@ -164,7 +172,14 @@ form.upload_form label {
 }
 
 form.upload_form input[type=submit]{
-  margin-left: 23.8em;
+  margin-left: 10px;
+}
+
+form.upload_form a.grey-button{
+  margin-left: 210px;
+  padding:5px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 
@@ -198,7 +213,7 @@ a.button {
   padding-right:20px;
 }
 
-a.logout-button {
+a.grey-button {
   color: #000;
   cursor: pointer;
   font-size: 14px;
