@@ -117,6 +117,7 @@ def post_upload():
     subtitle_filename = request.form.get('subtitle_file')
     subtitle_file = None
 
+    # todo: refactor this and make smaller....
     if 'subtitle_file' not in request.files:
         # flash('Ondertitel bestand ontbreekt')
         # return redirect(request.url)
@@ -148,6 +149,8 @@ def post_upload():
         # we don't need to actually store it we can read the contents here
         # and supply it later as template data to post_upload.html
         # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # instead we need to convert the stream into webvtt format and save it
+        # so it can be served with flowplayer https://webvtt-py.readthedocs.io/en/latest/usage.html#converting-captions
         subtitle_content = file.stream.readlines()
         subtitle_content = '\n'.join([line.decode('utf-8').strip() for line in subtitle_content])
 
@@ -176,16 +179,35 @@ def post_upload():
             token=auth_token,
             pid=subtitle_pid,
             subtitle_file='',
-            validation_errors='Kies een correct ondertitels bestand'
+            validation_errors='Ondertitels moeten in SRT formaat'
         )
     else:
         logger.info('post_upload', data={'pid': subtitle_pid, 'file': subtitle_file})
         return render_template(
             'post_upload.html', 
+            token=auth_token,
             pid=subtitle_pid, 
             subtitle_file=subtitle_file,
             subtitle_content=subtitle_content
         )
+
+@app.route('/send_to_mam', methods=['POST'])
+@requires_authorization
+def send_to_mam():
+    auth_token = request.form.get('token')
+    subtitle_pid = request.form.get('pid')
+    subtitle_filename = request.form.get('subtitle_file')
+
+    #TODO: make mam request here with the original srt file, pid and supply xml or json here
+
+    logger.info('send_to_mam', data={'pid':subtitle_pid, 'file': subtitle_filename})
+    return render_template(
+        'finished.html', 
+        token=auth_token, 
+        pid=subtitle_pid, 
+        subtitle_file=subtitle_filename
+    )
+
 
 
 @app.route("/health/live")

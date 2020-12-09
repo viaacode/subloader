@@ -13,12 +13,8 @@ Ondertitels valideren
 
 <div class="left_page">
 
-<!-- p class="info-box">
-De ondertitels {{subtitle_file}} zijn opgeladen.
-</p-->
-
-<form class="validate_form" action="/validate" method="POST" enctype="multipart/form-data">
-      <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
+<form class="validate_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="token" value='{{token}}' /> <!-- supply auth token -->
       <input type="hidden" name="pid" value='{{pid}}'/> 
 
       <label>PID</label>  <span class="pid-box">{{pid}} </span> <div class="check"></div> <br/> <br/>
@@ -34,7 +30,12 @@ De ondertitels {{subtitle_file}} zijn opgeladen.
       <textarea readonly=readonly name="subtitle_content" class="subtitles"> {{subtitle_content}} </textarea> <br/> 
       -->
 
-      <label>Ondertitelbestand</label> <input readonly=readonly name="subtitle_file" value='{{subtitle_file}}'/> <br/>
+      <label>Ondertitelbestand</label><br/> 
+      <select name="subtitle_type" id="subtitle_type">
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+      </select>
+      <input readonly=readonly name="subtitle_file" id="subtitle_file" value='{{subtitle_file}}'/>
 
       {% if validation_errors %}
       <span class="form_errors">{{validation_errors}}</span>
@@ -48,10 +49,33 @@ De ondertitels {{subtitle_file}} zijn opgeladen.
 </div>
 
 
-
 <div class="right_page">
-Flowplayer met subtiles erbij hier
+  <div id="player_container"></div>
+
+  <!-- TODO : subs proof of concept -->
+
+  <!-- //src: 'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4',-->
+  <script>
+
+  flowplayer('#player_container', {
+    token: '{{flowplayer_token}}',
+    src: 'https://archief-media.viaa.be/viaa/TESTBEELD/28e1b37c37df4e5ab05e1dbd25ed6e8d7bb8e6221cea407c9ee8bf0295dc8965/browse.mp4',
+    subtitles:{ 
+      tracks:[
+        { 
+          src: "http://localhost:8080/static/mandalorian.vtt",
+          label: "English",
+          id: "English-en",
+          default: true,
+          crossorigin: "anonymous" 
+        }
+      ]
+    }
+  })
+
+  </script>
 </div>
+
 
 {% endblock %}
 

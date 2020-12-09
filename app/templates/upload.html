@@ -45,10 +45,15 @@ Ondertitelbestand
 </div>
 
 <div class="right_page">
-     <p>
-Toon video met flowplayer op deze page aan de hand van de metadata.
-en kan je een subtitle file uploaden.
-     </p>
+  <div id="player_container"></div>
+
+  <script>
+  flowplayer('#player_container', {
+    src: 'https://archief-media.viaa.be/viaa/TESTBEELD/28e1b37c37df4e5ab05e1dbd25ed6e8d7bb8e6221cea407c9ee8bf0295dc8965/browse.mp4',
+    token: '{{flowplayer_token}}'
+
+  })
+  </script>
 </div>
 
 

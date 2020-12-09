@@ -1,22 +1,75 @@
+/* reset css sizes */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* end reset */
+
 body{
-  background-color: #efefef; 
+  background-color: #edeff2; 
+  font-family: "Montserrat",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+
   color: #333333;
   margin: auto;
   padding: 0px;
 }
 
 h1, h2, h3, h4 {
-  color: #007487;
+  font-size: 20px;
+  font-weight: bold;
+  color: #324b5e;
+  margin-bottom: 15px;
+  margin-top: 20px;
 }
 
-a {
-  color: #007487;
+p {
+  margin-bottom: 10px;
 }
+
 
 nav {
-  background-color: #fff;
+  background-color: #324b5e;
   padding: 10px;
-  border-bottom: 1px solid #007487;
+  border-bottom: 1px solid #324b5e;
 }
 
 nav .appname {
@@ -27,6 +80,7 @@ nav .appname a {
   padding: 1em;
   text-decoration: none;
   padding-right: 0.2em;
+  color: #ffffff;
 }
 
 nav .title {
@@ -41,7 +95,7 @@ section.content {
 
 pre {
   background-color: #ddefef;
-  border: 1px solid #5ca8af;
+  border: 1px solid #324b5e;
   padding: 1em;
   padding-bottom: 0;
   border-radius: 5px;
@@ -50,36 +104,52 @@ pre {
 
 label {
   display:inline-block;
-  width: 7em;
+  width: 7.8em;
   text-align: right;
+}
+
+
+#player_container{
+  border-radius: 8px;
 }
 
 form {
   padding: 0.5em;
-  border: 2px solid #007487;
+  border: 1px solid #324b5e;
   border-radius: 8px;
   background-color: #fff;
-  width: 25em;
+  width: 440px;
 }
 input {
   margin: 0.5em;
-  width: 18em;
-  border: 1px solid #007487;
+  width: 240px;
+  border: 1px solid #bac7d1;
   height: 2em;
   border-radius: 5px;
   padding-left: 1em;
+  transition: ease-in-out, width .35 ease-in-out;
+}
+input:focus{
+  border: 1px solid #2aa5cf;
 }
 input[type=submit]{
-  width: 8em;
-  margin-left: 19.2em;
-  background-color: #007487;
+  padding-left: 5px;
+  width: 108px;
+  margin-left: 305px;
+  background-color: #26a4cf;
   color: #fff;
   cursor: pointer;
+  font-size: 14px;
 }
 textarea {
   vertical-align: top;
   width: 18em;
   height: 5em;
+}
+
+
+form.login_form input[type=submit]{
+  margin-left: 280px;
 }
 
 
@@ -94,7 +164,7 @@ form.upload_form label {
 }
 
 form.upload_form input[type=submit]{
-  margin-left: 26.8em;
+  margin-left: 23.8em;
 }
 
 
@@ -104,24 +174,59 @@ a.cancel-button {
   border: 1px solid #aaa;
   color: #000;
   border-radius: 5px;
-  padding: 0.2em;
+  padding: 4px;
   text-decoration: none;
   margin-top: 20px;
   width: 8em;
   text-align: center;
+  background-color: #edeff2;
 }
+
+a.button {
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 7px;
+  text-decoration: none;
+  margin-top: 20px;
+  text-align: center;
+  background-color: #26a4cf;
+  padding-left:20px;
+  padding-right:20px;
+}
+
+a.logout-button {
+  color: #000;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 7px;
+  text-decoration: none;
+  margin-top: 20px;
+  text-align: center;
+  background-color: #edeff2;
+  padding-left:20px;
+  padding-right:20px;
+}
+
 
 form.validate_form label {
   padding-left: 1em;
-  width: 7em;
+  width: 8em;
   text-align: left;
 }
 
 form.validate_form input[type=submit]{
-  margin-top: 20px;
+  margin-top: 19px;
   margin-left: 1em;
   width: 10em;
 }
+
 
 form.validate_form{
   width: 100%;
@@ -135,8 +240,14 @@ form.validate_form a.cancel-button {
   margin-left: 1.4em;
 }
 
-
+/* breaks on safari 
 input:read-only {
+  border: none;
+  background-color: #fff;
+}
+*/
+
+input.readonly {
   border: none;
   background-color: #fff;
 }
@@ -157,17 +268,23 @@ textarea:disabled {
 }
 
 select {
-  border: 1px solid #007487;
+  border: 1px solid #bac7d1;
   padding: 0.4em;
   border-radius: 5px;
-  margin-left: 1em;
-  width: 7em;
+  margin-left: 1.3em;
+  width: 132px;
 }
 
 input[type=file] {
   padding-top: 0.3em;
   padding-left: 0.3em;
-  width: 22em;
+  width: 270px;
+}
+
+form.validate_form #subtitle_file {
+  border: none; 
+  width: 280px;
+  padding-left: 0px;
 }
 
 
@@ -202,7 +319,7 @@ textarea.subtitles {
 }
 
 #subtitle_type {
-  width: 10.5em;
+  width: 140px;
 }
 
 
