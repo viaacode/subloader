@@ -27,7 +27,6 @@ config = ConfigParser()
 logger = logging.get_logger(__name__, config=config)
 
 app.config.from_object(flask_environment())
-# app.config['UPLOAD_FOLDER'] = 'subtitle_uploads'
 
 
 @app.route('/', methods=['GET'])
@@ -116,8 +115,7 @@ def get_upload():
         archived='archived date',
         original_cp='cp id here',
         video_url='https://archief-media.viaa.be/viaa/TESTBEELD/28e1b37c37df4e5ab05e1dbd25ed6e8d7bb8e6221cea407c9ee8bf0295dc8965/browse.mp4',
-        validation_errors=errors
-    )
+        validation_errors=errors)
 
 
 def allowed_file(filename):
