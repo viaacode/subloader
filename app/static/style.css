@@ -67,12 +67,14 @@ input {
   border: 1px solid #007487;
   height: 2em;
   border-radius: 5px;
+  padding-left: 1em;
 }
 input[type=submit]{
   width: 8em;
   margin-left: 19.2em;
   background-color: #007487;
   color: #fff;
+  cursor: pointer;
 }
 textarea {
   vertical-align: top;
@@ -92,31 +94,33 @@ form.upload_form label {
 }
 
 form.upload_form input[type=submit]{
-  margin-left: 22.8em;
+  margin-left: 26.8em;
 }
 
 
 a.cancel-button {
   display: inline-block;
   float: left;
-  border: 1px solid #c00;
-  color: #c00;
+  border: 1px solid #aaa;
+  color: #000;
   border-radius: 5px;
   padding: 0.2em;
   text-decoration: none;
   margin-top: 20px;
+  width: 8em;
+  text-align: center;
 }
 
 form.validate_form label {
   padding-left: 1em;
-  width: 9em;
+  width: 7em;
   text-align: left;
 }
 
 form.validate_form input[type=submit]{
   margin-top: 20px;
   margin-left: 1em;
-  width: 13em;
+  width: 10em;
 }
 
 form.validate_form{
@@ -124,7 +128,11 @@ form.validate_form{
 }
 
 form.validate_form a.cancel-button {
-  margin-left: 6em;
+  margin-left: 10.5em;
+}
+
+.pid-box {
+  margin-left: 1.4em;
 }
 
 
@@ -146,6 +154,20 @@ input:disabled {
 textarea:disabled {
   border: none;
   background-color: #fff;
+}
+
+select {
+  border: 1px solid #007487;
+  padding: 0.4em;
+  border-radius: 5px;
+  margin-left: 1em;
+  width: 7em;
+}
+
+input[type=file] {
+  padding-top: 0.3em;
+  padding-left: 0.3em;
+  width: 22em;
 }
 
 
@@ -177,5 +199,19 @@ textarea.subtitles {
   margin-left: 1em;
   width: 33em;
   height: 10em;
-  background-color: #ddefef;
+}
+
+#subtitle_type {
+  width: 10.5em;
+}
+
+
+.check {
+  margin-left: 10px;
+  display: inline-block;
+  transform: rotate(45deg);
+  height: 17px;
+  width: 8px;
+  border-bottom: 4px solid #78b13f;
+  border-right: 4px solid #78b13f;
 }

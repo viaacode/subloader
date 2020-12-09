@@ -4,32 +4,42 @@
 {% endblock %}
 
 {% block title %}
-Ondertitels bestand verzenden
+Ondertitelbestand
 {% endblock %}
 
 {% block content %}
 
 
-<h1>Ondertitels bestand verzenden</h1>
+<h1>Ondertitelbestand</h1>
 
 <div class="left_page">
    <form class="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
       <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
 
-      <label>PID</label>                <input readonly=readonly name="pid" value='{{pid}}'/> <br/>
+      <label>PID</label> {{pid}} <div class="check"></div>
+      <input type="hidden" name="pid" value='{{pid}}'/> 
+
+      <!--
       <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
       <label>Omschrijving</label>       <textarea readonly=readonly name="description"> {{description}} </textarea> <br/>
       <label>Creatie datum</label>      <input readonly=readonly name="created" value='{{created}}'/> <br/>
       <label>Archiverings datum</label> <input readonly=readonly name="archived" value='{{archived}}'/> <br/>
       <label>Oorspronkelijke CP</label> <input readonly=readonly name="original_cp" value='{{original_cp}}'/> <br/>
+      -->
 
-      <label>Ondertitels bestand</label> <input name="subtitle_file" type="file"> <br/>
+      <br/><br/>
+      <label>Ondertitelbestand</label><br/> 
+      <select name="subtitle_type" id="subtitle_type">
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+      </select>
+      <input name="subtitle_file" type="file"> <br/>
 
       {% if validation_errors %}
       <span class="form_errors">{{validation_errors}}</span>
       {% endif %}
 
-    <input type="submit" value="Opladen"/>
+    <input type="submit" value="Preview"/>
 
   </form>
 </div>

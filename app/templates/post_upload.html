@@ -9,7 +9,7 @@ Ondertitels valideren
 
 {% block content %}
 
-<h1>Ondertitels valideren</h1>
+<h1>Ondertitelbestand</h1>
 
 <div class="left_page">
 
@@ -19,29 +19,35 @@ De ondertitels {{subtitle_file}} zijn opgeladen.
 
 <form class="validate_form" action="/validate" method="POST" enctype="multipart/form-data">
       <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
+      <input type="hidden" name="pid" value='{{pid}}'/> 
 
-      <label>PID</label>                <input readonly=readonly name="pid" value='{{pid}}'/> <br/>
+      <label>PID</label>  <span class="pid-box">{{pid}} </span> <div class="check"></div> <br/> <br/>
+
+      <!--
       <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
       <label>Omschrijving</label>       <textarea readonly=readonly name="description"> {{description}} </textarea> <br/>
       <label>Creatie datum</label>      <input readonly=readonly name="created" value='{{created}}'/> <br/>
       <label>Archiverings datum</label> <input readonly=readonly name="archived" value='{{archived}}'/> <br/>
       <label>Oorspronkelijke CP</label> <input readonly=readonly name="original_cp" value='{{original_cp}}'/> <br/>
-
-
-      <input type="hidden" name="subtitle_file" value='{{subtitle_file}}'/>
+      <br/>
       <label>Ondertitels</label> <br/>
       <textarea readonly=readonly name="subtitle_content" class="subtitles"> {{subtitle_content}} </textarea> <br/> 
+      -->
+
+      <label>Ondertitelbestand</label> <input readonly=readonly name="subtitle_file" value='{{subtitle_file}}'/> <br/>
 
       {% if validation_errors %}
       <span class="form_errors">{{validation_errors}}</span>
       {% endif %}
 
-    <a href="javascript:history.back()" class="cancel-button">Andere ondertitels kiezen</a>
-    <input type="submit" value="Versturen naar Mediahaven"/>
 
+    <a href="javascript:history.back()" class="cancel-button">Wissen</a>
+    <input type="submit" value="Toevoegen"/>
   </form>
 
 </div>
+
+
 
 <div class="right_page">
 Flowplayer met subtiles erbij hier

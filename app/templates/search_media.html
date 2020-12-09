@@ -4,26 +4,29 @@
 {% endblock %}
 
 {% block title %}
-Metadata opzoeken
+Ondertitels toevoegen
 {% endblock %}
 
 {% block content %}
 
 
 <div class="center_page">
-<h1>PID opzoeken</h1>
+<h1>Ondertitels toevoegen</h1>
   <p>
    <form action="/search_media" method="POST">
       <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
 
-      <label>Media PID</label>
-      <input name="pid"/> <br/>
+
+      <select name="tenant" id="tenant">
+        <option value="testbeeld">Testbeeld</option>
+      </select> 
+      <input name="pid" placeholder="Item pid"/> <br/>
 
       {% if validation_errors %}
       <span class="form_errors">{{validation_errors}}</span>
       {% endif %}
 
-    <input type="submit" value="Opzoeken"/>
+    <input type="submit" value="Opvragen"/>
 
   </form>
 
