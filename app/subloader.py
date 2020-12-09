@@ -5,7 +5,13 @@
 #
 #  file: app/subloader.py
 #  description:
-#    routes for the api calls and main flask application initialization
+#   Application to upload srt file and push into mediahaven.
+#   It stores and converts an uploaded srt file to webvtt format,
+#   shows preview with flowplayer and subtitles.
+#   Metadata is fetched with mediahaven_api using a pid also submitted in a form.
+#   Authorization is done by feching jwt token from oas.viaa.be and passing
+#   jwt between forms and pages as 'token'. This token is verified in the authorization.py
+#   using decorator requires_authorization
 #
 from app.upload_worker import UploadWorker
 
