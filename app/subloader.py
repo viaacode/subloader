@@ -161,7 +161,7 @@ def post_upload():
 
     if file and allowed_file(file.filename):
         srt_filename = secure_filename(file.filename)
-        vtt_filename = srt_filename.rsplit('.')[0] + '.vtt'
+        vtt_filename = '.'.join(srt_filename.rsplit('.')[:-1]) + '.vtt'
 
         # save srt and converted vtt file in uploads folder
         upload_folder = os.path.join(
