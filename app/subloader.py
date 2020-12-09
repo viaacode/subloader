@@ -9,7 +9,8 @@
 #
 from app.upload_worker import UploadWorker
 
-from flask import Flask, request, jsonify, render_template, redirect, session, url_for
+from flask import (Flask, request, jsonify, render_template, 
+        redirect, session, url_for, send_from_directory)
 from flask_api import status
 from viaa.configuration import ConfigParser
 from viaa.observability import logging
@@ -17,6 +18,8 @@ from app.config import flask_environment
 from app.authorization import get_token, requires_authorization
 from flask import abort
 from werkzeug.utils import secure_filename
+import webvtt # convert srt into webvtt
+import os
 
 
 app = Flask(__name__)
@@ -24,7 +27,7 @@ config = ConfigParser()
 logger = logging.get_logger(__name__, config=config)
 
 app.config.from_object(flask_environment())
-
+app.config['UPLOAD_FOLDER'] = 'subtitle_uploads'
 
 @app.route('/', methods=['GET'])
 def index():
@@ -109,6 +112,22 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
+def upload_error( token, pid, msg ):
+    logger.info( 'upload',
+        data={'error': msg,}
+    )
+    return redirect(
+        url_for(
+            '.get_upload', 
+            token=token, 
+            pid=pid,
+            validation_errors=msg
+        )
+    )
+
+
+
 @app.route('/upload', methods=['POST'])
 @requires_authorization
 def post_upload():
@@ -117,86 +136,54 @@ def post_upload():
     subtitle_filename = request.form.get('subtitle_file')
     subtitle_file = None
 
-    # todo: refactor this and make smaller....
     if 'subtitle_file' not in request.files:
-        # flash('Ondertitel bestand ontbreekt')
-        # return redirect(request.url)
-        return redirect(
-            url_for(
-                '.get_upload', 
-                token=auth_token, 
-                pid=subtitle_pid,
-                validation_errors='Geen ondertitels bestand'
-            )
-        )
-
-
+        return upload_error(auth_token, subtitle_pid, 'Geen ondertitels bestand') 
+        
     file = request.files['subtitle_file']
     if file.filename == '':
-        return redirect(
-            url_for(
-                '.get_upload', 
-                token=auth_token, 
-                pid=subtitle_pid,
-                validation_errors='Geen ondertitels bestand geselecteerd'
-            )
-        )
-
-
+        return upload_error(auth_token, subtitle_pid, 'Geen ondertitels bestand geselecteerd') 
 
     if file and allowed_file(file.filename):
-        subtitle_file = secure_filename(file.filename)
-        # we don't need to actually store it we can read the contents here
-        # and supply it later as template data to post_upload.html
-        # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # instead we need to convert the stream into webvtt format and save it
-        # so it can be served with flowplayer https://webvtt-py.readthedocs.io/en/latest/usage.html#converting-captions
-        subtitle_content = file.stream.readlines()
-        subtitle_content = '\n'.join([line.decode('utf-8').strip() for line in subtitle_content])
+        srt_filename = secure_filename(file.filename)
+        vtt_filename = srt_filename.rsplit('.')[0]+'.vtt'
+
+        # save srt and converted vtt file in uploads folder
+        upload_folder = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'] )
+        file.save( os.path.join(upload_folder, srt_filename))
+        vtt_file = webvtt.from_srt(os.path.join(upload_folder, srt_filename))
+        vtt_file.save()
 
     if not subtitle_pid:
-        logger.info(
-            'post_upload',
-            data={
-                'error': 'invalid pid supplied',
-                'tok=': auth_token
-            }
-        )
-        return render_template(
-            'upload.html',
-            token=auth_token,
-            subtitle_file=subtitle_file,
-            validation_errors='Geef een correcte pid in'
-        )
-    elif not subtitle_file:
-        logger.info(
-            'post_upload',
-            data={
-                'error': 'invalid file supplied',
-                'tok=': auth_token})
-        return render_template(
-            'upload.html',
-            token=auth_token,
-            pid=subtitle_pid,
-            subtitle_file='',
-            validation_errors='Ondertitels moeten in SRT formaat'
-        )
-    else:
-        logger.info('post_upload', data={'pid': subtitle_pid, 'file': subtitle_file})
-        return render_template(
-            'post_upload.html', 
-            token=auth_token,
-            pid=subtitle_pid, 
-            subtitle_file=subtitle_file,
-            subtitle_content=subtitle_content
-        )
+        return upload_error(auth_token, subtitle_pid, f"Foutieve pid {subtitle_pid}") 
+
+    if not srt_filename:
+        return upload_error(auth_token, subtitle_pid, 'Ondertitels moeten in SRT formaat')
+    
+    if not vtt_filename:
+        return upload_error(auth_token, subtitle_pid, 'Kon niet converteren naar webvtt formaat')
+
+    logger.info('post_upload', data={'pid': subtitle_pid, 'file': srt_filename})
+    return render_template(
+        'post_upload.html', 
+        token=auth_token,
+        pid=subtitle_pid, 
+        subtitle_file=srt_filename,
+        vtt_file=vtt_filename,
+    )
+
+
+@app.route('/subtitles/<filename>')
+def uploaded_subtitles(filename):
+    upload_folder = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'] )
+    return send_from_directory(upload_folder, filename)
 
 @app.route('/send_to_mam', methods=['POST'])
 @requires_authorization
 def send_to_mam():
     auth_token = request.form.get('token')
     subtitle_pid = request.form.get('pid')
-    subtitle_filename = request.form.get('subtitle_file')
+    srt_file = request.form.get('srt_file')
+    vtt_file = request.form.get('vtt_file')
 
     #TODO: make mam request here with the original srt file, pid and supply xml or json here
 
@@ -205,7 +192,8 @@ def send_to_mam():
         'finished.html', 
         token=auth_token, 
         pid=subtitle_pid, 
-        subtitle_file=subtitle_filename
+        subtitle_file=srt_file,
+        vtt_file=vtt_file
     )
 
 

@@ -16,6 +16,7 @@ Ondertitels valideren
 <form class="validate_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="token" value='{{token}}' /> <!-- supply auth token -->
       <input type="hidden" name="pid" value='{{pid}}'/> 
+      <input type="hidden" name="vtt_file" value='{{vtt_file}}'/> 
 
       <label>PID</label>  <span class="pid-box">{{pid}} </span> <div class="check"></div> <br/> <br/>
 
@@ -63,7 +64,7 @@ Ondertitels valideren
     subtitles:{ 
       tracks:[
         { 
-          src: "http://localhost:8080/static/mandalorian.vtt",
+          src: "/subtitles/{{vtt_file}}",
           label: "English",
           id: "English-en",
           default: true,
