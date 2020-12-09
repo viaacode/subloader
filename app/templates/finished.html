@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block title %}
+Ondertitelbestand
+{% endblock %}
+
+{% block content %}
+
+<h2>Bestand en metadata is doorgestuurd naar mediahaven</h2>
+<p>
+Bestand {{subtitle_file}} is verstuurd naar mediahaven voor media item {{pid}}.
+</p>
+
+<p>
+<a class="logout-button" href="/"> Uitloggen </a>
+<a class="button" href="/search_media?token={{token}}"> Nieuw ondertitelbestand uploaden </a>
+</p>
+
+
+
+{% endblock %}
