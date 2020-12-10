@@ -18,6 +18,8 @@ Ondertitelbestand
 
       <label>PID</label> {{pid}} <div class="check"></div>
       <input type="hidden" name="pid" value='{{pid}}'/> 
+      <input type="hidden" name="mam_data" value='{{mam_data}}'/> 
+      <input type="hidden" name="video_url" value='{{video_url}}'/> 
 
       <!--
       <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
@@ -29,10 +31,12 @@ Ondertitelbestand
 
       <br/><br/>
       <label>Ondertitelbestand</label><br/> 
+
       <select name="subtitle_type" id="subtitle_type">
         <option value="open">Open</option>
         <option value="closed">Closed</option>
       </select>
+
       <input name="subtitle_file" type="file"> <br/>
 
       {% if validation_errors %}

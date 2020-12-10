@@ -9,27 +9,22 @@ Ondertitelbestand
 
 {% block content %}
 
-
-<div class="center_page">
-  <h2>Bestand en metadata is verstuurd</h2>
-
-  <div class="box">
-    <p>
-    Bestand origineel : {{srt_file}} 
-    omgezette vtt file :  {{vtt_file}} met 
-    type: {{subtitle_type}} 
-    is verstuurd naar mediahaven voor media item {{pid}}.
-    </p>
-
-    <p>
-    <a class="grey-button" href="/"> Uitloggen </a>
-    <a class="button" href="/search_media?token={{token}}"> Nieuw ondertitelbestand uploaden </a>
-    </p>
-  </div>
-
+<div class="center_box">
+    <h2>Bestand en metadata is verstuurd</h2>
+    <div class="finished_box">
+      <p>
+        ondertitlebestand: {{srt_file}} <br/> <br/>
+        vtt_file:  {{vtt_file}} <br/> <br/>
+        type: {{subtitle_type}} <br/> <br/>
+        video_url: {{video_url}} <br/>
+        mam_data: {{mam_data}} <br/>
+        is verstuurd naar mediahaven voor media item {{pid}}.
+      </p>
+      <p>
+        <a class="grey-button" href="/"> Uitloggen </a>
+        <a class="button" href="/search_media?token={{token}}"> Nieuw ondertitelbestand uploaden </a>
+      </p>
+    </div>
 </div>
-
-
-
 
 {% endblock %}

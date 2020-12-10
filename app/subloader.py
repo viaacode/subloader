@@ -26,6 +26,7 @@ from flask import abort
 from werkzeug.utils import secure_filename
 import webvtt  # convert srt into webvtt
 import os
+import json
 
 
 app = Flask(__name__)
@@ -74,23 +75,27 @@ def search_media():
         validation_errors=errors)
 
 
+def pid_error(token, pid, msg):
+    logger.info('search_media', data={'error': msg})
+    return redirect(
+        url_for(
+            '.search_media',
+            token=token,
+            pid=pid,
+            validation_errors=msg
+        )
+    )
+
+
 @app.route('/search_media', methods=['POST'])
 @requires_authorization
 def post_media():
     auth_token = request.form.get('token')
     subtitle_pid = request.form.get('pid')
 
-    # TODO make mediahaven query to fetch metadata for this pid here!!!
     if not subtitle_pid:
-        logger.info(
-            'post_media',
-            data={
-                'error': 'invalid pid supplied',
-                'tok=': auth_token})
-        return render_template(
-            'search_media.html',
-            token=auth_token,
-            validation_errors='Geef een correcte pid in')
+        return pid_error(auth_token, subtitle_pid,
+                         'Geef een PID')
     else:
         logger.info('post_media', data={'pid': subtitle_pid})
         return redirect(
@@ -110,11 +115,19 @@ def get_upload():
     # TODO make mediahaven query to fetch metadata for this pid here!!!
     logger.info('get_upload')
 
-    # from metadata get things like title, video_url
+    mam_data = {'ok': 'todo'}  # todo fetch this using pid
+    if not mam_data:
+        return pid_error(auth_token, pid,
+                         'PID niet gevonden in mediahaven')
+
+    # TODO: from mam_data get things like title, video_url
+    # also serialize mam_data as json and pass it as parameter here
+    # so we can reuse it without re-request to mediahaven in next steps
     return render_template(
         'upload.html',
         token=auth_token,
         pid=pid,
+        mam_data=json.dumps(mam_data),
         title='title todo',
         description='todo fetch description from mediahaven api here',
         created='some date here',
@@ -145,10 +158,12 @@ def upload_error(token, pid, msg):
 @app.route('/upload', methods=['POST'])
 @requires_authorization
 def post_upload():
-    # TODO make mediahaven query to fetch metadata for this pid here!!!
-    # we need to get video_url, title at least from metadata here
     auth_token = request.form.get('token')
     subtitle_pid = request.form.get('pid')
+    # this is mediahaven data prev request
+    mam_data = request.form.get('mam_data')
+    video_url = request.form.get('video_url')
+    subtitle_type = request.form.get('subtitle_type')
 
     if 'subtitle_file' not in request.files:
         return upload_error(auth_token, subtitle_pid,
@@ -190,9 +205,11 @@ def post_upload():
         'post_upload.html',
         token=auth_token,
         pid=subtitle_pid,
+        mam_data=mam_data,
+        subtitle_type=subtitle_type,
         subtitle_file=srt_filename,
         vtt_file=vtt_filename,
-        video_url='https://archief-media.viaa.be/viaa/TESTBEELD/28e1b37c37df4e5ab05e1dbd25ed6e8d7bb8e6221cea407c9ee8bf0295dc8965/browse.mp4'
+        video_url=video_url
     )
 
 
@@ -200,6 +217,31 @@ def post_upload():
 def uploaded_subtitles(filename):
     upload_folder = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])
     return send_from_directory(upload_folder, filename)
+
+
+def delete_file(f):
+    sub_tempfile_path = os.path.join(
+        app.root_path, app.config['UPLOAD_FOLDER'], f)
+    os.unlink(sub_tempfile_path)
+
+
+@app.route('/cancel_upload')
+@requires_authorization
+def cancel_upload():
+    token = request.args.get('token')
+    pid = request.args.get('pid')
+    vtt_file = request.args.get('vtt_file')
+    srt_file = request.args.get('srt_file')
+
+    delete_file(srt_file)
+    delete_file(vtt_file)
+
+    return redirect(
+        url_for('.get_upload',
+                token=token,
+                pid=pid
+                )
+    )
 
 
 @app.route('/send_to_mam', methods=['POST'])
@@ -210,6 +252,9 @@ def send_to_mam():
     subtitle_type = request.form.get('subtitle_type')
     srt_file = request.form.get('subtitle_file')
     vtt_file = request.form.get('vtt_file')
+    # this is mediahaven data prev request
+    mam_data = request.form.get('mam_data')
+    video_url = request.form.get('video_url')
 
     # TODO: make mam request here with the original srt file, pid and supply
     # xml or json here
@@ -221,7 +266,8 @@ def send_to_mam():
         'vtt_file': vtt_file
     })
 
-    # TODO: delete the srt_file and vtt_files after sending to mediahaven here!
+    delete_file(srt_file)
+    delete_file(vtt_file)
 
     return render_template(
         'finished.html',
@@ -229,7 +275,9 @@ def send_to_mam():
         pid=subtitle_pid,
         subtitle_type=subtitle_type,
         srt_file=srt_file,
-        vtt_file=vtt_file
+        vtt_file=vtt_file,
+        mam_data=mam_data,
+        video_url=video_url
     )
 
 

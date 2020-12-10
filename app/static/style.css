@@ -113,13 +113,6 @@ label {
   border-radius: 8px;
 }
 
-.box {
-  padding: 0.5em;
-  border: 1px solid #324b5e;
-  border-radius: 8px;
-  background-color: #fff;
-  width: 440px;
-}
 
 form {
   padding: 0.5em;
@@ -346,4 +339,20 @@ textarea.subtitles {
   width: 8px;
   border-bottom: 4px solid #78b13f;
   border-right: 4px solid #78b13f;
+}
+
+.center_box {
+  width: 800px;
+  margin: auto;
+}
+
+.finished_box {
+  padding: 0.5em;
+  border: 1px solid #324b5e;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.finished_box .grey-button {
+  margin-left: 395px;
 }
