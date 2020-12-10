@@ -10,15 +10,17 @@ Ondertitelbestand
 {% block content %}
 
 <div class="center_box">
-    <h2>Bestand en metadata is verstuurd</h2>
+    <h2>Ondertitels en sidecar zijn verstuurd</h2>
     <div class="finished_box">
       <p>
-        ondertitlebestand: {{srt_file}} <br/> <br/>
-        vtt_file:  {{vtt_file}} <br/> <br/>
-        type: {{subtitle_type}} <br/> <br/>
-        video_url: {{video_url}} <br/>
-        mam_data: {{mam_data}} <br/>
-        is verstuurd naar mediahaven voor media item {{pid}}.
+        <table class="video_details">
+          <tr><td>PID</td><td>{{pid}}</td></tr>
+          <tr><td>Ondertitelbestand</td><td>{{srt_file}}</td></tr>
+          <tr><td>webvtt</td><td>{{vtt_file}}</td></tr>
+          <tr><td>ondertitel type</td><td>{{subtitle_type}}</td></tr>
+          <tr><td>Video url</td><td>{{video_url}}</td></tr>
+          <tr><td>Metadata</td><td><textarea>{{mam_data}}</textarea></td></tr>
+        </table>
       </p>
       <p>
         <a class="grey-button" href="/"> Uitloggen </a>

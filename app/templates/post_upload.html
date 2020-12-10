@@ -10,7 +10,6 @@ Ondertitels valideren
 {% block content %}
 
 <h1>Ondertitelbestand</h1>
-
 <div class="left_page">
   <form class="validate_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
 
@@ -51,7 +50,15 @@ Ondertitels valideren
 </div>
 
 <div class="right_page">
+
+  <h3 class="video_title">{{title}}</h3>
   <div id="player_container"></div>
+  <table class="video_details">
+    <tr><td colspan="2">{{description}}</td></tr>
+    <tr><td>Created</td><td>{{created}}</td></tr>
+    <tr><td>Archived</td><td>{{archived}}</td></tr>
+    <tr><td>Original CP</td><td>{{original_cp}}</td></tr>
+  </table>
 
   <script>
     flowplayer('#player_container', {
@@ -70,7 +77,6 @@ Ondertitels valideren
       }
     })
   </script>
+
 </div>
-
 {% endblock %}
-

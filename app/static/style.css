@@ -356,3 +356,23 @@ textarea.subtitles {
 .finished_box .grey-button {
   margin-left: 395px;
 }
+
+h3.video_title {
+  margin-top: -36px;
+}
+
+table.video_details {
+  table-layout: fixed;
+  width: 100%;
+}
+
+table.video_details td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  border-bottom: 1px solid #324b5e;
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+

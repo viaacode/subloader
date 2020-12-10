@@ -22,6 +22,8 @@ from viaa.configuration import ConfigParser
 from viaa.observability import logging
 from app.config import flask_environment
 from app.authorization import get_token, requires_authorization
+from app.mediahaven_api import MediahavenApi
+
 from flask import abort
 from werkzeug.utils import secure_filename
 import webvtt  # convert srt into webvtt
@@ -108,32 +110,29 @@ def post_media():
 @app.route('/upload', methods=['GET'])
 @requires_authorization
 def get_upload():
+    logger.info('get_upload')
     auth_token = request.args.get('token')
     pid = request.args.get('pid')
     errors = request.args.get('validation_errors')
 
-    # TODO make mediahaven query to fetch metadata for this pid here!!!
-    logger.info('get_upload')
-
-    mam_data = {'ok': 'todo'}  # todo fetch this using pid
+    # TODO: pass department here also (testbeeld) and use in find_video call
+    mh_api = MediahavenApi()  # session as param is possible here
+    mam_data = mh_api.find_video(pid)
     if not mam_data:
         return pid_error(auth_token, pid,
                          'PID niet gevonden in mediahaven')
-
-    # TODO: from mam_data get things like title, video_url
-    # also serialize mam_data as json and pass it as parameter here
-    # so we can reuse it without re-request to mediahaven in next steps
     return render_template(
         'upload.html',
         token=auth_token,
         pid=pid,
         mam_data=json.dumps(mam_data),
-        title='title todo',
-        description='todo fetch description from mediahaven api here',
-        created='some date here',
-        archived='archived date',
-        original_cp='cp id here',
-        video_url='https://archief-media.viaa.be/viaa/TESTBEELD/28e1b37c37df4e5ab05e1dbd25ed6e8d7bb8e6221cea407c9ee8bf0295dc8965/browse.mp4',
+        title=mam_data.get('title'),
+        description=mam_data.get('description'),
+        created=mh_api.get_property(mam_data, 'CreationDate'),
+        archived=mh_api.get_property(mam_data, 'created_on'),
+        original_cp=mh_api.get_property(mam_data, 'Original_CP'),
+        video_url=mam_data.get('videoPath'),
+        # or mam_data['Internal']['PathToVideo']
         validation_errors=errors)
 
 
@@ -201,6 +200,9 @@ def post_upload():
         'pid': subtitle_pid,
         'file': srt_filename
     })
+    video_data = json.loads(mam_data)
+    mh_api = MediahavenApi()
+
     return render_template(
         'post_upload.html',
         token=auth_token,
@@ -209,7 +211,12 @@ def post_upload():
         subtitle_type=subtitle_type,
         subtitle_file=srt_filename,
         vtt_file=vtt_filename,
-        video_url=video_url
+        video_url=video_url,
+        title=video_data.get('title'),
+        description=video_data.get('description'),
+        created=mh_api.get_property(video_data, 'CreationDate'),
+        archived=mh_api.get_property(video_data, 'created_on'),
+        original_cp=mh_api.get_property(video_data, 'Original_CP'),
     )
 
 
@@ -220,9 +227,13 @@ def uploaded_subtitles(filename):
 
 
 def delete_file(f):
-    sub_tempfile_path = os.path.join(
-        app.root_path, app.config['UPLOAD_FOLDER'], f)
-    os.unlink(sub_tempfile_path)
+    try:
+        sub_tempfile_path = os.path.join(
+            app.root_path, app.config['UPLOAD_FOLDER'], f)
+        os.unlink(sub_tempfile_path)
+    except FileNotFoundError:
+        logger.info(f"Warning file not found for deletion {f}")
+        pass
 
 
 @app.route('/cancel_upload')

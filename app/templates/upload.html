@@ -9,9 +9,7 @@ Ondertitelbestand
 
 {% block content %}
 
-
 <h1>Ondertitelbestand</h1>
-
 <div class="left_page">
    <form class="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
       <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
@@ -20,14 +18,6 @@ Ondertitelbestand
       <input type="hidden" name="pid" value='{{pid}}'/> 
       <input type="hidden" name="mam_data" value='{{mam_data}}'/> 
       <input type="hidden" name="video_url" value='{{video_url}}'/> 
-
-      <!--
-      <label>Titel</label>              <input readonly=readonly name="title" value='{{title}}'/> <br/>
-      <label>Omschrijving</label>       <textarea readonly=readonly name="description"> {{description}} </textarea> <br/>
-      <label>Creatie datum</label>      <input readonly=readonly name="created" value='{{created}}'/> <br/>
-      <label>Archiverings datum</label> <input readonly=readonly name="archived" value='{{archived}}'/> <br/>
-      <label>Oorspronkelijke CP</label> <input readonly=readonly name="original_cp" value='{{original_cp}}'/> <br/>
-      -->
 
       <br/><br/>
       <label>Ondertitelbestand</label><br/> 
@@ -51,7 +41,15 @@ Ondertitelbestand
 </div>
 
 <div class="right_page">
+
+  <h3 class="video_title">{{title}}</h3>
   <div id="player_container"></div>
+  <table class="video_details">
+    <tr><td colspan="2">{{description}}</td></tr>
+    <tr><td>Created</td><td>{{created}}</td></tr>
+    <tr><td>Archived</td><td>{{archived}}</td></tr>
+    <tr><td>Original CP</td><td>{{original_cp}}</td></tr>
+  </table>
 
   <script>
     flowplayer('#player_container', {
@@ -59,7 +57,6 @@ Ondertitelbestand
       token: '{{flowplayer_token}}'
     })
   </script>
+
 </div>
-
-
 {% endblock %}
