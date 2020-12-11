@@ -253,52 +253,65 @@ def send_to_mam():
 
     metadata = json.loads(mam_data)
 
-    srt_file = move_subtitle(
-        upload_folder(),
-        srt_file,
-        subtitle_type,
-        subtitle_pid
-    )
+    try:
+        srt_file = move_subtitle(
+            upload_folder(),
+            srt_file,
+            subtitle_type,
+            subtitle_pid
+        )
 
-    xml_file = save_sidecar_xml(
-        upload_folder(),
-        metadata,
-        subtitle_pid,
-        srt_file,
-        subtitle_type
-    )
+        xml_file, xml_sidecar = save_sidecar_xml(
+            upload_folder(),
+            metadata,
+            subtitle_pid,
+            srt_file,
+            subtitle_type
+        )
 
-    mh_api = MediahavenApi()
-    mh_api.send_subtitles(
-        metadata,
-        xml_file,
-        srt_file,
-        subtitle_type
-    )
+        mh_api = MediahavenApi()
+        mh_api.send_subtitles(
+            metadata,
+            xml_file,
+            srt_file,
+            subtitle_type
+        )
 
-    logger.info('send_to_mam', data={
-        'pid': subtitle_pid,
-        'subtitle_type': subtitle_type,
-        'srt_file': srt_file,
-        'vtt_file': vtt_file,
-        'mh_response': ''  # todo show response here for easier monitoring
-    })
+        logger.info('send_to_mam', data={
+            'pid': subtitle_pid,
+            'subtitle_type': subtitle_type,
+            'srt_file': srt_file,
+            'vtt_file': vtt_file,
+            'mh_response': ''  # todo show response here for easier monitoring
+        })
 
-    # disable deletion/cleanup while debugging generated xml
-    #delete_file(upload_folder(), srt_file)
-    #delete_file(upload_folder(), vtt_file)
-    #delete_file(upload_folder(), xml_file)
+        # cleanup temporary files
+        delete_file(upload_folder(), srt_file)
+        delete_file(upload_folder(), vtt_file)
+        delete_file(upload_folder(), xml_file)
 
-    return render_template(
-        'subtitles_sent.html',
-        token=auth_token,
-        pid=subtitle_pid,
-        subtitle_type=subtitle_type,
-        srt_file=srt_file,
-        vtt_file=vtt_file,
-        mam_data=mam_data,
-        video_url=video_url
-    )
+        return render_template(
+            'subtitles_sent.html',
+            token=auth_token,
+            pid=subtitle_pid,
+            subtitle_type=subtitle_type,
+            srt_file=srt_file,
+            xml_file=xml_file,
+            xml_sidecar=xml_sidecar,
+            mam_data=mam_data,
+            video_url=video_url
+        )
+    except FileNotFoundError:
+        return render_template(
+            'subtitles_sent.html',
+            token=auth_token,
+            pid=subtitle_pid,
+            subtitle_type=subtitle_type,
+            srt_file='already deleted',
+            xml_file='already deleted',
+            mam_data=mam_data,
+            video_url=video_url
+        )
 
 
 @app.route("/health/live")

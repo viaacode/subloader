@@ -52,16 +52,13 @@ def move_subtitle(upload_folder, srt_file, subtitle_type, pid):
     new_filename = f"{pid}_{subtitle_type}.srt"
     orig_path = os.path.join(upload_folder, srt_file)
     new_path = os.path.join(upload_folder, new_filename)
-    os.rename(orig_path, new_path)
+
+    if not os.path.exists(new_path):
+        os.rename(orig_path, new_path)
     return new_filename
 
 
 def save_sidecar_xml(upload_folder, metadata, pid, srt_file, subtitle_type):
-    print(
-        f"generate_sidecar_xml : {pid}, {srt_file}, {subtitle_type}",
-        flush=True)
-    print(f"metadata={metadata}", flush=True)
-
     xml_data = '<?xml version="1.0" encoding="utf-8"?>\n'
     xml_data += '<MediaHAVEN_external_metadata>\n'
     xml_data += f"  <title>{srt_file}</title>\n"
@@ -93,4 +90,4 @@ def save_sidecar_xml(upload_folder, metadata, pid, srt_file, subtitle_type):
     sf.write(xml_data)
     sf.close()
 
-    return xml_filename
+    return xml_filename, xml_data

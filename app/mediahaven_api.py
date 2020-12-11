@@ -38,7 +38,7 @@ class MediahavenApi:
         get_url = f"{self.API_SERVER}{api_route}"
         headers = {
             'Content-Type': 'application/json',
-            # 'Accept': 'application/vnd.mediahaven.v2+json'
+            # 'Accept': 'application/vnd.mediahaven.v2+json' #TODO: ENABLE THIS FOR FUTURE compatibility
         }
 
         response = self.session.get(
