@@ -17,7 +17,6 @@ from viaa.observability.logging import get_logger
 # from json.decoder import JSONDecodeError
 
 
-
 class MediahavenApi:
     # Voor v2 is endpoint hier /mediahaven-rest-api/v2/resources/
     # en met oauth ipv basic auth
@@ -104,21 +103,20 @@ class MediahavenApi:
         file_fields = {
             'file': (srt_file, open(srt_path, 'rb')),
             'metadata': (xml_file, open(xml_path, 'rb')),
-            
+
         }
         form_fields = {
             'external_id': metadata['externalId'],  # pid
-            'departmentId':'dd111b7a-efd0-44e3-8816-0905572421da',
+            'departmentId': 'dd111b7a-efd0-44e3-8816-0905572421da',
             'autoPublish': 'true'
         }
 
         response = self.session.post(
             url=send_url,
-            # headers=headers, 
+            # headers=headers,
             auth=(self.API_USER, self.API_PASSWORD),
             files=file_fields,
             data=form_fields
         )
 
         return response.json()
-
