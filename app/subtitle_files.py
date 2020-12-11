@@ -33,9 +33,12 @@ def save_subtitles(upload_folder, pid, uploaded_file):
             vtt_file.save()
 
             return srt_filename, vtt_filename
+    except webvtt.errors.MalformedFileError as we:
+        print(f"Parse error in srt {we}", flush=True)
     except webvtt.errors.MalformedCaptionError as we:
         print(f"Parse error in srt {we}", flush=True)
-        return None, None
+
+    return None, None
 
 
 def delete_file(upload_folder, f):

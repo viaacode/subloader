@@ -140,6 +140,33 @@ input {
 input:focus{
   border: 1px solid #2aa5cf;
 }
+/* breaks on safari 
+input:read-only {
+  border: none;
+  background-color: #fff;
+}
+*/
+
+input.readonly {
+  border: none;
+  background-color: #fff;
+}
+
+textarea:read-only {
+  border: none;
+  background-color: #fff;
+}
+
+input:disabled {
+  border: none;
+  background-color: #fff;
+}
+
+textarea:disabled {
+  border: none;
+  background-color: #fff;
+}
+
 input[type=submit]{
   padding-left: 5px;
   width: 108px;
@@ -149,6 +176,17 @@ input[type=submit]{
   cursor: pointer;
   font-size: 14px;
 }
+input[type=submit]:disabled{
+  padding-left: 5px;
+  width: 108px;
+  margin-left: 305px;
+  background-color: #ccc;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
 textarea {
   vertical-align: top;
   width: 370px;
@@ -255,32 +293,6 @@ form.validate_form a.cancel-button {
   margin-left: 1.4em;
 }
 
-/* breaks on safari 
-input:read-only {
-  border: none;
-  background-color: #fff;
-}
-*/
-
-input.readonly {
-  border: none;
-  background-color: #fff;
-}
-
-textarea:read-only {
-  border: none;
-  background-color: #fff;
-}
-
-input:disabled {
-  border: none;
-  background-color: #fff;
-}
-
-textarea:disabled {
-  border: none;
-  background-color: #fff;
-}
 
 select {
   border: 1px solid #bac7d1;

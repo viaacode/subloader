@@ -35,7 +35,11 @@ Ondertitelbestand
 
 
     <a class="grey-button" href="/search_media?token={{token}}"> Annuleren </a>
-    <input type="submit" value="Preview"/>
+    <input  
+      type="submit" 
+      value="Preview"
+      onClick="this.form.submit(); this.disabled=true; this.value='Opladen...'; "
+    />
 
   </form>
 </div>

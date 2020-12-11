@@ -44,7 +44,11 @@ Ondertitels valideren
      Wissen
     </a>
 
-    <input type="submit" value="Toevoegen"/>
+    <input 
+      type="submit" 
+      value="Toevoegen"
+      onClick="this.form.submit(); this.disabled=true; this.value='Versturen...'; "
+    />
 
   </form>
 </div>
