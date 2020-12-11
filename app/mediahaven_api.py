@@ -14,6 +14,8 @@ import os
 # import requests
 from requests import Session
 from viaa.observability.logging import get_logger
+# from json.decoder import JSONDecodeError
+
 
 
 class MediahavenApi:
@@ -89,27 +91,34 @@ class MediahavenApi:
 
     def send_subtitles(self, upload_folder, metadata, xml_file, srt_file):
         send_url = f"{self.API_SERVER}/resources/media/"
-        headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/vnd.mediahaven.v2+json'
-        }
+
+        # adding custom headers breaks call and gives 415 error
+        # headers = {
+        #     'Content-Type': 'application/json',
+        #     # 'Accept': 'application/vnd.mediahaven.v2+json'
+        # }
 
         srt_path = os.path.join(upload_folder, srt_file)
         xml_path = os.path.join(upload_folder, xml_file)
 
-        form_data = {
+        file_fields = {
             'file': (srt_file, open(srt_path, 'rb')),
             'metadata': (xml_file, open(xml_path, 'rb')),
-            'external_id': (None, metadata['externalId']),  # pid
-            'departmentId': (None, 'dd111b7a-efd0-44e3-8816-0905572421da'),
-            'autoPublis': (None, 'true')
+            
+        }
+        form_fields = {
+            'external_id': metadata['externalId'],  # pid
+            'departmentId':'dd111b7a-efd0-44e3-8816-0905572421da',
+            'autoPublish': 'true'
         }
 
         response = self.session.post(
             url=send_url,
-            headers=headers,
+            # headers=headers, 
             auth=(self.API_USER, self.API_PASSWORD),
-            files=form_data
+            files=file_fields,
+            data=form_fields
         )
 
         return response.json()
+
