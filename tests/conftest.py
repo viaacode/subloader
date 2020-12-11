@@ -6,7 +6,7 @@
 #  description: shared fixtures and basic setup, (also look at __init__.py)
 #
 import pytest
-from app.syncrator_api import app
+from app.subloader import app
 
 
 @pytest.fixture

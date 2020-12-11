@@ -6,13 +6,11 @@
 #
 import pytest
 import os
-import tempfile
 
-from app.syncrator_api import app
+from app.subloader import app
 from app.authorization import verify_token
 from .fixtures import jwt_token
 from werkzeug.exceptions import Unauthorized
-
 
 pytestmark = [pytest.mark.vcr(ignore_localhost=True)]
 
@@ -32,7 +30,6 @@ def test_bad_jwt():
 
 
 def test_token_signature_bad_decode():
-    db_fd, app.config['DATABASE'] = tempfile.mkstemp()
     app.config['TESTING'] = True
     with app.app_context():
         with pytest.raises(Unauthorized):
@@ -41,7 +38,6 @@ def test_token_signature_bad_decode():
 
 
 def test_token_signature():
-    db_fd, app.config['DATABASE'] = tempfile.mkstemp()
     app.config['TESTING'] = True
     with app.app_context():
         os.environ['OAS_JWT_SECRET'] = 'testkey'

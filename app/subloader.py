@@ -15,7 +15,7 @@
 #
 from app.upload_worker import UploadWorker
 
-from flask import (Flask, request, jsonify, render_template,
+from flask import (Flask, request, render_template,
                    redirect, url_for, send_from_directory)
 from flask_api import status
 from viaa.configuration import ConfigParser
@@ -23,11 +23,8 @@ from viaa.observability import logging
 from app.config import flask_environment
 from app.authorization import get_token, requires_authorization
 from app.mediahaven_api import MediahavenApi
-from app.subtitle_files import (allowed_file, save_subtitles,
-                                delete_file, save_sidecar_xml,
+from app.subtitle_files import (save_subtitles, delete_file, save_sidecar_xml,
                                 move_subtitle)
-
-from flask import abort
 
 import os
 import json

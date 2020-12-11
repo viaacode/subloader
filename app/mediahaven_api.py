@@ -11,7 +11,7 @@
 #   returned data from find_video call.
 
 import os
-import requests
+# import requests
 from requests import Session
 from viaa.observability.logging import get_logger
 
@@ -38,7 +38,8 @@ class MediahavenApi:
         get_url = f"{self.API_SERVER}{api_route}"
         headers = {
             'Content-Type': 'application/json',
-            # 'Accept': 'application/vnd.mediahaven.v2+json' #TODO: ENABLE THIS FOR FUTURE compatibility
+            # TODO: ENABLE THIS FOR FUTURE compatibility
+            # 'Accept': 'application/vnd.mediahaven.v2+json'
         }
 
         response = self.session.get(
@@ -54,7 +55,7 @@ class MediahavenApi:
             f"/resources/media/?q={search}&startIndex={offset}&nrOfResults={limit}")
 
     def get_object(self, object_id):
-        get_proxy(f"/resources/media/{object_id}")
+        self.get_proxy(f"/resources/media/{object_id}")
 
     def find_by(self, object_key, value):
         search_matches = self.list_objects(search=f"+({object_key}:{value})")
