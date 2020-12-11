@@ -5,10 +5,10 @@
 #
 #  file: app/upload_worker.py
 #  description: upload subtitle file in background
+#  right now we just do it inline, this file will most likely be deprecated
+#  as it seems the uploading/saving is fast enough
 #
 import threading
-# from app.openshift_utils import oc_create_syncrator_pod
-
 
 class UploadWorker(threading.Thread):
 
