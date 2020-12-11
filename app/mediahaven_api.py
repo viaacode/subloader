@@ -87,15 +87,29 @@ class MediahavenApi:
 
         return result
 
-    def send_subtitles(self, metadata, xml_file, srt_file, subtitle_type):
-        # curl -X POST -u viaa@testbeeld:{password}
-        #     -F "file={external_id.srt}"
-        #     -F "metadata={external_id.xml}"
-        #     -F "externalId={external_id}"
-        #     -F "departmentId=dd111b7a-efd0-44e3-8816-0905572421da"
-        #     -F "autoPublish=true"
-        #     -v https://archief.viaa.be/mediahaven-rest-api/resources/media/
-        #     -H "Accept: application/vnd.mediahaven.v2+json"
-        print(
-            f"send_subtitles : xml_file={xml_file} subtitle_file={srt_file} type={subtitle_type} ",
-            flush=True)
+    def send_subtitles(self, upload_folder, metadata, xml_file, srt_file):
+        send_url = f"{self.API_SERVER}/resources/media/"
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.mediahaven.v2+json'
+        }
+
+        srt_path = os.path.join(upload_folder, srt_file)
+        xml_path = os.path.join(upload_folder, xml_file)
+
+        form_data = {
+            'file': (srt_file, open(srt_path, 'rb')),
+            'metadata': (xml_file, open(xml_path, 'rb')),
+            'external_id': (None, metadata['externalId']),  # pid
+            'departmentId': (None, 'dd111b7a-efd0-44e3-8816-0905572421da'),
+            'autoPublis': (None, 'true')
+        }
+
+        response = self.session.post(
+            url=send_url,
+            headers=headers,
+            auth=(self.API_USER, self.API_PASSWORD),
+            files=form_data
+        )
+
+        return response.json()

@@ -10,6 +10,7 @@
 #
 import threading
 
+
 class UploadWorker(threading.Thread):
 
     def __init__(self, upload_id, upload_params, logger):

@@ -247,7 +247,6 @@ def send_to_mam():
     vtt_file = request.form.get('vtt_file')
     mam_data = request.form.get('mam_data')
     video_url = request.form.get('video_url')
-
     metadata = json.loads(mam_data)
 
     try:
@@ -267,11 +266,11 @@ def send_to_mam():
         )
 
         mh_api = MediahavenApi()
-        mh_api.send_subtitles(
+        mh_response = mh_api.send_subtitles(
+            upload_folder(),
             metadata,
             xml_file,
-            srt_file,
-            subtitle_type
+            srt_file
         )
 
         logger.info('send_to_mam', data={
@@ -296,7 +295,8 @@ def send_to_mam():
             xml_file=xml_file,
             xml_sidecar=xml_sidecar,
             mam_data=mam_data,
-            video_url=video_url
+            video_url=video_url,
+            mh_response=json.dumps(mh_response)
         )
     except FileNotFoundError:
         return render_template(
