@@ -24,7 +24,7 @@ from app.config import flask_environment
 from app.authorization import get_token, requires_authorization
 from app.mediahaven_api import MediahavenApi
 from app.subtitle_files import (save_subtitles, delete_file, save_sidecar_xml,
-                                move_subtitle)
+                                move_subtitle, get_property)
 
 import os
 import json
@@ -129,9 +129,9 @@ def get_upload():
         mam_data=json.dumps(mam_data),
         title=mam_data.get('title'),
         description=mam_data.get('description'),
-        created=mh_api.get_property(mam_data, 'CreationDate'),
-        archived=mh_api.get_property(mam_data, 'created_on'),
-        original_cp=mh_api.get_property(mam_data, 'Original_CP'),
+        created=get_property(mam_data, 'CreationDate'),
+        archived=get_property(mam_data, 'created_on'),
+        original_cp=get_property(mam_data, 'Original_CP'),
         video_url=mam_data.get('videoPath'),
         # or mam_data['Internal']['PathToVideo']
         validation_errors=errors)
@@ -190,7 +190,6 @@ def post_upload():
         'file': srt_filename
     })
     video_data = json.loads(mam_data)
-    mh_api = MediahavenApi()
 
     return render_template(
         'preview.html',
@@ -203,9 +202,9 @@ def post_upload():
         video_url=video_url,
         title=video_data.get('title'),
         description=video_data.get('description'),
-        created=mh_api.get_property(video_data, 'CreationDate'),
-        archived=mh_api.get_property(video_data, 'created_on'),
-        original_cp=mh_api.get_property(video_data, 'Original_CP'),
+        created=get_property(video_data, 'CreationDate'),
+        archived=get_property(video_data, 'created_on'),
+        original_cp=get_property(video_data, 'Original_CP'),
     )
 
 

@@ -7,8 +7,6 @@
 #
 #   Make api calls to hetarchief/mediahaven
 #   find_video used to lookup video by pid and tenant
-#   get_property is easy helper method to iterate mdProperties inside
-#   returned data from find_video call.
 
 import os
 # import requests
@@ -80,15 +78,6 @@ class MediahavenApi:
             return matched_videos.get('mediaDataList', [{}])[0]
         else:
             return None
-
-    def get_property(self, mam_data, attribute):
-        props = mam_data.get('mdProperties')
-        result = None
-        for prop in props:
-            if prop.get('attribute') == attribute:
-                return prop.get('value')
-
-        return result
 
     # sends srt_file and xml_file to mediahaven with correct paths and
     def send_subtitles(self, upload_folder, metadata, xml_file, srt_file):

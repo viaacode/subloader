@@ -3,8 +3,10 @@
 #  @Author: Walter Schreppers
 #
 #  file: app/subtitle_files.py
-# description: methods to create temporary srt, vtt and xml files
-# used for sending to mediahaven and streaming in the flowplayer preview.html
+#   description: methods to create temporary srt, vtt and xml files
+#   used for sending to mediahaven and streaming in the flowplayer preview.html
+#   get_property is easy helper method to iterate mdProperties inside
+#   returned data from find_video call.
 
 import os
 import webvtt
@@ -61,26 +63,29 @@ def move_subtitle(upload_folder, srt_file, subtitle_type, pid):
     return new_filename
 
 
+def get_property(mam_data, attribute):
+    props = mam_data.get('mdProperties')
+    result = None
+    for prop in props:
+        if prop.get('attribute') == attribute:
+            return prop.get('value')
+
+    return result
+
+
 def save_sidecar_xml(upload_folder, metadata, pid, srt_file, subtitle_type):
+    cp_id = get_property(metadata, 'CP_id')
+    dc_local_id = get_property(metadata, 'dc_identifier_localid')
+    cp = get_property(metadata, 'CP')
+
     xml_data = '<?xml version="1.0" encoding="utf-8"?>\n'
     xml_data += '<MediaHAVEN_external_metadata>\n'
     xml_data += f"  <title>{srt_file}</title>\n"
     xml_data += '  <MDProperties>\n'
-
-    # TODO: <!-- CP tenant, default Testbeeld--></CP>  -> kleine letter mag
-    # ook, zit ook in metadata req.
-    xml_data += '    <CP>testbeeld</CP>\n'
-
-    # TODO: <!-- testbeeld:OR-h41jm1d--></CP_id> -> overnemen uit de metadata
-    # in first request.
-    xml_data += '    <CP_id>OR-h41jm1d</CP_id>\n'
-
+    xml_data += f"    <CP>{cp}</CP>\n"
+    xml_data += f"    <CP_id>{cp_id}</CP_id>\n"
     xml_data += f"    <PID>{pid}_{subtitle_type}</PID>\n"
-
-    # TODO:
-    # xml_data += '    <dc_identifier_localid><!-- lokale id van origineel
-    # item, optioneel--></dc_identifier_localid>
-
+    xml_data += f"    <dc_identifier_localid>{dc_local_id}</dc_identifier_localid>\n"
     xml_data += '    <dc_relations>\n'
     xml_data += f"      <is_verwant_aan>{pid}</is_verwant_aan>\n"
     xml_data += '    </dc_relations>\n'
