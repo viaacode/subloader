@@ -23,10 +23,12 @@ from viaa.observability import logging
 from app.config import flask_environment
 from app.authorization import get_token, requires_authorization
 from app.mediahaven_api import MediahavenApi
+from app.subtitle_files import (allowed_file, save_subtitles,
+                                delete_file, save_sidecar_xml,
+                                move_subtitle)
 
 from flask import abort
-from werkzeug.utils import secure_filename
-import webvtt  # convert srt into webvtt
+
 import os
 import json
 
@@ -36,6 +38,8 @@ config = ConfigParser()
 logger = logging.get_logger(__name__, config=config)
 
 app.config.from_object(flask_environment())
+# disables caching of srt and other files
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 
 @app.route('/', methods=['GET'])
@@ -136,12 +140,6 @@ def get_upload():
         validation_errors=errors)
 
 
-def allowed_file(filename):
-    ALLOWED_EXTENSIONS = ['srt', 'SRT']
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
 def upload_error(token, pid, msg):
     logger.info('upload', data={'error': msg, })
     return redirect(
@@ -167,26 +165,20 @@ def post_upload():
     if 'subtitle_file' not in request.files:
         return upload_error(auth_token, subtitle_pid,
                             'Geen ondertitels bestand')
-
-    file = request.files['subtitle_file']
-    if file.filename == '':
-        return upload_error(auth_token, subtitle_pid,
-                            'Geen ondertitels bestand geselecteerd')
-
-    if file and allowed_file(file.filename):
-        srt_filename = secure_filename(file.filename)
-        vtt_filename = '.'.join(srt_filename.rsplit('.')[:-1]) + '.vtt'
-
-        # save srt and converted vtt file in uploads folder
-        upload_folder = os.path.join(
-            app.root_path, app.config['UPLOAD_FOLDER'])
-        file.save(os.path.join(upload_folder, srt_filename))
-        vtt_file = webvtt.from_srt(os.path.join(upload_folder, srt_filename))
-        vtt_file.save()
-
     if not subtitle_pid:
         return upload_error(auth_token, subtitle_pid,
                             f"Foutieve pid {subtitle_pid}")
+
+    uploaded_file = request.files['subtitle_file']
+    if uploaded_file.filename == '':
+        return upload_error(auth_token, subtitle_pid,
+                            'Geen ondertitels bestand geselecteerd')
+
+    srt_filename, vtt_filename = save_subtitles(
+        upload_folder(),
+        subtitle_pid,
+        uploaded_file
+    )
 
     if not srt_filename:
         return upload_error(auth_token, subtitle_pid,
@@ -196,7 +188,7 @@ def post_upload():
         return upload_error(auth_token, subtitle_pid,
                             'Kon niet converteren naar webvtt formaat')
 
-    logger.info('post_upload', data={
+    logger.info('preview', data={
         'pid': subtitle_pid,
         'file': srt_filename
     })
@@ -204,7 +196,7 @@ def post_upload():
     mh_api = MediahavenApi()
 
     return render_template(
-        'post_upload.html',
+        'preview.html',
         token=auth_token,
         pid=subtitle_pid,
         mam_data=mam_data,
@@ -220,20 +212,13 @@ def post_upload():
     )
 
 
+def upload_folder():
+    return os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])
+
+
 @app.route('/subtitles/<filename>')
 def uploaded_subtitles(filename):
-    upload_folder = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])
-    return send_from_directory(upload_folder, filename)
-
-
-def delete_file(f):
-    try:
-        sub_tempfile_path = os.path.join(
-            app.root_path, app.config['UPLOAD_FOLDER'], f)
-        os.unlink(sub_tempfile_path)
-    except FileNotFoundError:
-        logger.info(f"Warning file not found for deletion {f}")
-        pass
+    return send_from_directory(upload_folder(), filename)
 
 
 @app.route('/cancel_upload')
@@ -244,8 +229,8 @@ def cancel_upload():
     vtt_file = request.args.get('vtt_file')
     srt_file = request.args.get('srt_file')
 
-    delete_file(srt_file)
-    delete_file(vtt_file)
+    delete_file(upload_folder(), srt_file)
+    delete_file(upload_folder(), vtt_file)
 
     return redirect(
         url_for('.get_upload',
@@ -263,25 +248,49 @@ def send_to_mam():
     subtitle_type = request.form.get('subtitle_type')
     srt_file = request.form.get('subtitle_file')
     vtt_file = request.form.get('vtt_file')
-    # this is mediahaven data prev request
     mam_data = request.form.get('mam_data')
     video_url = request.form.get('video_url')
 
-    # TODO: make mam request here with the original srt file, pid and supply
-    # xml or json here
+    metadata = json.loads(mam_data)
+
+    srt_file = move_subtitle(
+        upload_folder(),
+        srt_file,
+        subtitle_type,
+        subtitle_pid
+    )
+
+    xml_file = save_sidecar_xml(
+        upload_folder(),
+        metadata,
+        subtitle_pid,
+        srt_file,
+        subtitle_type
+    )
+
+    mh_api = MediahavenApi()
+    mh_api.send_subtitles(
+        metadata,
+        xml_file,
+        srt_file,
+        subtitle_type
+    )
 
     logger.info('send_to_mam', data={
         'pid': subtitle_pid,
         'subtitle_type': subtitle_type,
         'srt_file': srt_file,
-        'vtt_file': vtt_file
+        'vtt_file': vtt_file,
+        'mh_response': ''  # todo show response here for easier monitoring
     })
 
-    delete_file(srt_file)
-    delete_file(vtt_file)
+    # disable deletion/cleanup while debugging generated xml
+    #delete_file(upload_folder(), srt_file)
+    #delete_file(upload_folder(), vtt_file)
+    #delete_file(upload_folder(), xml_file)
 
     return render_template(
-        'finished.html',
+        'subtitles_sent.html',
         token=auth_token,
         pid=subtitle_pid,
         subtitle_type=subtitle_type,

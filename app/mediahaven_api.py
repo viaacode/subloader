@@ -17,6 +17,8 @@ from viaa.observability.logging import get_logger
 
 
 class MediahavenApi:
+    # Voor v2 is endpoint hier /mediahaven-rest-api/v2/resources/
+    # en met oauth ipv basic auth
     API_SERVER = os.environ.get(
         'MEDIAHAVEN_API',
         'https://archief-qas.viaa.be/mediahaven-rest-api')
@@ -35,7 +37,8 @@ class MediahavenApi:
     def get_proxy(self, api_route):
         get_url = f"{self.API_SERVER}{api_route}"
         headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            # 'Accept': 'application/vnd.mediahaven.v2+json'
         }
 
         response = self.session.get(
@@ -76,3 +79,16 @@ class MediahavenApi:
                 return prop.get('value')
 
         return result
+
+    def send_subtitles(self, metadata, xml_file, srt_file, subtitle_type):
+        # curl -X POST -u viaa@testbeeld:{password}
+        #     -F "file={external_id.srt}"
+        #     -F "metadata={external_id.xml}"
+        #     -F "externalId={external_id}"
+        #     -F "departmentId=dd111b7a-efd0-44e3-8816-0905572421da"
+        #     -F "autoPublish=true"
+        #     -v https://archief.viaa.be/mediahaven-rest-api/resources/media/
+        #     -H "Accept: application/vnd.mediahaven.v2+json"
+        print(
+            f"send_subtitles : xml_file={xml_file} subtitle_file={srt_file} type={subtitle_type} ",
+            flush=True)
