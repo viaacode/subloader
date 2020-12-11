@@ -22,7 +22,8 @@ class MediahavenApi:
     # en met oauth ipv basic auth
     API_SERVER = os.environ.get(
         'MEDIAHAVEN_API',
-        'https://archief-qas.viaa.be/mediahaven-rest-api')
+        'https://archief-qas.viaa.be/mediahaven-rest-api'
+    )
     API_USER = os.environ.get('MEDIAHAVEN_USER', 'apiUser')
     API_PASSWORD = os.environ.get('MEDIAHAVEN_PASS', 'password')
 
@@ -34,12 +35,12 @@ class MediahavenApi:
             self.session = session
 
     # generic get request to mediahaven api
-    # example api.get_proxy('/resources/exportlocations/default')
     def get_proxy(self, api_route):
         get_url = f"{self.API_SERVER}{api_route}"
         headers = {
             'Content-Type': 'application/json',
-            # TODO: ENABLE THIS FOR FUTURE compatibility
+            # TODO: currently this breaks calls, re-enable later
+            # for better compatibility with v2:
             # 'Accept': 'application/vnd.mediahaven.v2+json'
         }
 
@@ -68,6 +69,7 @@ class MediahavenApi:
         )
         return matched_videos
 
+    # used by first form to lookup a pid
     # test pids qsxs5jbm5c, qs5d8ncx8c
     def find_video(self, pid, department='testbeeld'):
         matched_videos = self.list_objects(
@@ -88,6 +90,7 @@ class MediahavenApi:
 
         return result
 
+    # sends srt_file and xml_file to mediahaven with correct paths and
     def send_subtitles(self, upload_folder, metadata, xml_file, srt_file):
         send_url = f"{self.API_SERVER}/resources/media/"
 
