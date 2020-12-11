@@ -13,9 +13,15 @@
 
 <body>
     <nav>
-      <span class="appname"> <a href="{{ url_for('index') }}">Avo Subtitle Uploader</a> 
+      <span class="applogo"> 
+
+        <a href="{{ url_for('index') }}">
+        <img class="avo_logo" 
+        src="{{ url_for('static', filename='avo-logo-i.svg') }}" alt="Logo Het Archief voor Onderwijs">
+        </a> 
       <!-- span class="title"> &gt;&gt; {% block title %}{% endblock %}</span -->
       </span>
+      <span class="apptitle">SubLoader</span>
     </nav>
     <section class="content">
       <header>
