@@ -52,7 +52,7 @@ class MediahavenApi:
 
     def list_objects(self, search='', offset=0, limit=25):
         return self.get_proxy(
-            f"/resources/media/?q={search}&startIndex={offset}&nrOfResults={limit}")
+            f"/resources/media?q={search}&startIndex={offset}&nrOfResults={limit}")
 
     def get_object(self, object_id):
         self.get_proxy(f"/resources/media/{object_id}")
@@ -61,7 +61,13 @@ class MediahavenApi:
         search_matches = self.list_objects(search=f"+({object_key}:{value})")
         return search_matches
 
-    # test pid qsxs5jbm5c
+    def list_videos(self, department='testbeeld'):
+        matched_videos = self.list_objects(
+            search=f"%2B(DepartmentName:{department})"
+        )
+        return matched_videos
+
+    # test pids qsxs5jbm5c, qs5d8ncx8c
     def find_video(self, pid, department='testbeeld'):
         matched_videos = self.list_objects(
             search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})"

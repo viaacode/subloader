@@ -12,13 +12,13 @@ Ondertitelbestand
 <h1>Ondertitelbestand</h1>
 <div class="left_page">
    <form class="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
-      <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
 
-      <label>PID</label> {{pid}} <div class="check"></div>
+      <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
       <input type="hidden" name="pid" value='{{pid}}'/> 
       <input type="hidden" name="mam_data" value='{{mam_data}}'/> 
       <input type="hidden" name="video_url" value='{{video_url}}'/> 
 
+      <label>PID</label> <div class="pid-view"> {{pid}}</div> <div class="check"></div>
       <br/><br/>
       <label>Ondertitelbestand</label><br/> 
 

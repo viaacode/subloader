@@ -15,13 +15,14 @@ Ondertitels valideren
 
     <input type="hidden" name="token" value='{{token}}' /> <!-- supply auth token -->
     <input type="hidden" name="pid" value='{{pid}}'/> 
-    <input type="hidden" name="subtitle_file" value='{{subtitle_file}}'/> 
-    <input type="hidden" name="vtt_file" value='{{vtt_file}}'/> 
     <input type="hidden" name="mam_data" value='{{mam_data}}'/> 
     <input type="hidden" name="video_url" value='{{video_url}}'/> 
+    
+    <input type="hidden" name="subtitle_file" value='{{subtitle_file}}'/> 
+    <input type="hidden" name="vtt_file" value='{{vtt_file}}'/>
 
-    <label>PID</label>  <span class="pid-box">{{pid}} </span> <div class="check"></div> <br/> <br/>
-
+    <label>PID</label> <div class="pid-view"> {{pid}}</div> <div class="check"></div>
+    <br/><br/>
     <label>Ondertitelbestand</label><br/> 
     <select name="subtitle_type" id="subtitle_type">
       <option value="open" {{'selected="selected"' if subtitle_type=='open'}}>Open</option>

@@ -270,7 +270,7 @@ a.grey-button {
 
 form.validate_form label {
   padding-left: 1em;
-  width: 8em;
+  width: 9em;
   text-align: left;
 }
 
@@ -289,10 +289,13 @@ form.validate_form a.cancel-button {
   margin-left: 10.5em;
 }
 
-.pid-box {
-  margin-left: 1.4em;
+.pid-view {
+  display: inline-block;
+  word-break: break-all;
+  width: 245px;
+  vertical-align: top;
+  margin-top: 8px;
 }
-
 
 select {
   border: 1px solid #bac7d1;
