@@ -101,7 +101,13 @@ class MediahavenApi:
 
     # sends srt_file and xml_file to mediahaven with correct paths and
 
-    def send_subtitles(self, upload_folder, metadata, xml_file, srt_file):
+    def send_subtitles(
+            self,
+            upload_folder,
+            metadata,
+            xml_file,
+            srt_file,
+            subtitle_type):
         send_url = f"{self.API_SERVER}/resources/media/"
 
         # adding custom headers breaks call and gives 415 error
@@ -118,7 +124,7 @@ class MediahavenApi:
         file_fields = {
             'file': (srt_file, open(srt_path, 'rb')),
             'metadata': (xml_file, open(xml_path, 'rb')),
-            'external_id': ('', metadata['externalId']),
+            'externalId': ('', f"{metadata['externalId']}_{subtitle_type}"),
             'departmentId': ('', 'dd111b7a-efd0-44e3-8816-0905572421da'),
             'autoPublish': ('', 'true')
         }

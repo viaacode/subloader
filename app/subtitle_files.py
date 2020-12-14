@@ -75,8 +75,8 @@ def get_property(mam_data, attribute):
 
 def save_sidecar_xml(upload_folder, metadata, pid, srt_file, subtitle_type):
     cp_id = get_property(metadata, 'CP_id')
-    dc_local_id = get_property(metadata, 'dc_identifier_localid')
     cp = get_property(metadata, 'CP')
+    # dc_local_id = get_property(metadata, 'dc_identifier_localid')
 
     xml_data = '<?xml version="1.0" encoding="utf-8"?>\n'
     xml_data += '<MediaHAVEN_external_metadata>\n'
@@ -85,7 +85,8 @@ def save_sidecar_xml(upload_folder, metadata, pid, srt_file, subtitle_type):
     xml_data += f"    <CP>{cp}</CP>\n"
     xml_data += f"    <CP_id>{cp_id}</CP_id>\n"
     xml_data += f"    <PID>{pid}_{subtitle_type}</PID>\n"
-    xml_data += f"    <dc_identifier_localid>{dc_local_id}</dc_identifier_localid>\n"
+    xml_data += f"    <ExternalId>{pid}</ExternalId>\n"
+    # xml_data += f"    <dc_identifier_localid>{dc_local_id}</dc_identifier_localid>\n"
     xml_data += '    <dc_relations>\n'
     xml_data += f"      <is_verwant_aan>{pid}</is_verwant_aan>\n"
     xml_data += '    </dc_relations>\n'

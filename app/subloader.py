@@ -267,7 +267,8 @@ def send_to_mam():
             upload_folder(),
             metadata,
             xml_file,
-            srt_file
+            srt_file,
+            subtitle_type
         )
 
         logger.info('send_to_mam', data={
