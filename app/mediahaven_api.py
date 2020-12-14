@@ -7,6 +7,7 @@
 #
 #   Make api calls to hetarchief/mediahaven
 #   find_video used to lookup video by pid and tenant
+#   send_subtitles saves the srt file together with an xml sidecar
 
 import os
 # import requests
@@ -67,9 +68,6 @@ class MediahavenApi:
         )
         return matched_videos
 
-    # used by first form to lookup a pid
-    # test pids qsxs5jbm5c, qs5d8ncx8c
-
     def find_video(self, pid, department='testbeeld'):
         matched_videos = self.list_objects(
             search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})"
@@ -99,8 +97,6 @@ class MediahavenApi:
             frag_id = sub['fragmentId']
             self.delete_fragment(frag_id)
 
-    # sends srt_file and xml_file to mediahaven with correct paths and
-
     def send_subtitles(
             self,
             upload_folder,
@@ -108,16 +104,12 @@ class MediahavenApi:
             xml_file,
             srt_file,
             subtitle_type):
-        send_url = f"{self.API_SERVER}/resources/media/"
 
-        # adding custom headers breaks call and gives 415 error
-        # headers = {
-        #     'Content-Type': 'application/json',
-        #     # 'Accept': 'application/vnd.mediahaven.v2+json'
-        # }
-
+        # TODO: do this after a confirmation button is clicked:
         self.delete_old_subtitle(srt_file)
 
+        # sends srt_file and xml_file to mediahaven
+        send_url = f"{self.API_SERVER}/resources/media/"
         srt_path = os.path.join(upload_folder, srt_file)
         xml_path = os.path.join(upload_folder, xml_file)
 
@@ -131,7 +123,6 @@ class MediahavenApi:
 
         response = self.session.post(
             url=send_url,
-            # headers=headers,
             auth=(self.API_USER, self.API_PASSWORD),
             files=file_fields,
         )

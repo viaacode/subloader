@@ -279,6 +279,9 @@ def send_to_mam():
             'mh_response': ''  # todo show response here for easier monitoring
         })
 
+        # TODO: check mh response, if duplicate error, show confirmation button
+        # and call send_subtitles again, but this time make delete call
+        # also if duplicate error, don't delete these yet.
         # cleanup temporary files
         delete_file(upload_folder(), srt_file)
         delete_file(upload_folder(), vtt_file)
