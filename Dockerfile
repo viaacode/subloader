@@ -28,8 +28,8 @@ RUN pip3 install -r requirements.txt \
 USER appuser
 
 ENV OAS_JWT_SECRET ''
-ENV OAS_SERVER 'https://oas.viaa.be'
-ENV OAS_APPNAME 'avo-subtitle'
+ENV OAS_SERVER 'https://oas-qas.viaa.be'
+ENV OAS_APPNAME 'mediahaven'
 
 
 # This command will be run when starting the container. It is the same one that
