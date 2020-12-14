@@ -14,9 +14,7 @@ import base64
 from functools import wraps
 from flask import request, abort, jsonify
 
-OAS_SERVER = os.environ.get(
-    'OAS_SERVER',
-    'https://oas-qas.hetarchief.be')  # oas-qas.viaa.be
+OAS_SERVER = os.environ.get('OAS_SERVER', 'https://oas-qas.viaa.be')
 OAS_APPNAME = os.environ.get('OAS_APPNAME', 'mediahaven')
 OAS_JWT_SECRET = os.environ.get('OAS_JWT_SECRET', '')
 
