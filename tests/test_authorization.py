@@ -22,11 +22,14 @@ def vcr_config():
 
 
 def test_jwt():
-    assert verify_token(jwt_token())
+    with app.app_context():
+        verify_token(jwt_token())
 
 
 def test_bad_jwt():
-    assert not verify_token("somethingwrong")
+    with app.app_context():
+        with pytest.raises(Unauthorized):
+            verify_token("somethingwrong")
 
 
 def test_token_signature_bad_decode():
@@ -37,14 +40,6 @@ def test_token_signature_bad_decode():
             verify_token("Bearer aabbcc")
 
 
-def test_token_signature():
-    app.config['TESTING'] = True
-    with app.app_context():
-        os.environ['OAS_JWT_SECRET'] = 'testkey'
-        res = verify_token(jwt_token())
-        assert res
-
-
 @pytest.mark.vcr
 def test_wrong_credentials(client):
     res = client.post('/login', data=dict(
@@ -52,8 +47,7 @@ def test_wrong_credentials(client):
         password='wrong_pass',
     ), follow_redirects=True)
 
-    # login_data = res.get_json()
-    assert res.status_code == 401
+    assert 'Fout email of wachtwoord' in res.data.decode()
 
 
 @pytest.mark.vcr
@@ -63,7 +57,4 @@ def test_right_credentials(client):
         password='correct_pass',
     ), follow_redirects=True)
 
-    login_data = res.get_json()
-    assert res.status_code == 200
-    assert 'access_token' in login_data
-    assert login_data['expires_in'] == 900
+    assert 'Fout email of wachtwoord' not in res.data.decode()

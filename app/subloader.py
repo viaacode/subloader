@@ -13,8 +13,6 @@
 #   jwt between forms and pages as 'token'. This token is verified in the authorization.py
 #   using decorator requires_authorization
 #
-from app.upload_worker import UploadWorker
-
 from flask import (Flask, request, render_template,
                    redirect, url_for, send_from_directory)
 from flask_api import status

@@ -15,7 +15,7 @@ from functools import wraps
 from flask import request, abort, jsonify
 
 OAS_SERVER = os.environ.get('OAS_SERVER', 'https://oas-qas.hetarchief.be')
-OAS_APPNAME = os.environ.get('OAS_APPNAME', 'syncrator')
+OAS_APPNAME = os.environ.get('OAS_APPNAME', 'avo-subtitle')
 OAS_JWT_SECRET = os.environ.get('OAS_JWT_SECRET', '')
 
 
@@ -25,8 +25,10 @@ def get_token(username, password):
         'grant_type': 'client_credentials',
     }
     result = requests.get(
-        token_url, data=token_params, auth=(
-            username, password))
+        token_url,
+        data=token_params,
+        auth=(username, password)
+    )
 
     if result.status_code == 401:
         return None
@@ -62,7 +64,7 @@ def verify_token(jwt_token):
             dt = jwt.decode(
                 jwt_token,
                 jwt_secret,
-                audience=['avo-subtitle'],
+                audience=[OAS_APPNAME],
                 algorithms=['HS256'])
             return True
 

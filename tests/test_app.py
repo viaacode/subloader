@@ -8,7 +8,7 @@ import pytest
 
 from flask_api import status
 from app.subloader import app
-from .fixtures import jwt_token
+# from .fixtures import jwt_token
 
 
 @pytest.fixture(scope="module")

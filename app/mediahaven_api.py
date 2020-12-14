@@ -69,6 +69,7 @@ class MediahavenApi:
 
     # used by first form to lookup a pid
     # test pids qsxs5jbm5c, qs5d8ncx8c
+
     def find_video(self, pid, department='testbeeld'):
         matched_videos = self.list_objects(
             search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})"
@@ -79,7 +80,27 @@ class MediahavenApi:
         else:
             return None
 
+    def delete_fragment(self, frag_id):
+        del_url = f"{self.API_SERVER}/resources/media/{frag_id}"
+        del_resp = self.session.delete(
+            url=del_url,
+            auth=(self.API_USER, self.API_PASSWORD)
+        )
+
+        print(
+            f"deleted old subtitle fragment {frag_id} response {del_resp.status_code}",
+            flush=True)
+
+    def delete_old_subtitle(self, subtitle_file):
+        items = self.find_by('originalFileName', subtitle_file)
+        print(f"old subs={items}")
+        if items.get('totalNrOfResults') >= 1:
+            sub = items.get('mediaDataList')[0]
+            frag_id = sub['fragmentId']
+            self.delete_fragment(frag_id)
+
     # sends srt_file and xml_file to mediahaven with correct paths and
+
     def send_subtitles(self, upload_folder, metadata, xml_file, srt_file):
         send_url = f"{self.API_SERVER}/resources/media/"
 
@@ -89,18 +110,17 @@ class MediahavenApi:
         #     # 'Accept': 'application/vnd.mediahaven.v2+json'
         # }
 
+        self.delete_old_subtitle(srt_file)
+
         srt_path = os.path.join(upload_folder, srt_file)
         xml_path = os.path.join(upload_folder, xml_file)
 
         file_fields = {
             'file': (srt_file, open(srt_path, 'rb')),
             'metadata': (xml_file, open(xml_path, 'rb')),
-
-        }
-        form_fields = {
-            'external_id': metadata['externalId'],  # pid
-            'departmentId': 'dd111b7a-efd0-44e3-8816-0905572421da',
-            'autoPublish': 'true'
+            'external_id': ('', metadata['externalId']),
+            'departmentId': ('', 'dd111b7a-efd0-44e3-8816-0905572421da'),
+            'autoPublish': ('', 'true')
         }
 
         response = self.session.post(
@@ -108,7 +128,6 @@ class MediahavenApi:
             # headers=headers,
             auth=(self.API_USER, self.API_PASSWORD),
             files=file_fields,
-            data=form_fields
         )
 
         return response.json()
