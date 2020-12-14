@@ -131,6 +131,7 @@ def get_upload():
         archived=get_property(mam_data, 'created_on'),
         original_cp=get_property(mam_data, 'Original_CP'),
         video_url=mam_data.get('videoPath'),
+        flowplayer_token=os.environ.get('FLOWPLAYER_TOKEN', 'set_in_secrets'),
         # or mam_data['Internal']['PathToVideo']
         validation_errors=errors)
 
@@ -203,6 +204,7 @@ def post_upload():
         created=get_property(video_data, 'CreationDate'),
         archived=get_property(video_data, 'created_on'),
         original_cp=get_property(video_data, 'Original_CP'),
+        flowplayer_token=os.environ.get('FLOWPLAYER_TOKEN', 'set_in_secrets')
     )
 
 

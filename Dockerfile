@@ -30,6 +30,7 @@ USER appuser
 ENV OAS_JWT_SECRET ''
 ENV OAS_SERVER 'https://oas-qas.viaa.be'
 ENV OAS_APPNAME 'mediahaven'
+ENV FLOWPLAYER_TOKEN 'set_in_secrets'
 
 
 # This command will be run when starting the container. It is the same one that
