@@ -8,7 +8,7 @@ SHELL = /bin/bash
 NAMESPACE = shared-components
 OC_PROJECT = ${NAMESPACE}
 
-APP_NAME = syncrator-api
+APP_NAME = subloader
 IMAGE_NAME = ${NAMESPACE}/${APP_NAME}
 REGISTRY = docker-registry-default.apps.do-prd-okp-m0.do.viaa.be
 login:
