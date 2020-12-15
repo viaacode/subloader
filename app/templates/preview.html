@@ -15,6 +15,7 @@ Ondertitels valideren
 
     <input type="hidden" name="token" value='{{token}}' /> <!-- supply auth token -->
     <input type="hidden" name="pid" value='{{pid}}'/> 
+    <input type="hidden" name="department" value='{{department}}'/> 
     <input type="hidden" name="mam_data" value='{{mam_data}}'/> 
     <input type="hidden" name="video_url" value='{{video_url}}'/> 
     
@@ -37,6 +38,7 @@ Ondertitels valideren
 
     <a href="{{ url_for('.cancel_upload', 
         pid=pid, 
+        department=department,
         srt_file=subtitle_file, 
         vtt_file=vtt_file,
         token=token

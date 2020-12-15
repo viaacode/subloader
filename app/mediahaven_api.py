@@ -8,12 +8,14 @@
 #   Make api calls to hetarchief/mediahaven
 #   find_video used to lookup video by pid and tenant
 #   send_subtitles saves the srt file together with an xml sidecar
+#   delete_old_subtitle used to replace existing srt with new upload
 
 import os
-# import requests
 from requests import Session
-from viaa.observability.logging import get_logger
-# from json.decoder import JSONDecodeError
+from viaa.configuration import ConfigParser
+from viaa.observability import logging
+
+logger = logging.get_logger(__name__, config=ConfigParser())
 
 
 class MediahavenApi:
@@ -27,7 +29,6 @@ class MediahavenApi:
     API_PASSWORD = os.environ.get('MEDIAHAVEN_PASS', 'password')
 
     def __init__(self, session=None):
-        self.logger = get_logger()
         if session is None:
             self.session = Session()
         else:
@@ -85,9 +86,13 @@ class MediahavenApi:
             auth=(self.API_USER, self.API_PASSWORD)
         )
 
-        print(
-            f"deleted old subtitle fragment {frag_id} response {del_resp.status_code}",
-            flush=True)
+        logger.info(
+            "deleted old subtitle fragment",
+            data={
+                'fragment': frag_id,
+                'del_response': del_resp.status_code
+            }
+        )
 
     def delete_old_subtitle(self, subtitle_file):
         items = self.find_by('originalFileName', subtitle_file)
@@ -117,7 +122,7 @@ class MediahavenApi:
             'autoPublish': ('', 'true')
         }
 
-        print(f"posting to mam data={file_fields}", flush=True)
+        logger.info("posting to mam", data=file_fields)
 
         response = self.session.post(
             url=send_url,

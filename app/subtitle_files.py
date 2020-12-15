@@ -11,6 +11,10 @@
 import os
 import webvtt
 from werkzeug.utils import secure_filename
+from viaa.configuration import ConfigParser
+from viaa.observability import logging
+
+logger = logging.get_logger(__name__, config=ConfigParser())
 
 
 def allowed_file(filename):
@@ -36,9 +40,9 @@ def save_subtitles(upload_folder, pid, uploaded_file):
 
             return srt_filename, vtt_filename
     except webvtt.errors.MalformedFileError as we:
-        print(f"Parse error in srt {we}", flush=True)
+        logger.info(f"Parse error in srt {we}")
     except webvtt.errors.MalformedCaptionError as we:
-        print(f"Parse error in srt {we}", flush=True)
+        logger.info(f"Parse error in srt {we}")
 
     return None, None
 
@@ -49,8 +53,13 @@ def delete_file(upload_folder, f):
             sub_tempfile_path = os.path.join(upload_folder, f)
             os.unlink(sub_tempfile_path)
     except FileNotFoundError:
-        print(f"Warning file not found for deletion {f}", flush=True)
+        logger.info(f"Warning file not found for deletion {f}")
         pass
+
+
+def delete_files(upload_folder, *files):
+    for f in files:
+        delete_file(upload_folder, f)
 
 
 def move_subtitle(upload_folder, srt_file, subtitle_type, pid):
