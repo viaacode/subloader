@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block title %}
+Ondertitels valideren
+{% endblock %}
+
+{% block content %}
+
+<div class="replace_dialog">
+  <h1>Ondertitelbestand bestaat al voor deze video</h1>
+
+  <div class="finished_box replace_dialog_box">
+    <p>
+    De video gevonden op pid {{pid}} had reeds een bestaande ondertitelbestand {{srt_file}}. Wil je het vervangen?
+    </p>
+
+    <form class="confirm_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="token" value='{{token}}' /> <!-- supply auth token -->
+      <input type="hidden" name="pid" value='{{pid}}'/> 
+      <input type="hidden" name="mam_data" value='{{mam_data}}'/> 
+      <input type="hidden" name="subtitle_type" value='{{subtitle_type}}'/>
+      
+      <input type="hidden" name="subtitle_file" value='{{srt_file}}'/> 
+      <input type="hidden" name="vtt_file" value='{{vtt_file}}'/>
+      <input type="hidden" name="xml_file" value='{{xml_file}}'/>
+      <input type="hidden" name="xml_sidecar" value='{{xml_sidecar}}'/>
+      <input type="hidden" name="mh_response" value='{{mh_response}}'/>
+
+      <input type="hidden" name="replace_existing" value="confirm"/>
+
+      <input 
+        class="replace"
+        type="submit" 
+        value="Vervangen"
+        onClick="this.form.submit(); this.disabled=true; this.value='Versturen...'; "
+      />
+    </form>
+
+    <form class="confirm_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="token" value='{{token}}' /> <!-- supply auth token -->
+      <input type="hidden" name="pid" value='{{pid}}'/> 
+      <input type="hidden" name="mam_data" value='{{mam_data}}'/> 
+      <input type="hidden" name="subtitle_type" value='{{subtitle_type}}'/>
+
+      <input type="hidden" name="subtitle_file" value='{{srt_file}}'/> 
+      <input type="hidden" name="vtt_file" value='{{vtt_file}}'/>
+      <input type="hidden" name="xml_file" value='{{xml_file}}'/>
+      <input type="hidden" name="xml_sidecar" value='{{xml_sidecar}}'/>
+      <input type="hidden" name="mh_response" value='{{mh_response}}'/>
+
+      <input type="hidden" name="replace_existing" value="cancel"/>
+
+      <input 
+        class="cancel"
+        type="submit" 
+        value="Annuleren"
+        onClick="this.form.submit(); this.disabled=true; this.value='Versturen...'; "
+      />
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

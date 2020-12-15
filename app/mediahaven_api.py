@@ -91,7 +91,6 @@ class MediahavenApi:
 
     def delete_old_subtitle(self, subtitle_file):
         items = self.find_by('originalFileName', subtitle_file)
-        print(f"old subs={items}")
         if items.get('totalNrOfResults') >= 1:
             sub = items.get('mediaDataList')[0]
             frag_id = sub['fragmentId']
@@ -105,9 +104,6 @@ class MediahavenApi:
             srt_file,
             subtitle_type):
 
-        # TODO: do this after a confirmation button is clicked:
-        self.delete_old_subtitle(srt_file)
-
         # sends srt_file and xml_file to mediahaven
         send_url = f"{self.API_SERVER}/resources/media/"
         srt_path = os.path.join(upload_folder, srt_file)
@@ -120,6 +116,8 @@ class MediahavenApi:
             'departmentId': ('', 'dd111b7a-efd0-44e3-8816-0905572421da'),
             'autoPublish': ('', 'true')
         }
+
+        print(f"posting to mam data={file_fields}", flush=True)
 
         response = self.session.post(
             url=send_url,

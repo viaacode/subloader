@@ -25,7 +25,10 @@ Login
       <span class="form_errors">{{validation_errors}}</span>
       {% endif %}
 
-    <input type="submit" value="Login"/>
+    <input 
+      onClick="this.form.submit(); this.disabled=true; this.value='Authenticeren...'; "
+      type="submit" 
+      value="Login"/>
 
   </form>
 

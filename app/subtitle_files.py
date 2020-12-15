@@ -45,8 +45,9 @@ def save_subtitles(upload_folder, pid, uploaded_file):
 
 def delete_file(upload_folder, f):
     try:
-        sub_tempfile_path = os.path.join(upload_folder, f)
-        os.unlink(sub_tempfile_path)
+        if f and len(f) > 3:
+            sub_tempfile_path = os.path.join(upload_folder, f)
+            os.unlink(sub_tempfile_path)
     except FileNotFoundError:
         print(f"Warning file not found for deletion {f}", flush=True)
         pass
@@ -61,6 +62,12 @@ def move_subtitle(upload_folder, srt_file, subtitle_type, pid):
     if not os.path.exists(new_path):
         os.rename(orig_path, new_path)
     return new_filename
+
+
+def not_deleted(upload_folder, f):
+    return os.path.exists(
+        os.path.join(upload_folder, f)
+    )
 
 
 def get_property(mam_data, attribute):

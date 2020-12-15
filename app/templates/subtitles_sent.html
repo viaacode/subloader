@@ -10,21 +10,24 @@ Ondertitelbestand
 {% block content %}
 
 <div class="center_box">
-    <h2>Ondertitels en sidecar zijn verstuurd</h2>
+    {% if upload_cancelled %}
+      <h2>Bestaande ondertitels behouden</h2>
+    {% else %}
+      <h2>Ondertitels en sidecar zijn verstuurd</h2>
+    {% endif%}
     <div class="finished_box">
       <p>
         <table class="video_details">
           <tr><td>PID</td><td>{{pid}}</td></tr>
           <tr><td>Ondertitel type</td><td>{{subtitle_type}}</td></tr>
           <tr><td>Ondertitelbestand</td><td>{{srt_file}}</td></tr>
-          <tr><td>Sidecar xml file</td><td>{{xml_file}}</td></tr>
-          <tr><td>Sidecar data</td><td><textarea>{{xml_sidecar}}</textarea></td></tr>
-          <!-- 
-            hide this extra info
-            <tr><td>Video url</td><td>{{video_url}}</td></tr>
-            tr><td>Metadata</td><td><textarea>{{mam_data}}</textarea></td></tr>
-          -->
-          <tr><td>Mediahaven response</td><td><textarea>{{mh_response}}</textarea></td></tr>
+
+          {% if not upload_cancelled %}
+            <tr><td>Sidecar xml file</td><td>{{xml_file}}</td></tr>
+            <tr><td>Sidecar data</td><td><textarea>{{xml_sidecar}}</textarea></td></tr>
+            <tr><td>Mediahaven response</td><td><textarea>{{mh_response}}</textarea></td></tr>
+          {% endif %}
+
         </table>
       </p>
       <p>
