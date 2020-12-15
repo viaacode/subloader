@@ -259,14 +259,6 @@ def send_to_mam():
         delete_file(upload_folder(), vtt_file)
         delete_file(upload_folder(), xml_file)
 
-        return render_template('subtitles_sent.html',
-                               token=auth_token,
-                               pid=subtitle_pid,
-                               subtitle_type=subtitle_type,
-                               srt_file=srt_file,
-                               upload_cancelled=True
-                               )
-
     # extra check to avoid re-sending if user refreshes page
     if not_deleted(upload_folder(), srt_file):
         # first request, generate xml_file
@@ -310,7 +302,7 @@ def send_to_mam():
             (mh_response.get('status') == 409)
             or
             (mh_response.get('status') == 400)
-        ):  # duplicate error can give 409 or 400
+        ):  # duplicate error can give 409 or 400, show dialog
             return render_template('confirm_replace.html',
                                    token=auth_token,
                                    pid=subtitle_pid,
@@ -323,7 +315,7 @@ def send_to_mam():
                                    mam_data=mam_data
                                    )
 
-        # cleanup temp files and show final page with mh results
+        # cleanup temp files and show final page with mh request results
         delete_file(upload_folder(), srt_file)
         delete_file(upload_folder(), vtt_file)
         delete_file(upload_folder(), xml_file)
@@ -340,7 +332,8 @@ def send_to_mam():
                                )
     else:
         # user refreshed page (tempfiles already deleted),
-        # show that we kept the uploaded files
+        # or user chose 'cancel' above. in both cases show
+        # subtitles already sent
         return render_template('subtitles_sent.html',
                                token=auth_token,
                                pid=subtitle_pid,
