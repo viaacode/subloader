@@ -1,0 +1,192 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic dmlhYUB0ZXN0YmVlbGQ6dmlhdHdlZWR1dXNkMzMk
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.25.0
+    method: GET
+    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media?q=+(originalFileName:qsxs5jbm5c_closed.srt)&startIndex=0&nrOfResults=25
+  response:
+    body:
+      string: "{\"totalNrOfResults\":1,\"startIndex\":0,\"mediaDataList\":[{\"mediaObjectId\":\"0435da5810454be19a820d6aa221e25efcd2fd3762c142c1b38f83acb8a3b621\",\"fragmentId\":\"0435da5810454be19a820d6aa221e25efcd2fd3762c142c1b38f83acb8a3b6214d24b9072d744e87a52db37deb24a7dd\",\"externalId\":\"qsxs5jbm5c_closed\",\"title\":\"qsxs5jbm5c_closed.srt\",\"description\":\"\",\"date\":\"2020:12:15
+        18:27:40\",\"previewImagePath\":\"https://mheuropehot.blob.core.windows.net/mediahaven-saas-browse-main/no-preview.png\",\"thumbnailImagePath\":\"https://mheuropehot.blob.core.windows.net/mediahaven-saas-browse-main/no-preview.png\",\"videoPath\":\"\",\"originalFileName\":\"qsxs5jbm5c_closed.srt\",\"width\":0,\"height\":0,\"keywords\":[],\"type\":\"Document\",\"authors\":[],\"lastModifiedDate\":\"2020-12-15T17:27:44Z\",\"archiveDate\":\"2020-12-15T17:27:40Z\",\"exportable\":true,\"editable\":true,\"deletable\":true,\"isPublic\":true,\"ingestSpaceId\":\"\",\"isInIngestSpace\":false,\"status\":\"FINISHED\",\"browseStatus\":\"no_browse\",\"originalStatus\":\"completed\",\"archiveStatus\":\"in_progress\",\"workflow\":\"\",\"mdProperties\":[{\"value\":[{\"value\":\"qsxs5jbm5c\",\"attribute\":\"is_verwant_aan\",\"dottedKey\":null}],\"attribute\":\"dc_relations\",\"dottedKey\":null},{\"value\":\"OR-h41jm1d\",\"attribute\":\"CP_id\",\"dottedKey\":null},{\"value\":\"qsxs5jbm5c_closed\",\"attribute\":\"PID\",\"dottedKey\":null},{\"value\":\"testbeeld\",\"attribute\":\"CP\",\"dottedKey\":null},{\"value\":\"\xA9
+        testbeeld\",\"attribute\":\"RightsOwner\",\"dottedKey\":null},{\"value\":\"2020:12:15
+        18:27:40+01:00\",\"attribute\":\"CreationDate\",\"dottedKey\":null}],\"relations\":{}}]}"
+    headers:
+      Cache-Control:
+      - no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1498'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Dec 2020 17:29:29 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.0
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Via:
+      - kong/0.13.1
+      X-Correlation-ID:
+      - 15da68070fae967d005d755a7afbfbf9
+      X-Kong-Proxy-Latency:
+      - '169'
+      X-Kong-Upstream-Latency:
+      - '1136'
+      X-MediaHavenVersion:
+      - '20.3'
+      X-RateLimit-Limit-second:
+      - '10'
+      X-RateLimit-Remaining-second:
+      - '9'
+      x-forwarded-proto:
+      - https
+    status:
+      code: 200
+      message: ''
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic dmlhYUB0ZXN0YmVlbGQ6dmlhdHdlZWR1dXNkMzMk
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - python-requests/2.25.0
+    method: DELETE
+    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media/0435da5810454be19a820d6aa221e25efcd2fd3762c142c1b38f83acb8a3b6214d24b9072d744e87a52db37deb24a7dd
+  response:
+    body:
+      string: ''
+    headers:
+      Cache-Control:
+      - no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
+      Connection:
+      - keep-alive
+      Content-Type:
+      - text/plain; charset=UTF-8
+      Date:
+      - Thu, 17 Dec 2020 17:29:30 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.0
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Via:
+      - kong/0.13.1
+      X-Correlation-ID:
+      - 34eb25823bd61586d222e2bf72c63e45
+      X-Kong-Proxy-Latency:
+      - '97'
+      X-Kong-Upstream-Latency:
+      - '1106'
+      X-MediaHavenVersion:
+      - '20.3'
+      X-RateLimit-Limit-second:
+      - '5'
+      X-RateLimit-Remaining-second:
+      - '4'
+      x-forwarded-proto:
+      - https
+    status:
+      code: 204
+      message: ''
+- request:
+    body: "--9341bfc013fdbab723e66b0dfd6d4ca7\r\nContent-Disposition: form-data; name=\"file\";
+      filename=\"qsxs5jbm5c_closed.srt\"\r\n\r\n\uFEFF1\r\n00:00:01,000 --> 00:00:03,023\r\nTweede
+      subtitle test\r\n\r\n2\r\n00:00:03,676 --> 00:00:15,930\r\nGewone tekst hier\r\n\r\n3\r\n00:00:16,972
+      --> 00:50:16,350\r\nGewone tekst hier 50 minuten lang ;)\r\n\r\n\r\n\r\n--9341bfc013fdbab723e66b0dfd6d4ca7\r\nContent-Disposition:
+      form-data; name=\"metadata\"; filename=\"qsxs5jbm5c_closed.xml\"\r\n\r\n<?xml
+      version=\"1.0\" encoding=\"utf-8\"?>\n<MediaHAVEN_external_metadata>\n  <title>qsxs5jbm5c_closed.srt</title>\n
+      \ <MDProperties>\n    <CP>testbeeld</CP>\n    <CP_id>OR-h41jm1d</CP_id>\n    <PID>qsxs5jbm5c_closed</PID>\n
+      \   <ExternalId>qsxs5jbm5c</ExternalId>\n    <dc_relations>\n      <is_verwant_aan>qsxs5jbm5c</is_verwant_aan>\n
+      \   </dc_relations>\n  </MDProperties>\n</MediaHAVEN_external_metadata>\n\r\n--9341bfc013fdbab723e66b0dfd6d4ca7\r\nContent-Disposition:
+      form-data; name=\"externalId\"; filename=\"\"\r\n\r\nqsxs5jbm5c_closed\r\n--9341bfc013fdbab723e66b0dfd6d4ca7\r\nContent-Disposition:
+      form-data; name=\"departmentId\"; filename=\"\"\r\n\r\ndd111b7a-efd0-44e3-8816-0905572421da\r\n--9341bfc013fdbab723e66b0dfd6d4ca7\r\nContent-Disposition:
+      form-data; name=\"autoPublish\"; filename=\"\"\r\n\r\ntrue\r\n--9341bfc013fdbab723e66b0dfd6d4ca7--\r\n"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic dmlhYUB0ZXN0YmVlbGQ6dmlhdHdlZWR1dXNkMzMk
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1235'
+      Content-Type:
+      - multipart/form-data; boundary=9341bfc013fdbab723e66b0dfd6d4ca7
+      User-Agent:
+      - python-requests/2.25.0
+    method: POST
+    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media/
+  response:
+    body:
+      string: '{"mediaObjectId":"4850f2fc425f4169b2b3741ad87f3e2aeee7819e86ff420787171cc565c8663a","fragmentId":"4850f2fc425f4169b2b3741ad87f3e2aeee7819e86ff420787171cc565c8663a6f2f468e50e249e6a341b54ffa9d0124","externalId":"qsxs5jbm5c_closed","title":"qsxs5jbm5c_closed.srt","description":"","date":"","previewImagePath":"","thumbnailImagePath":"","videoPath":"","originalFileName":"qsxs5jbm5c_closed.srt","width":0,"height":0,"keywords":[],"type":"Processing","authors":[],"lastModifiedDate":"2020-12-17T17:29:33.532000Z","archiveDate":"2020-12-17T17:29:32Z","exportable":true,"editable":true,"deletable":true,"isPublic":true,"ingestSpaceId":"AUTO-PUBLISHED","isInIngestSpace":false,"status":"PROCESSING","browseStatus":"in_progress","originalStatus":"in_progress","archiveStatus":"in_progress","workflow":"","mdProperties":[{"value":[{"value":"qsxs5jbm5c","attribute":"is_verwant_aan","dottedKey":null}],"attribute":"dc_relations","dottedKey":null},{"value":"OR-h41jm1d","attribute":"CP_id","dottedKey":null},{"value":"qsxs5jbm5c_closed","attribute":"PID","dottedKey":null},{"value":"testbeeld","attribute":"CP","dottedKey":null}],"relations":{}}'
+    headers:
+      Cache-Control:
+      - no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1134'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Dec 2020 17:29:33 GMT
+      Expires:
+      - '0'
+      Location:
+      - https://archief-qas.viaa.be:443/mediahaven-rest-api/resources/media/4850f2fc425f4169b2b3741ad87f3e2aeee7819e86ff420787171cc565c8663a6f2f468e50e249e6a341b54ffa9d0124
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.0
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Via:
+      - kong/0.13.1
+      X-Correlation-ID:
+      - 1c1172bb4ded134ceb23b7c7910ee3ae
+      X-Kong-Proxy-Latency:
+      - '0'
+      X-Kong-Upstream-Latency:
+      - '3014'
+      X-MediaHavenVersion:
+      - '20.3'
+      X-RateLimit-Limit-second:
+      - '5'
+      X-RateLimit-Remaining-second:
+      - '4'
+      x-forwarded-proto:
+      - https
+    status:
+      code: 201
+      message: ''
+version: 1

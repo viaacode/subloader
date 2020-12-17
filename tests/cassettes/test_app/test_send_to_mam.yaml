@@ -1,0 +1,76 @@
+interactions:
+- request:
+    body: "--196894ac779eada09050a58abfe4b5a4\r\nContent-Disposition: form-data; name=\"file\";
+      filename=\"qsxs5jbm5c_closed.srt\"\r\n\r\n\uFEFF1\r\n00:00:01,000 --> 00:00:03,023\r\nTweede
+      subtitle test\r\n\r\n2\r\n00:00:03,676 --> 00:00:15,930\r\nGewone tekst hier\r\n\r\n3\r\n00:00:16,972
+      --> 00:50:16,350\r\nGewone tekst hier 50 minuten lang ;)\r\n\r\n\r\n\r\n--196894ac779eada09050a58abfe4b5a4\r\nContent-Disposition:
+      form-data; name=\"metadata\"; filename=\"qsxs5jbm5c_closed.xml\"\r\n\r\n<?xml
+      version=\"1.0\" encoding=\"utf-8\"?>\n<MediaHAVEN_external_metadata>\n  <title>qsxs5jbm5c_closed.srt</title>\n
+      \ <MDProperties>\n    <CP>testbeeld</CP>\n    <CP_id>OR-h41jm1d</CP_id>\n    <PID>qsxs5jbm5c_closed</PID>\n
+      \   <ExternalId>qsxs5jbm5c</ExternalId>\n    <dc_relations>\n      <is_verwant_aan>qsxs5jbm5c</is_verwant_aan>\n
+      \   </dc_relations>\n  </MDProperties>\n</MediaHAVEN_external_metadata>\n\r\n--196894ac779eada09050a58abfe4b5a4\r\nContent-Disposition:
+      form-data; name=\"externalId\"; filename=\"\"\r\n\r\nqsxs5jbm5c_closed\r\n--196894ac779eada09050a58abfe4b5a4\r\nContent-Disposition:
+      form-data; name=\"departmentId\"; filename=\"\"\r\n\r\ndd111b7a-efd0-44e3-8816-0905572421da\r\n--196894ac779eada09050a58abfe4b5a4\r\nContent-Disposition:
+      form-data; name=\"autoPublish\"; filename=\"\"\r\n\r\ntrue\r\n--196894ac779eada09050a58abfe4b5a4--\r\n"
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic dmlhYUB0ZXN0YmVlbGQ6dmlhdHdlZWR1dXNkMzMk
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1235'
+      Content-Type:
+      - multipart/form-data; boundary=196894ac779eada09050a58abfe4b5a4
+      User-Agent:
+      - python-requests/2.25.0
+    method: POST
+    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media/
+  response:
+    body:
+      string: "{\n  \"message\" : \"File already available within MediaHaven for your
+        organisation\",\n  \"status\" : 409,\n  \"code\" : \"EDUPLICATE\"\n}"
+    headers:
+      Cache-Control:
+      - no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '125'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Dec 2020 17:01:33 GMT
+      Expires:
+      - '0'
+      Location:
+      - https://archief-qas.viaa.be:443/mediahaven-rest-api/resources/media/0435da5810454be19a820d6aa221e25efcd2fd3762c142c1b38f83acb8a3b6214d24b9072d744e87a52db37deb24a7dd
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.0
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Via:
+      - kong/0.13.1
+      X-Correlation-ID:
+      - 57db0740be7ad3877615385b795f6842
+      X-Kong-Proxy-Latency:
+      - '0'
+      X-Kong-Upstream-Latency:
+      - '1168'
+      X-MediaHavenVersion:
+      - '20.3'
+      X-RateLimit-Limit-second:
+      - '5'
+      X-RateLimit-Remaining-second:
+      - '4'
+      x-forwarded-proto:
+      - https
+    status:
+      code: 409
+      message: ''
+version: 1
