@@ -18,6 +18,7 @@ import json
 @pytest.fixture(scope="module")
 def setup():
     app.config['TESTING'] = True
+    app.config['UPLOAD_FOLDER'] = 'subtitle_uploads'
     yield setup
 
 
@@ -155,7 +156,8 @@ def test_valid_subtitle(client):
     filepath = os.path.join('./tests/test_subs', filename)
 
     with open('./tests/test_subs/mam_data.yml', "r") as f:
-        mam_data = json.loads(yaml.safe_load(f)['response'])
+        mam_data = json.loads(yaml.safe_load(f)['response'])[
+            'mediaDataList'][0]
 
     res = client.post("/upload", data={
         'token': jwt_token(),
@@ -181,7 +183,8 @@ def test_valid_subtitle_capitals(client):
     filepath = os.path.join('./tests/test_subs', filename)
 
     with open('./tests/test_subs/mam_data.yml', "r") as f:
-        mam_data = json.loads(yaml.safe_load(f)['response'])
+        mam_data = json.loads(yaml.safe_load(f)['response'])[
+            'mediaDataList'][0]
 
     res = client.post("/upload", data={
         'token': jwt_token(),
@@ -223,46 +226,78 @@ def test_subtitle_videoplayer_route(client):
     res = client.get('/subtitles/qsxs5jbm5c.vtt')
     assert res.status_code == 200
 
-    # now cancel this upload
-    data = {
+
+@pytest.mark.vcr
+def test_subtitle_videoplayer_route_unknownfile(client):
+    res = client.get('/subtitles/someinvalidpath.vtt')
+    assert res.status_code == 404
+
+
+@pytest.mark.vcr
+def test_send_to_mam_shows_confirmation(client):
+    with open('./tests/test_subs/mam_data.yml', "r") as f:
+        mam_data = json.loads(yaml.safe_load(f)['response'])[
+            'mediaDataList'][0]
+
+    res = client.post("/send_to_mam", data={
         'token': jwt_token(),
         'pid': 'qsxs5jbm5c',
         'department': 'testbeeld',
-        'srt_file': 'qsxs5jbm5c.srt',
+        'subtitle_type': 'closed',
+        'subtitle_file': 'qsxs5jbm5c.srt',
         'vtt_file': 'qsxs5jbm5c.vtt',
-    }
-    res = client.get(
-        "/cancel_upload",
-        query_string=data,
-        follow_redirects=True)
+        'mam_data': json.dumps(mam_data)
+    }, follow_redirects=True)
+
     assert res.status_code == 200
-    assert 'Ondertitelbestand' in res.data.decode()
+    assert '<h1>Ondertitelbestand bestaat al voor deze video</h1>' in res.data.decode()
+    assert 'bestaande ondertitelbestand qsxs5jbm5c_closed.srt. Wil je het vervangen?' in res.data.decode()
 
-    res = client.get('/subtitles/qsxs5jbm5c.vtt')
-    assert res.status_code == 404  # as now the files should be deleted
 
-# todo test this send_to_mam (most likely we need the above files to be present...
-# @pytest.mark.vcr
-# def test_send_to_mam(client):
-#     with open('./tests/test_subs/mam_data.yml', "r") as f:
-#         mam_data = json.loads(yaml.safe_load(f)['response'])
-#
-#     res = client.post("/upload", data={
-#         'token': jwt_token(),
-#         'pid': 'qsxs5jbm5c',
-#         'department': 'testbeeld',
-#         'mam_data': json.dumps(mam_data),
-#         'video_url': 'http://somevideopath',
-#         'subtitle_type': 'closed',
-#         'subtitle_file': (open(filepath, 'rb'), filename)
-#     }, follow_redirects=True)
-#
-#     assert res.status_code == 200
-#     assert '<h1>Ondertitelbestand</h1>' in res.data.decode()
-#     assert 'qsxs5jbm5c' in res.data.decode()
-#     assert 'qsxs5jbm5c.srt' in res.data.decode()
-#     assert 'Toevoegen' in res.data.decode()
-#     assert 'Wissen' in res.data.decode()
+@pytest.mark.vcr
+def test_send_to_mam_confirm_works(client):
+    with open('./tests/test_subs/mam_data.yml', "r") as f:
+        mam_data = json.loads(yaml.safe_load(f)['response'])[
+            'mediaDataList'][0]
+
+    # replace existing subtitle now
+    res = client.post("/send_to_mam", data={
+        'token': jwt_token(),
+        'pid': 'qsxs5jbm5c',
+        'department': 'testbeeld',
+        'subtitle_type': 'closed',
+        'subtitle_file': 'qsxs5jbm5c_closed.srt',
+        'xml_file': 'qsxs5jbm5c_closed.xml',
+        'mam_data': json.dumps(mam_data),
+        'replace_existing': 'confirm'
+    }, follow_redirects=True)
+
+    assert res.status_code == 200
+    print(res.data.decode(), flush=True)
+    assert '<h2>Ondertitels en sidecar zijn verstuurd</h2>' in res.data.decode()
+
+
+@pytest.mark.vcr
+def test_send_to_mam_cancel_works(client):
+    with open('./tests/test_subs/mam_data.yml', "r") as f:
+        mam_data = json.loads(yaml.safe_load(f)['response'])[
+            'mediaDataList'][0]
+
+    # replace existing subtitle now
+    res = client.post("/send_to_mam", data={
+        'token': jwt_token(),
+        'pid': 'qsxs5jbm5c',
+        'department': 'testbeeld',
+        'subtitle_type': 'closed',
+        'subtitle_file': 'qsxs5jbm5c_closed.srt',
+        'vtt_file': 'qsxs5jbm5c.vtt',
+        'xml_file': 'qsxs5jbm5c_closed.xml',
+        'mam_data': json.dumps(mam_data),
+        'replace_existing': 'cancel'
+    }, follow_redirects=True)
+
+    assert res.status_code == 200
+    assert '<h2>Bestaande ondertitels behouden</h2>' in res.data.decode()
 
 
 def test_random_404(client, setup):
