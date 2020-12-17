@@ -12,6 +12,7 @@ Ondertitels valideren
 <h1>Ondertitelbestand</h1>
 <div class="left_page">
   <form class="validate_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
+
     {% include 'upload_hidden_fields.html' %}
     <input type="hidden" name="subtitle_file" value='{{subtitle_file}}'/> 
     <input type="hidden" name="vtt_file" value='{{vtt_file}}'/>
