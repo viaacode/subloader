@@ -135,8 +135,6 @@ def test_invalid_upload(client):
 
 @pytest.mark.vcr
 def test_empty_upload(client):
-    filename = 'somefile.png'
-
     res = client.post("/upload", data={
         'token': jwt_token(),
         'pid': 'qsxs5jbm5c',
