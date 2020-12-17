@@ -1,0 +1,97 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic dmlhYUB0ZXN0YmVlbGQ6dmlhdHdlZWR1dXNkMzMk
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.25.0
+    method: GET
+    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media?q=%2B(DepartmentName:testbeeld)%2B(ExternalId:qsxs5jbm5c)&startIndex=0&nrOfResults=25
+  response:
+    body:
+      string: '{"totalNrOfResults":1,"startIndex":0,"mediaDataList":[{"offsetFrames":0,"fragmentStartFrames":0,"fragmentEndFrames":174,"fragmentDurationFrames":174,"offsetTimeCode":"00:00:00.000","fragmentStartTimeCode":"00:00:00.000","fragmentEndTimeCode":"00:00:06.960","fragmentDurationTimeCode":"00:00:06.960","mediaObjectId":"77b87e7238084ea195608310060fa834927ffb6c019e4eec8a20866ff9c2dfb4","fragmentId":"77b87e7238084ea195608310060fa834927ffb6c019e4eec8a20866ff9c2dfb401edfc6f7a3b466fbd52c7d29a88a1f3","externalId":"qsxs5jbm5c","title":"Meivaart
+        der Antwerpsche Patronaten | De","description":"Optocht van kinderen met trommels
+        en vlaggen naar grot, openluchtvergadering, pick-nick, plechtig lof.","date":"1937:01:01
+        00:00:00","previewImagePath":"https://archief-media-qas.viaa.be/viaa/TESTBEELD/77b87e7238084ea195608310060fa834927ffb6c019e4eec8a20866ff9c2dfb4/keyframes/keyframes_1_1/keyframe1.jpg","thumbnailImagePath":"https://archief-media-qas.viaa.be/viaa/TESTBEELD/77b87e7238084ea195608310060fa834927ffb6c019e4eec8a20866ff9c2dfb4/keyframes-thumb/keyframes_1_1/keyframe1.jpg","videoPath":"https://archief-media-qas.viaa.be/viaa/TESTBEELD/77b87e7238084ea195608310060fa834927ffb6c019e4eec8a20866ff9c2dfb4/browse.mp4","originalFileName":"qsxs5jbm5c.mp4","width":832,"height":468,"keywords":[],"type":"Video","authors":[],"lastModifiedDate":"2020-10-15T09:26:12Z","archiveDate":"2019-10-16T13:46:14Z","exportable":true,"editable":true,"deletable":true,"isPublic":false,"ingestSpaceId":"","isInIngestSpace":false,"status":"FINISHED","browseStatus":null,"originalStatus":"completed","archiveStatus":"on_disk","workflow":"CineNova","mdProperties":[{"value":"5
+        essential, HR digitisation","attribute":"value_cp","dottedKey":null},{"value":[{"value":"reportage","attribute":"Trefwoord","dottedKey":null},{"value":"Silent
+        Movie","attribute":"Trefwoord","dottedKey":null},{"value":"Belgium","attribute":"Trefwoord","dottedKey":null}],"attribute":"dc_subjects","dottedKey":null},{"value":"No","attribute":"is_there_a_sync_point","dottedKey":null},{"subKey":"multiselect","value":[{"value":"VIAA-INTRA_CP-METADATA-ALL","attribute":"multiselect","dottedKey":null},{"value":"VIAA-ONDERWIJS","attribute":"multiselect","dottedKey":null},{"value":"VIAA-ONDERZOEK","attribute":"multiselect","dottedKey":null},{"value":"VIAA-PUBLIEK-METADATA-LTD","attribute":"multiselect","dottedKey":null}],"attribute":"dc_rights_licenses","dottedKey":null},{"value":[{"value":"1j9765cj05","attribute":"is_verwant_aan","dottedKey":null}],"attribute":"dc_relations","dottedKey":null},{"value":[{"value":"Meivaart
+        der Antwerpsche Patronaten  De.xml","attribute":"Bestandsnaam","dottedKey":null}],"attribute":"dc_identifier_localids","dottedKey":null},{"value":"OR-154dn75","attribute":"Original_CP_ID","dottedKey":null},{"value":"Meivaart
+        der Antwerpsche Patronaten  De.mp4","attribute":"dc_source","dottedKey":null},{"value":"1937:01:01
+        00:00:00","attribute":"CreationDate","dottedKey":null},{"value":"Unknown","attribute":"projection_speed","dottedKey":null},{"value":"acetate","attribute":"film_base","dottedKey":null},{"value":"IM0218L5","attribute":"lto_id","dottedKey":null},{"value":"Print","attribute":"material_type","dottedKey":null},{"value":"1:00:00","attribute":"estimate_preparation_time_for_digitisation","dottedKey":null},{"value":"film
+        in good state","attribute":"physical_state_film","dottedKey":null},{"value":"2K
+        ( 2048x1556)","attribute":"digitisation_format","dottedKey":null},{"value":"66
+        Meter","attribute":"length","dottedKey":null},{"value":"film","attribute":"type_viaa","dottedKey":null},{"value":"CineNova","attribute":"sp_name","dottedKey":null},{"value":"\u003cpremis:premis
+        version\u003d\"2.3\" xmlns:premis\u003d\"info:lc/xmlns/premis-v2\"\u003e\u003cpremis:event
+        xmlns:premis\u003d\"info:lc/xmlns/premis-v2\" xmlns:mets\u003d\"http://www.loc.gov/METS/\"
+        xmlns:revtmd\u003d\"http://nwtssite.nwts.nara/schema/\" xmlns:xlink\u003d\"http://www.w3.org/1999/xlink\"
+        xmlns:xsi\u003d\"http://www.w3.org/2001/XMLSchema-instance\"\u003e\n\t\t\t\t\t\t\u003cpremis:eventIdentifier\u003e\n\t\t\t\t\t\t\t\u003cpremis:eventIdentifierType\u003eSP
+        Event\u003c/premis:eventIdentifierType\u003e\n\t\t\t\t\t\t\t\u003cpremis:eventIdentifierValue\u003eINSPECTION-EVENT\u003c/premis:eventIdentifierValue\u003e\n\t\t\t\t\t\t\u003c/premis:eventIdentifier\u003e\n\t\t\t\t\t\t\u003cpremis:eventType\u003eINSPECTION\u003c/premis:eventType\u003e\n\t\t\t\t\t\t\u003cpremis:eventDateTime\u003e2018-11-26\u003c/premis:eventDateTime\u003e\n\t\t\t\t\t\t\u003cpremis:eventDetail\u003einspection
+        and manual cleaning of carrier and emulsion side\u003c/premis:eventDetail\u003e\n\t\t\t\t\t\t\u003cpremis:eventOutcomeInformation\u003e\n\t\t\t\t\t\t\t\u003cpremis:eventOutcome\u003ey\u003c/premis:eventOutcome\u003e\n\t\t\t\t\t\t\u003c/premis:eventOutcomeInformation\u003e\n\t\t\t\t\t\t\u003cpremis:linkingAgentIdentifier\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingAgentIdentifierType\u003eSP
+        Agent\u003c/premis:linkingAgentIdentifierType\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingAgentIdentifierValue\u003eBigit
+        Oldenburg Dombo,service provider employee\u003c/premis:linkingAgentIdentifierValue\u003e\n\t\t\t\t\t\t\u003c/premis:linkingAgentIdentifier\u003e\n\t\t\t\t\t\t\u003cpremis:linkingObjectIdentifier\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingObjectIdentifierType\u003eCarrier
+        PID\u003c/premis:linkingObjectIdentifierType\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingObjectIdentifierValue\u003e1j9765cj05\u003c/premis:linkingObjectIdentifierValue\u003e\n\t\t\t\t\t\t\u003c/premis:linkingObjectIdentifier\u003e\n\t\t\t\t\t\u003c/premis:event\u003e\n\t\t\t\t\u003cpremis:event
+        xmlns:premis\u003d\"info:lc/xmlns/premis-v2\" xmlns:mets\u003d\"http://www.loc.gov/METS/\"
+        xmlns:revtmd\u003d\"http://nwtssite.nwts.nara/schema/\" xmlns:xlink\u003d\"http://www.w3.org/1999/xlink\"
+        xmlns:xsi\u003d\"http://www.w3.org/2001/XMLSchema-instance\"\u003e\n\t\t\t\t\t\t\u003cpremis:eventIdentifier\u003e\n\t\t\t\t\t\t\t\u003cpremis:eventIdentifierType\u003eSP
+        Event\u003c/premis:eventIdentifierType\u003e\n\t\t\t\t\t\t\t\u003cpremis:eventIdentifierValue\u003eDIGITIZATION-EVENT\u003c/premis:eventIdentifierValue\u003e\n\t\t\t\t\t\t\u003c/premis:eventIdentifier\u003e\n\t\t\t\t\t\t\u003cpremis:eventType\u003eDIGITIZATION\u003c/premis:eventType\u003e\n\t\t\t\t\t\t\u003cpremis:eventDateTime\u003e2018-12-04\u003c/premis:eventDateTime\u003e\n\t\t\t\t\t\t\u003cpremis:eventDetail\u003ePerforation
+        stabilised, Frameline shifts\u003c/premis:eventDetail\u003e\n\t\t\t\t\t\t\u003cpremis:eventOutcomeInformation\u003e\n\t\t\t\t\t\t\t\u003cpremis:eventOutcome\u003ey\u003c/premis:eventOutcome\u003e\n\t\t\t\t\t\t\u003c/premis:eventOutcomeInformation\u003e\n\t\t\t\t\t\t\u003cpremis:linkingAgentIdentifier\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingAgentIdentifierType\u003eSP
+        Agent\u003c/premis:linkingAgentIdentifierType\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingAgentIdentifierValue\u003eMWA
+        Nova,flashtransfer choice 626\u003c/premis:linkingAgentIdentifierValue\u003e\n\t\t\t\t\t\t\u003c/premis:linkingAgentIdentifier\u003e\n\t\t\t\t\t\t\u003cpremis:linkingObjectIdentifier\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingObjectIdentifierType\u003eCarrier
+        PID\u003c/premis:linkingObjectIdentifierType\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingObjectIdentifierValue\u003e1j9765cj05_zip.zip\u003c/premis:linkingObjectIdentifierValue\u003e\n\t\t\t\t\t\t\u003c/premis:linkingObjectIdentifier\u003e\n\t\t\t\t\t\u003c/premis:event\u003e\n\t\t\t\t\u003cpremis:event
+        xmlns:premis\u003d\"info:lc/xmlns/premis-v2\" xmlns:mets\u003d\"http://www.loc.gov/METS/\"
+        xmlns:revtmd\u003d\"http://nwtssite.nwts.nara/schema/\" xmlns:xlink\u003d\"http://www.w3.org/1999/xlink\"
+        xmlns:xsi\u003d\"http://www.w3.org/2001/XMLSchema-instance\"\u003e\n\t\t\t\t\t\t\u003cpremis:eventIdentifier\u003e\n\t\t\t\t\t\t\t\u003cpremis:eventIdentifierType\u003eSP
+        Event\u003c/premis:eventIdentifierType\u003e\n\t\t\t\t\t\t\t\u003cpremis:eventIdentifierValue\u003eEDITING-EVENT\u003c/premis:eventIdentifierValue\u003e\n\t\t\t\t\t\t\u003c/premis:eventIdentifier\u003e\n\t\t\t\t\t\t\u003cpremis:eventType\u003eEDITING\u003c/premis:eventType\u003e\n\t\t\t\t\t\t\u003cpremis:eventDateTime\u003e2018-12-07\u003c/premis:eventDateTime\u003e\n\t\t\t\t\t\t\u003cpremis:eventDetail\u003e16fps\u003c/premis:eventDetail\u003e\n\t\t\t\t\t\t\u003cpremis:eventOutcomeInformation\u003e\n\t\t\t\t\t\t\t\u003cpremis:eventOutcome\u003ey\u003c/premis:eventOutcome\u003e\n\t\t\t\t\t\t\u003c/premis:eventOutcomeInformation\u003e\n\t\t\t\t\t\t\u003cpremis:linkingAgentIdentifier\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingAgentIdentifierType\u003eSP
+        Agent\u003c/premis:linkingAgentIdentifierType\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingAgentIdentifierValue\u003ePremiere
+        Pro, Adobe\u003c/premis:linkingAgentIdentifierValue\u003e\n\t\t\t\t\t\t\u003c/premis:linkingAgentIdentifier\u003e\n\t\t\t\t\t\t\u003cpremis:linkingObjectIdentifier\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingObjectIdentifierType\u003eCarrier
+        PID\u003c/premis:linkingObjectIdentifierType\u003e\n\t\t\t\t\t\t\t\u003cpremis:linkingObjectIdentifierValue\u003e1j9765cj05_mezzanine.mov\u003c/premis:linkingObjectIdentifierValue\u003e\n\t\t\t\t\t\t\u003c/premis:linkingObjectIdentifier\u003e\n\t\t\t\t\t\u003c/premis:event\u003e\n\t\t\t\t\u003c/premis:premis\u003e","attribute":"premis","dottedKey":null},{"value":"AFLM_KAD_000151","attribute":"barcode_image_reels","dottedKey":null},{"value":"1937-uu-uu","attribute":"dcterms_created","dottedKey":null},{"value":"test","attribute":"dc_rights_comment","dottedKey":null},{"value":"No","attribute":"is_the_sound_sync","dottedKey":null},{"value":"qsxs5jbm5c","attribute":"PID","dottedKey":null},{"value":"2015-11-09","attribute":"batch_pickup_date","dottedKey":null},{"value":"testbeeld","attribute":"CP","dottedKey":null},{"value":"FLMB01","attribute":"batch_name","dottedKey":null},{"value":"Noortje","attribute":"created_by","dottedKey":null},{"value":"0:00:00","attribute":"estimate_manual_cleaning_time","dottedKey":null},{"value":"No","attribute":"subtitles","dottedKey":null},{"value":"16mm","attribute":"gauge","dottedKey":null},{"value":"amsab","attribute":"Original_CP","dottedKey":null},{"value":"2015-08-20T16:08:08","attribute":"created_on","dottedKey":null},{"value":"Victor
+        De Vocht","attribute":"updated_by","dottedKey":null},{"value":"OR-h41jm1d","attribute":"CP_id","dottedKey":null},{"value":"FLMB01","attribute":"batch_id","dottedKey":null},{"value":"BE/942855/547/35","attribute":"dc_identifier_localid","dottedKey":null},{"value":"awaiting
+        review CP","attribute":"record_status","dottedKey":null},{"value":"B/W","attribute":"color_or_bw","dottedKey":null},{"value":"image","attribute":"image_sound","dottedKey":null},{"value":"0:00:00","attribute":"duration_viaa","dottedKey":null},{"value":"DataHandler","attribute":"RightsOwner","dottedKey":null},{"value":"2016-09-08T11:09:09","attribute":"updated_on","dottedKey":null},{"value":"1","attribute":"num_reels","dottedKey":null},{"value":"1:37","attribute":"aspect_ratio","dottedKey":null}],"relations":{}}]}'
+    headers:
+      Cache-Control:
+      - no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Dec 2020 15:22:02 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.0
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - kong/0.13.1
+      X-Correlation-ID:
+      - b54609e10154b75d6aced1d86a1c244b
+      X-Kong-Proxy-Latency:
+      - '0'
+      X-Kong-Upstream-Latency:
+      - '873'
+      X-MediaHavenVersion:
+      - '20.3'
+      X-RateLimit-Limit-second:
+      - '10'
+      X-RateLimit-Remaining-second:
+      - '9'
+      x-forwarded-proto:
+      - https
+    status:
+      code: 200
+      message: ''
+version: 1

@@ -1,0 +1,60 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic dmlhYUB0ZXN0YmVlbGQ6dmlhdHdlZWR1dXNkMzMk
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.25.0
+    method: GET
+    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media?q=%2B(DepartmentName:testbeeld)%2B(ExternalId:abc)&startIndex=0&nrOfResults=25
+  response:
+    body:
+      string: '{"totalNrOfResults":0,"startIndex":0,"mediaDataList":[]}'
+    headers:
+      Cache-Control:
+      - no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '56'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 17 Dec 2020 16:09:22 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.19.0
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Via:
+      - kong/0.13.1
+      X-Correlation-ID:
+      - 3dca20828e9814d278aa216f2efcd8a3
+      X-Kong-Proxy-Latency:
+      - '0'
+      X-Kong-Upstream-Latency:
+      - '736'
+      X-MediaHavenVersion:
+      - '20.3'
+      X-RateLimit-Limit-second:
+      - '10'
+      X-RateLimit-Remaining-second:
+      - '9'
+      x-forwarded-proto:
+      - https
+    status:
+      code: 200
+      message: ''
+version: 1

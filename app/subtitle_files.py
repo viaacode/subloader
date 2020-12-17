@@ -80,7 +80,7 @@ def not_deleted(upload_folder, f):
 
 
 def get_property(mam_data, attribute):
-    props = mam_data.get('mdProperties')
+    props = mam_data.get('mdProperties', [])
     result = None
     for prop in props:
         if prop.get('attribute') == attribute:

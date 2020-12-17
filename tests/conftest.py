@@ -9,7 +9,10 @@ import pytest
 from app.subloader import app
 
 
-@pytest.fixture
+@pytest.fixture(scope='module')
 def client():
-    with app.test_client() as client:
-        yield client
+    testing_client = app.test_client()
+    ctx = app.app_context()
+    ctx.push()
+    yield testing_client
+    ctx.pop()
