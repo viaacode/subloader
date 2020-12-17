@@ -18,19 +18,8 @@ Ondertitels valideren
     </p>
 
     <form class="confirm_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="token" value='{{token}}' /> <!-- supply auth token -->
-      <input type="hidden" name="pid" value='{{pid}}'/> 
-      <input type="hidden" name="mam_data" value='{{mam_data}}'/> 
-      <input type="hidden" name="subtitle_type" value='{{subtitle_type}}'/>
-      
-      <input type="hidden" name="subtitle_file" value='{{srt_file}}'/> 
-      <input type="hidden" name="vtt_file" value='{{vtt_file}}'/>
-      <input type="hidden" name="xml_file" value='{{xml_file}}'/>
-      <input type="hidden" name="xml_sidecar" value='{{xml_sidecar}}'/>
-      <input type="hidden" name="mh_response" value='{{mh_response}}'/>
-
+      {% include 'confirm_fields.html'%}
       <input type="hidden" name="replace_existing" value="confirm"/>
-
       <input 
         class="replace"
         type="submit" 
@@ -40,19 +29,8 @@ Ondertitels valideren
     </form>
 
     <form class="confirm_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="token" value='{{token}}' /> <!-- supply auth token -->
-      <input type="hidden" name="pid" value='{{pid}}'/> 
-      <input type="hidden" name="mam_data" value='{{mam_data}}'/> 
-      <input type="hidden" name="subtitle_type" value='{{subtitle_type}}'/>
-
-      <input type="hidden" name="subtitle_file" value='{{srt_file}}'/> 
-      <input type="hidden" name="vtt_file" value='{{vtt_file}}'/>
-      <input type="hidden" name="xml_file" value='{{xml_file}}'/>
-      <input type="hidden" name="xml_sidecar" value='{{xml_sidecar}}'/>
-      <input type="hidden" name="mh_response" value='{{mh_response}}'/>
-
+      {% include 'confirm_fields.html'%}
       <input type="hidden" name="replace_existing" value="cancel"/>
-
       <input 
         class="cancel"
         type="submit" 
