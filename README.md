@@ -56,40 +56,40 @@ To run the tests locally and also run flake8 linter/code checking:
 ```
 $ scripts/test
 
-========================================= test session starts =========================================
-platform darwin -- Python 3.8.5, pytest-5.4.1, py-1.9.0, pluggy-0.13.1 -- /Users/wschrep/FreelanceWork/VIAA/subloader/python_env/bin/python
+==================================== test session starts ==================================
+platform darwin -- Python 3.8.5, pytest-5.4.1, py-1.9.0, pluggy-0.13.1
 cachedir: .pytest_cache
 rootdir: /Users/wschrep/FreelanceWork/VIAA/subloader
 plugins: recording-0.11.0, cov-2.8.1
 collected 25 items                                                                                    
 
-tests/test_app.py::test_home PASSED                                                             [  4%]
-tests/test_app.py::test_liveness_check PASSED                                                   [  8%]
-tests/test_app.py::test_search_media_security PASSED                                            [ 12%]
-tests/test_app.py::test_search_media PASSED                                                     [ 16%]
-tests/test_app.py::test_invalid_pid_entry PASSED                                                [ 20%]
-tests/test_app.py::test_empty_pid PASSED                                                        [ 24%]
-tests/test_app.py::test_wrong_pid_entry PASSED                                                  [ 28%]
-tests/test_app.py::test_working_pid_search PASSED                                               [ 32%]
-tests/test_app.py::test_bad_srt_upload PASSED                                                   [ 36%]
-tests/test_app.py::test_invalid_upload PASSED                                                   [ 40%]
-tests/test_app.py::test_empty_upload PASSED                                                     [ 44%]
-tests/test_app.py::test_valid_subtitle PASSED                                                   [ 48%]
-tests/test_app.py::test_valid_subtitle_capitals PASSED                                          [ 52%]
-tests/test_app.py::test_cancel_upload PASSED                                                    [ 56%]
-tests/test_app.py::test_subtitle_videoplayer_route PASSED                                       [ 60%]
-tests/test_app.py::test_subtitle_videoplayer_route_unknownfile PASSED                           [ 64%]
-tests/test_app.py::test_send_to_mam_shows_confirmation PASSED                                   [ 68%]
-tests/test_app.py::test_send_to_mam_confirm_works PASSED                                        [ 72%]
-tests/test_app.py::test_send_to_mam_cancel_works PASSED                                         [ 76%]
-tests/test_app.py::test_random_404 PASSED                                                       [ 80%]
-tests/test_authorization.py::test_jwt PASSED                                                    [ 84%]
-tests/test_authorization.py::test_bad_jwt PASSED                                                [ 88%]
-tests/test_authorization.py::test_token_signature_bad_decode PASSED                             [ 92%]
-tests/test_authorization.py::test_wrong_credentials PASSED                                      [ 96%]
-tests/test_authorization.py::test_right_credentials PASSED                                      [100%]
+tests/test_app.py::test_home PASSED                                                  [  4%]
+tests/test_app.py::test_liveness_check PASSED                                        [  8%]
+tests/test_app.py::test_search_media_security PASSED                                 [ 12%]
+tests/test_app.py::test_search_media PASSED                                          [ 16%]
+tests/test_app.py::test_invalid_pid_entry PASSED                                     [ 20%]
+tests/test_app.py::test_empty_pid PASSED                                             [ 24%]
+tests/test_app.py::test_wrong_pid_entry PASSED                                       [ 28%]
+tests/test_app.py::test_working_pid_search PASSED                                    [ 32%]
+tests/test_app.py::test_bad_srt_upload PASSED                                        [ 36%]
+tests/test_app.py::test_invalid_upload PASSED                                        [ 40%]
+tests/test_app.py::test_empty_upload PASSED                                          [ 44%]
+tests/test_app.py::test_valid_subtitle PASSED                                        [ 48%]
+tests/test_app.py::test_valid_subtitle_capitals PASSED                               [ 52%]
+tests/test_app.py::test_cancel_upload PASSED                                         [ 56%]
+tests/test_app.py::test_subtitle_videoplayer_route PASSED                            [ 60%]
+tests/test_app.py::test_subtitle_videoplayer_route_unknownfile PASSED                [ 64%]
+tests/test_app.py::test_send_to_mam_shows_confirmation PASSED                        [ 68%]
+tests/test_app.py::test_send_to_mam_confirm_works PASSED                             [ 72%]
+tests/test_app.py::test_send_to_mam_cancel_works PASSED                              [ 76%]
+tests/test_app.py::test_random_404 PASSED                                            [ 80%]
+tests/test_authorization.py::test_jwt PASSED                                         [ 84%]
+tests/test_authorization.py::test_bad_jwt PASSED                                     [ 88%]
+tests/test_authorization.py::test_token_signature_bad_decode PASSED                  [ 92%]
+tests/test_authorization.py::test_wrong_credentials PASSED                           [ 96%]
+tests/test_authorization.py::test_right_credentials PASSED                           [100%]
 
-========================================= 25 passed in 0.78s ==========================================
+==================================== 25 passed in 0.78s ===================================
 Running flake8 linter...
 ALL OK
 ```
@@ -99,14 +99,14 @@ Test coverage report can be generated with following script/coverage:
 
 ```
 $ scripts/coverage 
-====================================== test session starts ======================================
+================================= test session starts ================================
 platform darwin -- Python 3.8.5, pytest-5.4.1, py-1.9.0, pluggy-0.13.1
 rootdir: /Users/wschrep/FreelanceWork/VIAA/subloader
 plugins: recording-0.11.0, cov-2.8.1
 collected 25 items                                                                              
 
-tests/test_app.py ....................                                                    [ 80%]
-tests/test_authorization.py .....                                                         [100%]
+tests/test_app.py ....................                                          [ 80%]
+tests/test_authorization.py .....                                               [100%]
 
 ---------- coverage: platform darwin, python 3.8.5-final-0 -----------
 Name                    Stmts   Miss  Cover
@@ -124,7 +124,7 @@ TOTAL                     353     27    92%
 Coverage HTML written to dir htmlcov
 
 
-====================================== 25 passed in 1.22s =======================================
+================================ 25 passed in 1.22s ===================================
 ```
 
 ### Environment variables
