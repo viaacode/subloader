@@ -24,7 +24,10 @@ def setup():
 
 @pytest.fixture(scope="module")
 def vcr_config():
-    return {"record_mode": "once"}
+    return {
+        "record_mode": "once",
+        "filter_headers": ["authorization"]
+    }
 
 
 def test_home(client):

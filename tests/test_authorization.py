@@ -17,8 +17,10 @@ pytestmark = [pytest.mark.vcr(ignore_localhost=True)]
 
 @pytest.fixture(scope="module")
 def vcr_config():
-    # return {"record_mode": "all"} #do new record, requires vpn connection
-    return {"record_mode": "once"}
+    return {
+        "record_mode": "once",
+        "filter_headers": ["authorization"]
+    }
 
 
 def test_jwt():
