@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block title %}
+Ondertitels toevoegen
+{% endblock %}
+
+{% block content %}
+
+
+<div class="center_page">
+<h1>Ondertitels toevoegen</h1>
+  <p>
+   <form action="/search_media" method="POST">
+      <input name="token" value='{{token}}' type="hidden"/> <!-- supply auth token -->
+
+      <select name="department" id="tenant">
+        <option value="testbeeld">Testbeeld</option>
+      </select> 
+      <input name="pid" placeholder="Item pid" autofocus/> <br/>
+
+      {% if validation_errors %}
+      <span class="form_errors">{{validation_errors}}</span>
+      {% endif %}
+
+    <input 
+      type="submit" 
+      value="Opvragen"
+      onClick="pidSubmit(this);"
+    />
+
+  </form>
+
+  </p>
+</div>
+
+
+{% endblock %}

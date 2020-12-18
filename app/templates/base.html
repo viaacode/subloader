@@ -1,0 +1,38 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Subloader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='flowplayer.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='flowplayer.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='subtitles.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+  </head>
+
+<body>
+    <nav>
+      <span class="applogo"> 
+
+        <a href="{{ url_for('index') }}">
+        <img class="avo_logo" 
+        src="{{ url_for('static', filename='avo-logo-i.svg') }}" alt="Logo Het Archief voor Onderwijs">
+        </a> 
+      </span>
+      <span class="apptitle">SubLoader</span>
+    </nav>
+    <section class="content">
+      <header>
+        {% block header %}{% endblock %}
+      </header>
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+      {% block content %}{% endblock %}
+    </section>
+
+</body>
+</html>
+
+

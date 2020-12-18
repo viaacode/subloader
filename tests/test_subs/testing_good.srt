@@ -1,0 +1,13 @@
+﻿1
+00:00:01,000 --> 00:00:03,023
+Eerste subtitle test
+
+2
+00:00:03,676 --> 00:00:05,930
+<i>Italic werkt ook</i>
+
+3
+00:00:06,972 --> 00:50:16,350
+Gewone tekst hier 50 minuten lang ;)
+
+
