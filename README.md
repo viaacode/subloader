@@ -182,8 +182,20 @@ The k value for the respective environment is stored in OAS_JWT_SECRET and the s
 ### Dislaimer regarding pytest pyvcr recordings.
 For integration tests with other services like Mediahaven API and oas server logins we use pytest-recording pip package.
 If you want to rerecord the automated request responses used in some tests you can do so by deleting the yaml files in tests/cassettes.
+If you write new tests be sure to also filter out the authorization headers. Before this was done/configured we accidentally exposed a basic auth header in all
+generated yaml files (and this contains the pasword that is stored in normally an env var or secret because the header can be decoded).
 
-However be aware to also grep all Basic auth strings that might get exposed when regenerating the cassettes. Best to filter them to be empty or dummy data.
-This git repo history has been reset on 18-12-2020 due to a push on 17-12-2020 where some Basic auth encoded strings had not been manually cleaned and landed in the git history.
+However by doing this in top of your tests. These headers are filtered and then all is safe to be pushed to a public git also:
+```
+@pytest.fixture(scope="module")
+def vcr_config():
+    return {
+        "record_mode": "once",
+        "filter_headers": ["authorization"]
+    }
+
+
+```
+
 
 
