@@ -179,7 +179,7 @@ and here for prd: https://do-prd-okp-m0.do.viaa.be:8443/console/project/public-a
 The k value for the respective environment is stored in OAS_JWT_SECRET and the syncrator-api decodes + verifies the jwt signature from OAS in the verify_token method in app/authorization.py we also verify the audience == 'syncrator' this is the 'aud' in the jwt token. When signature verification is enabled this verifies also the audience and throws an exception if it does not match (which is caught and results in a 401 access denied). Without the OAS_JWT_SECRET a fallback mode decodes the jwt token and checks the 'aud' value but this is unsecure and therefore a warning message will be printed to setup the secret properly.
 
 
-### Warning regarding pytest pyvcr recordings.
+### Dislaimer/Warning regarding pytest pyvcr recordings.
 For integration tests with other services like Mediahaven API and oas server logins we use pytest-recording pip package.
 If you want to rerecord the automated request responses used in some tests you can do so by deleting the yaml files in tests/cassettes.
 
