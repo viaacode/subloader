@@ -214,26 +214,14 @@ form.upload_form input[type=submit]{
 }
 
 form.upload_form a.grey-button{
-  margin-left: 210px;
+  margin-left: 214px;
   padding:5px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
 
-a.cancel-button {
-  display: inline-block;
-  float: left;
-  border: 1px solid #aaa;
-  color: #000;
-  border-radius: 5px;
-  padding: 4px;
-  text-decoration: none;
-  margin-top: 20px;
-  width: 8em;
-  text-align: center;
-  background-color: #edeff2;
-}
+
 
 a.button {
   color: #fff;
@@ -251,11 +239,16 @@ a.button {
   padding-right:20px;
 }
 
+a.button.disabled {
+  background-color: #ccc;
+  border: #ddd;
+}
+
 a.grey-button {
+  display: inline-block;
   color: #000;
   cursor: pointer;
   font-size: 14px;
-  display: inline-block;
   border: 1px solid #aaa;
   border-radius: 5px;
   padding: 7px;
@@ -266,6 +259,37 @@ a.grey-button {
   padding-left:20px;
   padding-right:20px;
 }
+
+a.grey-button.disabled{
+  color: #fff;
+  border: 1px solid #ccc;
+  background-color: #ccc;
+}
+
+
+
+a.cancel-button {
+  display: inline-block;
+  color: #000;
+  float: left;
+  font-size: 14px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 6px;
+  text-decoration: none;
+  margin-top: 19px;
+  width: 8em;
+  text-align: center;
+  background-color: #edeff2;
+}
+
+a.cancel-button.disabled{
+  color: #fff;
+  border: 1px solid #ccc;
+  background-color: #ccc;
+}
+
+
 
 
 form.validate_form label {
@@ -286,7 +310,7 @@ form.validate_form{
 }
 
 form.validate_form a.cancel-button {
-  margin-left: 10.5em;
+  margin-left: 170px;
 }
 
 .pid-view {
@@ -376,7 +400,8 @@ textarea.subtitles {
 }
 
 .finished_box .grey-button {
-  margin-left: 395px;
+  margin-left: 382px;
+  margin-right: 10px;
 }
 
 h3.video_title {

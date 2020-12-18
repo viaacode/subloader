@@ -21,10 +21,11 @@ Ondertitels valideren
       {% include 'confirm_fields.html'%}
       <input type="hidden" name="replace_existing" value="confirm"/>
       <input 
+        id="confirm_submit"
         class="replace"
         type="submit" 
         value="Vervangen"
-        onClick="this.form.submit(); this.disabled=true; this.value='Versturen...'; "
+        onClick="confirmSubmit(this);"
       />
     </form>
 
@@ -32,10 +33,11 @@ Ondertitels valideren
       {% include 'confirm_fields.html'%}
       <input type="hidden" name="replace_existing" value="cancel"/>
       <input 
+        id="confirm_cancel"
         class="cancel"
         type="submit" 
         value="Annuleren"
-        onClick="this.form.submit(); this.disabled=true; this.value='Versturen...'; "
+        onClick="confirmCancel(this);"
       />
     </form>
 

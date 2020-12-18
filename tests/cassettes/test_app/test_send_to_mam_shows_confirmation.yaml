@@ -1,17 +1,17 @@
 interactions:
 - request:
-    body: "--bb1f6940390d36a8db05ea4c33d6cc61\r\nContent-Disposition: form-data; name=\"file\";
+    body: "--9f33449c6b087ce6cad4a6a8c238ed5a\r\nContent-Disposition: form-data; name=\"file\";
       filename=\"qsxs5jbm5c_closed.srt\"\r\n\r\n\uFEFF1\r\n00:00:01,000 --> 00:00:03,023\r\nTweede
       subtitle test\r\n\r\n2\r\n00:00:03,676 --> 00:00:15,930\r\nGewone tekst hier\r\n\r\n3\r\n00:00:16,972
-      --> 00:50:16,350\r\nGewone tekst hier 50 minuten lang ;)\r\n\r\n\r\n\r\n--bb1f6940390d36a8db05ea4c33d6cc61\r\nContent-Disposition:
+      --> 00:50:16,350\r\nGewone tekst hier 50 minuten lang ;)\r\n\r\n\r\n\r\n--9f33449c6b087ce6cad4a6a8c238ed5a\r\nContent-Disposition:
       form-data; name=\"metadata\"; filename=\"qsxs5jbm5c_closed.xml\"\r\n\r\n<?xml
       version=\"1.0\" encoding=\"utf-8\"?>\n<MediaHAVEN_external_metadata>\n  <title>qsxs5jbm5c_closed.srt</title>\n
       \ <MDProperties>\n    <CP>testbeeld</CP>\n    <CP_id>OR-h41jm1d</CP_id>\n    <PID>qsxs5jbm5c_closed</PID>\n
       \   <ExternalId>qsxs5jbm5c</ExternalId>\n    <dc_relations>\n      <is_verwant_aan>qsxs5jbm5c</is_verwant_aan>\n
-      \   </dc_relations>\n  </MDProperties>\n</MediaHAVEN_external_metadata>\n\r\n--bb1f6940390d36a8db05ea4c33d6cc61\r\nContent-Disposition:
-      form-data; name=\"externalId\"; filename=\"\"\r\n\r\nqsxs5jbm5c_closed\r\n--bb1f6940390d36a8db05ea4c33d6cc61\r\nContent-Disposition:
-      form-data; name=\"departmentId\"; filename=\"\"\r\n\r\ndd111b7a-efd0-44e3-8816-0905572421da\r\n--bb1f6940390d36a8db05ea4c33d6cc61\r\nContent-Disposition:
-      form-data; name=\"autoPublish\"; filename=\"\"\r\n\r\ntrue\r\n--bb1f6940390d36a8db05ea4c33d6cc61--\r\n"
+      \   </dc_relations>\n  </MDProperties>\n</MediaHAVEN_external_metadata>\n\r\n--9f33449c6b087ce6cad4a6a8c238ed5a\r\nContent-Disposition:
+      form-data; name=\"externalId\"; filename=\"\"\r\n\r\nqsxs5jbm5c_closed\r\n--9f33449c6b087ce6cad4a6a8c238ed5a\r\nContent-Disposition:
+      form-data; name=\"departmentId\"; filename=\"\"\r\n\r\ndd111b7a-efd0-44e3-8816-0905572421da\r\n--9f33449c6b087ce6cad4a6a8c238ed5a\r\nContent-Disposition:
+      form-data; name=\"autoPublish\"; filename=\"\"\r\n\r\ntrue\r\n--9f33449c6b087ce6cad4a6a8c238ed5a--\r\n"
     headers:
       Accept:
       - '*/*'
@@ -24,9 +24,9 @@ interactions:
       Content-Length:
       - '1235'
       Content-Type:
-      - multipart/form-data; boundary=bb1f6940390d36a8db05ea4c33d6cc61
+      - multipart/form-data; boundary=9f33449c6b087ce6cad4a6a8c238ed5a
       User-Agent:
-      - python-requests/2.25.0
+      - python-requests/2.25.1
     method: POST
     uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media/
   response:
@@ -43,11 +43,11 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 17 Dec 2020 17:08:36 GMT
+      - Fri, 18 Dec 2020 07:06:42 GMT
       Expires:
       - '0'
       Location:
-      - https://archief-qas.viaa.be:443/mediahaven-rest-api/resources/media/0435da5810454be19a820d6aa221e25efcd2fd3762c142c1b38f83acb8a3b6214d24b9072d744e87a52db37deb24a7dd
+      - https://archief-qas.viaa.be:443/mediahaven-rest-api/resources/media/2e83a8c634f341518192e424c545ca7077f2db70e53d410d94f9a12afa0e96e533fd7ed1b9cb4280b3a8b959e9352b0e
       Pragma:
       - no-cache
       Server:
@@ -57,11 +57,11 @@ interactions:
       Via:
       - kong/0.13.1
       X-Correlation-ID:
-      - 2d0721414041874ddcac305b277236d7
+      - 67845443e33a8f8beb95b1e5cc09f447
       X-Kong-Proxy-Latency:
       - '0'
       X-Kong-Upstream-Latency:
-      - '1066'
+      - '821'
       X-MediaHavenVersion:
       - '20.3'
       X-RateLimit-Limit-second:

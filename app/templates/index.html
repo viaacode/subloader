@@ -26,7 +26,8 @@ Login
       {% endif %}
 
     <input 
-      onClick="this.form.submit(); this.disabled=true; this.value='Authenticeren...'; "
+      id="login_submit"
+      onClick="loginSubmit(this);"
       type="submit" 
       value="Login"/>
 

@@ -31,8 +31,16 @@ Ondertitelbestand
         </table>
       </p>
       <p>
-        <a class="grey-button" href="/"> Uitloggen </a>
-        <a class="button" href="/search_media?token={{token}}"> Nieuw ondertitelbestand uploaden </a>
+
+        <a class="grey-button" 
+            id="logout_btn" 
+            onclick="logoutClicked(this);"
+            href="/"> Uitloggen </a>
+
+        <a class="button" 
+            id="new_upload_btn"
+            onclick="newUploadClicked(this)"
+            href="/search_media?token={{token}}"> Nieuw ondertitelbestand uploaden </a>
       </p>
     </div>
 </div>

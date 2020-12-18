@@ -31,11 +31,15 @@ Ondertitelbestand
       {% endif %}
 
 
-    <a class="grey-button" href="/search_media?token={{token}}"> Annuleren </a>
+    <a class="grey-button" 
+        id="upload_cancel"
+        onclick="uploadCancel(this);"
+        href="/search_media?token={{token}}"> Annuleren </a>
     <input  
       type="submit" 
+      id="upload_submit"
       value="Preview"
-      onClick="this.form.submit(); this.disabled=true; this.value='Opladen...'; "
+      onClick="uploadSubmit(this);"
     />
 
   </form>

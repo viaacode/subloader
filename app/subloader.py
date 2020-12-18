@@ -28,6 +28,7 @@ from app.validation import pid_error, upload_error, validate_input
 
 import os
 import json
+import time
 
 
 app = Flask(__name__)
@@ -265,6 +266,7 @@ def send_to_mam():
         mh_api = MediahavenApi()
         if replace_existing == 'confirm':
             mh_api.delete_old_subtitle(srt_file)
+            time.sleep(0.8)  # allow mam to catch up for send_subtitles call
 
         mh_response = mh_api.send_subtitles(
             upload_folder(),

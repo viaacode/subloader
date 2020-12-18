@@ -38,14 +38,17 @@ Ondertitels valideren
         vtt_file=vtt_file,
         token=token
        )}}" 
+       id="preview_cancel"
+       onclick="previewCancel(this);"
       class="cancel-button">
      Wissen
     </a>
 
     <input 
+      id="preview_submit"
       type="submit" 
       value="Toevoegen"
-      onClick="this.form.submit(); this.disabled=true; this.value='Versturen...'; "
+      onClick="previewSubmit(this);"
     />
 
   </form>

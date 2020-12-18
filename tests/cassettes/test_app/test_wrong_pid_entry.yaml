@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - python-requests/2.25.0
+      - python-requests/2.25.1
     method: GET
     uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media?q=%2B(DepartmentName:testbeeld)%2B(ExternalId:abc123)&startIndex=0&nrOfResults=25
   response:
@@ -29,7 +29,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 17 Dec 2020 14:53:08 GMT
+      - Fri, 18 Dec 2020 07:06:35 GMT
       Expires:
       - '0'
       Pragma:
@@ -41,11 +41,11 @@ interactions:
       Via:
       - kong/0.13.1
       X-Correlation-ID:
-      - f9268479ea6b51830cf5fa5e40fb75c8
+      - b4e12572321bd339a704aa30cc5817e0
       X-Kong-Proxy-Latency:
       - '0'
       X-Kong-Upstream-Latency:
-      - '724'
+      - '949'
       X-MediaHavenVersion:
       - '20.3'
       X-RateLimit-Limit-second:
