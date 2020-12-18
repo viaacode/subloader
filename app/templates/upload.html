@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block title %}
+Ondertitelbestand
+{% endblock %}
+
+{% block content %}
+
+<h1>Ondertitelbestand</h1>
+<div class="left_page">
+   <form class="upload_form" action="/upload" method="POST" enctype="multipart/form-data">
+
+      {% include 'upload_hidden_fields.html' %}
+       
+      <label>PID</label> <div class="pid-view"> {{pid}}</div> <div class="check"></div>
+      <br/><br/>
+      <label>Ondertitelbestand</label><br/> 
+
+      <select name="subtitle_type" id="subtitle_type">
+        <option value="closed">Closed</option>
+        <option value="open">Open</option>
+      </select>
+
+      <input name="subtitle_file" type="file"> <br/>
+
+      {% if validation_errors %}
+      <span class="form_errors">{{validation_errors}}</span>
+      {% endif %}
+
+
+    <a class="grey-button" 
+        id="upload_cancel"
+        onclick="uploadCancel(this);"
+        href="/search_media?token={{token}}"> Annuleren </a>
+    <input  
+      type="submit" 
+      id="upload_submit"
+      value="Preview"
+      onClick="uploadSubmit(this);"
+    />
+
+  </form>
+</div>
+
+<div class="right_page">
+
+  <h3 class="video_title">{{title}}</h3>
+  <div id="player_container"></div>
+  <table class="video_details">
+    <tr><td colspan="2">{{description}}</td></tr>
+    <tr><td>Created</td><td>{{created}}</td></tr>
+    <tr><td>Archived</td><td>{{archived}}</td></tr>
+    <tr><td>Original CP</td><td>{{original_cp}}</td></tr>
+  </table>
+
+  <script>
+    flowplayer('#player_container', {
+      src: '{{video_url}}',
+      token: '{{flowplayer_token}}'
+    })
+  </script>
+
+</div>
+{% endblock %}

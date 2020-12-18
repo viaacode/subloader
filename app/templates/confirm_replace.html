@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block title %}
+Ondertitels valideren
+{% endblock %}
+
+{% block content %}
+
+<div class="replace_dialog">
+  <h1>Ondertitelbestand bestaat al voor deze video</h1>
+
+  <div class="finished_box replace_dialog_box">
+    <p>
+    De video gevonden op pid {{pid}} had reeds een bestaande ondertitelbestand {{srt_file}}. Wil je het vervangen?
+    </p>
+
+    <form class="confirm_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
+      {% include 'confirm_fields.html'%}
+      <input type="hidden" name="replace_existing" value="confirm"/>
+      <input 
+        id="confirm_submit"
+        class="replace"
+        type="submit" 
+        value="Vervangen"
+        onClick="confirmSubmit(this);"
+      />
+    </form>
+
+    <form class="confirm_form" action="/send_to_mam" method="POST" enctype="multipart/form-data">
+      {% include 'confirm_fields.html'%}
+      <input type="hidden" name="replace_existing" value="cancel"/>
+      <input 
+        id="confirm_cancel"
+        class="cancel"
+        type="submit" 
+        value="Annuleren"
+        onClick="confirmCancel(this);"
+      />
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

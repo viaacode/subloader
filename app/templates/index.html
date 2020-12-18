@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+  <div class="center_page">
+  <p>
+   Login met je meemoo account.
+
+   <form action="/login" class="login_form" method="POST">
+
+      <label>E-mailadres</label>
+      <input name="username"/> <br/>
+
+      <label>Wachtwoord</label>
+      <input name="password" type="password"/><br/>
+
+      {% if validation_errors %}
+      <span class="form_errors">{{validation_errors}}</span>
+      {% endif %}
+
+    <input 
+      id="login_submit"
+      onClick="loginSubmit(this);"
+      type="submit" 
+      value="Login"/>
+
+  </form>
+
+  </p>
+  </div>
+
+{% endblock %}
+
+
+   </body>
+</html> 
+
