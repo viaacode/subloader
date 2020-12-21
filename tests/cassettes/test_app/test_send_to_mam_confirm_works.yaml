@@ -6,8 +6,6 @@ interactions:
       - '*/*'
       Accept-Encoding:
       - gzip, deflate
-      Authorization:
-      - Basic dml
       Connection:
       - keep-alive
       Content-Type:
@@ -18,21 +16,21 @@ interactions:
     uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media?q=+(originalFileName:qsxs5jbm5c_closed.srt)&startIndex=0&nrOfResults=25
   response:
     body:
-      string: "{\"totalNrOfResults\":1,\"startIndex\":0,\"mediaDataList\":[{\"mediaObjectId\":\"2e83a8c634f341518192e424c545ca7077f2db70e53d410d94f9a12afa0e96e5\",\"fragmentId\":\"2e83a8c634f341518192e424c545ca7077f2db70e53d410d94f9a12afa0e96e533fd7ed1b9cb4280b3a8b959e9352b0e\",\"externalId\":\"qsxs5jbm5c_closed\",\"title\":\"qsxs5jbm5c_closed.srt\",\"description\":\"\",\"date\":\"2020:12:17
-        19:40:25\",\"previewImagePath\":\"https://mheuropehot.blob.core.windows.net/mediahaven-saas-browse-main/no-preview.png\",\"thumbnailImagePath\":\"https://mheuropehot.blob.core.windows.net/mediahaven-saas-browse-main/no-preview.png\",\"videoPath\":\"\",\"originalFileName\":\"qsxs5jbm5c_closed.srt\",\"width\":0,\"height\":0,\"keywords\":[],\"type\":\"Document\",\"authors\":[],\"lastModifiedDate\":\"2020-12-17T18:40:29Z\",\"archiveDate\":\"2020-12-17T18:40:25Z\",\"exportable\":true,\"editable\":true,\"deletable\":true,\"isPublic\":true,\"ingestSpaceId\":\"\",\"isInIngestSpace\":false,\"status\":\"FINISHED\",\"browseStatus\":\"no_browse\",\"originalStatus\":\"completed\",\"archiveStatus\":\"in_progress\",\"workflow\":\"\",\"mdProperties\":[{\"value\":[{\"value\":\"qsxs5jbm5c\",\"attribute\":\"is_verwant_aan\",\"dottedKey\":null}],\"attribute\":\"dc_relations\",\"dottedKey\":null},{\"value\":\"OR-h41jm1d\",\"attribute\":\"CP_id\",\"dottedKey\":null},{\"value\":\"qsxs5jbm5c_closed\",\"attribute\":\"PID\",\"dottedKey\":null},{\"value\":\"testbeeld\",\"attribute\":\"CP\",\"dottedKey\":null},{\"value\":\"\xA9
-        testbeeld\",\"attribute\":\"RightsOwner\",\"dottedKey\":null},{\"value\":\"2020:12:17
-        19:40:25+01:00\",\"attribute\":\"CreationDate\",\"dottedKey\":null}],\"relations\":{}}]}"
+      string: "{\"totalNrOfResults\":1,\"startIndex\":0,\"mediaDataList\":[{\"mediaObjectId\":\"2b4ac4bdf7e4499680cd781e1ed37da5d19d87fd4b774c50bc87aaf399c08975\",\"fragmentId\":\"2b4ac4bdf7e4499680cd781e1ed37da5d19d87fd4b774c50bc87aaf399c0897579d24f8522f7443e818a727f828ef7b5\",\"externalId\":\"qsxs5jbm5c_closed\",\"title\":\"qsxs5jbm5c_closed.srt\",\"description\":\"Subtitles
+        for item qsxs5jbm5c\",\"date\":\"2020:12:18 14:27:22\",\"previewImagePath\":\"https://mheuropehot.blob.core.windows.net/mediahaven-saas-browse-main/no-preview.png\",\"thumbnailImagePath\":\"https://mheuropehot.blob.core.windows.net/mediahaven-saas-browse-main/no-preview.png\",\"videoPath\":\"\",\"originalFileName\":\"qsxs5jbm5c_closed.srt\",\"width\":0,\"height\":0,\"keywords\":[],\"type\":\"Document\",\"authors\":[],\"lastModifiedDate\":\"2020-12-18T13:27:25Z\",\"archiveDate\":\"2020-12-18T13:27:22Z\",\"exportable\":true,\"editable\":true,\"deletable\":true,\"isPublic\":true,\"ingestSpaceId\":\"\",\"isInIngestSpace\":false,\"status\":\"FINISHED\",\"browseStatus\":\"no_browse\",\"originalStatus\":\"completed\",\"archiveStatus\":\"in_progress\",\"workflow\":\"\",\"mdProperties\":[{\"value\":[{\"value\":\"qsxs5jbm5c\",\"attribute\":\"is_verwant_aan\",\"dottedKey\":null}],\"attribute\":\"dc_relations\",\"dottedKey\":null},{\"value\":\"OR-h41jm1d\",\"attribute\":\"CP_id\",\"dottedKey\":null},{\"value\":\"qsxs5jbm5c_closed\",\"attribute\":\"PID\",\"dottedKey\":null},{\"value\":\"testbeeld\",\"attribute\":\"CP\",\"dottedKey\":null},{\"value\":\"\xA9
+        testbeeld\",\"attribute\":\"RightsOwner\",\"dottedKey\":null},{\"value\":\"2020:12:18
+        14:27:22+01:00\",\"attribute\":\"CreationDate\",\"dottedKey\":null}],\"relations\":{}}]}"
     headers:
       Cache-Control:
       - no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
       Connection:
       - keep-alive
       Content-Length:
-      - '1498'
+      - '1527'
       Content-Type:
       - application/json
       Date:
-      - Fri, 18 Dec 2020 07:06:43 GMT
+      - Mon, 21 Dec 2020 15:12:05 GMT
       Expires:
       - '0'
       Pragma:
@@ -44,11 +42,11 @@ interactions:
       Via:
       - kong/0.13.1
       X-Correlation-ID:
-      - a4c3350d9f2e7e3c0b2ec6e425d71894
+      - 901a78d72bcdd4caf3d175f294b44c4b
       X-Kong-Proxy-Latency:
       - '0'
       X-Kong-Upstream-Latency:
-      - '861'
+      - '867'
       X-MediaHavenVersion:
       - '20.3'
       X-RateLimit-Limit-second:
@@ -67,8 +65,6 @@ interactions:
       - '*/*'
       Accept-Encoding:
       - gzip, deflate
-      Authorization:
-      - Basic dml
       Connection:
       - keep-alive
       Content-Length:
@@ -76,7 +72,7 @@ interactions:
       User-Agent:
       - python-requests/2.25.1
     method: DELETE
-    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media/2e83a8c634f341518192e424c545ca7077f2db70e53d410d94f9a12afa0e96e533fd7ed1b9cb4280b3a8b959e9352b0e
+    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media/2b4ac4bdf7e4499680cd781e1ed37da5d19d87fd4b774c50bc87aaf399c0897579d24f8522f7443e818a727f828ef7b5
   response:
     body:
       string: ''
@@ -88,7 +84,7 @@ interactions:
       Content-Type:
       - text/plain; charset=UTF-8
       Date:
-      - Fri, 18 Dec 2020 07:06:44 GMT
+      - Mon, 21 Dec 2020 15:12:06 GMT
       Expires:
       - '0'
       Pragma:
@@ -100,11 +96,11 @@ interactions:
       Via:
       - kong/0.13.1
       X-Correlation-ID:
-      - 37bbfb03c6b094e7e31013deb7dc1ff9
+      - ad33e52cdd0afe5389a92323adf6fae6
       X-Kong-Proxy-Latency:
       - '0'
       X-Kong-Upstream-Latency:
-      - '778'
+      - '829'
       X-MediaHavenVersion:
       - '20.3'
       X-RateLimit-Limit-second:
@@ -117,53 +113,53 @@ interactions:
       code: 204
       message: ''
 - request:
-    body: "--660ded7f83918ccd502da8ca373ba5f5\r\nContent-Disposition: form-data; name=\"file\";
+    body: "--6bea63ff0d44793935e66f8c768a2235\r\nContent-Disposition: form-data; name=\"file\";
       filename=\"qsxs5jbm5c_closed.srt\"\r\n\r\n\uFEFF1\r\n00:00:01,000 --> 00:00:03,023\r\nTweede
       subtitle test\r\n\r\n2\r\n00:00:03,676 --> 00:00:15,930\r\nGewone tekst hier\r\n\r\n3\r\n00:00:16,972
-      --> 00:50:16,350\r\nGewone tekst hier 50 minuten lang ;)\r\n\r\n\r\n\r\n--660ded7f83918ccd502da8ca373ba5f5\r\nContent-Disposition:
+      --> 00:50:16,350\r\nGewone tekst hier 50 minuten lang ;)\r\n\r\n\r\n\r\n--6bea63ff0d44793935e66f8c768a2235\r\nContent-Disposition:
       form-data; name=\"metadata\"; filename=\"qsxs5jbm5c_closed.xml\"\r\n\r\n<?xml
-      version=\"1.0\" encoding=\"utf-8\"?>\n<MediaHAVEN_external_metadata>\n  <title>qsxs5jbm5c_closed.srt</title>\n
-      \ <MDProperties>\n    <CP>testbeeld</CP>\n    <CP_id>OR-h41jm1d</CP_id>\n    <PID>qsxs5jbm5c_closed</PID>\n
+      version='1.0' encoding='UTF-8'?>\n<MediaHAVEN_external_metadata>\n  <title>qsxs5jbm5c_closed.srt</title>\n
+      \ <description>Subtitles for item qsxs5jbm5c</description>\n  <MDProperties>\n
+      \   <CP>testbeeld</CP>\n    <CP_id>OR-h41jm1d</CP_id>\n    <PID>qsxs5jbm5c_closed</PID>\n
       \   <ExternalId>qsxs5jbm5c</ExternalId>\n    <dc_relations>\n      <is_verwant_aan>qsxs5jbm5c</is_verwant_aan>\n
-      \   </dc_relations>\n  </MDProperties>\n</MediaHAVEN_external_metadata>\n\r\n--660ded7f83918ccd502da8ca373ba5f5\r\nContent-Disposition:
-      form-data; name=\"externalId\"; filename=\"\"\r\n\r\nqsxs5jbm5c_closed\r\n--660ded7f83918ccd502da8ca373ba5f5\r\nContent-Disposition:
-      form-data; name=\"departmentId\"; filename=\"\"\r\n\r\ndd111b7a-efd0-44e3-8816-0905572421da\r\n--660ded7f83918ccd502da8ca373ba5f5\r\nContent-Disposition:
-      form-data; name=\"autoPublish\"; filename=\"\"\r\n\r\ntrue\r\n--660ded7f83918ccd502da8ca373ba5f5--\r\n"
+      \   </dc_relations>\n  </MDProperties>\n</MediaHAVEN_external_metadata>\n\r\n--6bea63ff0d44793935e66f8c768a2235\r\nContent-Disposition:
+      form-data; name=\"externalId\"; filename=\"\"\r\n\r\nqsxs5jbm5c_closed\r\n--6bea63ff0d44793935e66f8c768a2235\r\nContent-Disposition:
+      form-data; name=\"departmentId\"; filename=\"\"\r\n\r\ndd111b7a-efd0-44e3-8816-0905572421da\r\n--6bea63ff0d44793935e66f8c768a2235\r\nContent-Disposition:
+      form-data; name=\"autoPublish\"; filename=\"\"\r\n\r\ntrue\r\n--6bea63ff0d44793935e66f8c768a2235--\r\n"
     headers:
       Accept:
       - '*/*'
       Accept-Encoding:
       - gzip, deflate
-      Authorization:
-      - Basic dml
       Connection:
       - keep-alive
       Content-Length:
-      - '1235'
+      - '1294'
       Content-Type:
-      - multipart/form-data; boundary=660ded7f83918ccd502da8ca373ba5f5
+      - multipart/form-data; boundary=6bea63ff0d44793935e66f8c768a2235
       User-Agent:
       - python-requests/2.25.1
     method: POST
     uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media/
   response:
     body:
-      string: '{"mediaObjectId":"6abc681363c74bbaa44ccae563d2abc3a448f330a0b946de99f28febc100caba","fragmentId":"6abc681363c74bbaa44ccae563d2abc3a448f330a0b946de99f28febc100caba9b3821da6847426ba75d876b808b5972","externalId":"qsxs5jbm5c_closed","title":"qsxs5jbm5c_closed.srt","description":"","date":"","previewImagePath":"","thumbnailImagePath":"","videoPath":"","originalFileName":"qsxs5jbm5c_closed.srt","width":0,"height":0,"keywords":[],"type":"Processing","authors":[],"lastModifiedDate":"2020-12-18T07:06:47.308000Z","archiveDate":"2020-12-18T07:06:47Z","exportable":true,"editable":true,"deletable":true,"isPublic":true,"ingestSpaceId":"AUTO-PUBLISHED","isInIngestSpace":false,"status":"PROCESSING","browseStatus":"in_progress","originalStatus":"in_progress","archiveStatus":"in_progress","workflow":"","mdProperties":[{"value":[{"value":"qsxs5jbm5c","attribute":"is_verwant_aan","dottedKey":null}],"attribute":"dc_relations","dottedKey":null},{"value":"OR-h41jm1d","attribute":"CP_id","dottedKey":null},{"value":"qsxs5jbm5c_closed","attribute":"PID","dottedKey":null},{"value":"testbeeld","attribute":"CP","dottedKey":null}],"relations":{}}'
+      string: '{"mediaObjectId":"b8aef1fde9984e7389ed4cb9d073160777f8637dea1849499d545916b297cc18","fragmentId":"b8aef1fde9984e7389ed4cb9d073160777f8637dea1849499d545916b297cc189617c7b4a14b49eea79147b8f07bf093","externalId":"qsxs5jbm5c_closed","title":"qsxs5jbm5c_closed.srt","description":"Subtitles
+        for item qsxs5jbm5c","date":"","previewImagePath":"","thumbnailImagePath":"","videoPath":"","originalFileName":"qsxs5jbm5c_closed.srt","width":0,"height":0,"keywords":[],"type":"Processing","authors":[],"lastModifiedDate":"2020-12-21T15:12:07.601000Z","archiveDate":"2020-12-21T15:12:07Z","exportable":true,"editable":true,"deletable":true,"isPublic":true,"ingestSpaceId":"AUTO-PUBLISHED","isInIngestSpace":false,"status":"PROCESSING","browseStatus":"in_progress","originalStatus":"in_progress","archiveStatus":"in_progress","workflow":"","mdProperties":[{"value":[{"value":"qsxs5jbm5c","attribute":"is_verwant_aan","dottedKey":null}],"attribute":"dc_relations","dottedKey":null},{"value":"OR-h41jm1d","attribute":"CP_id","dottedKey":null},{"value":"qsxs5jbm5c_closed","attribute":"PID","dottedKey":null},{"value":"testbeeld","attribute":"CP","dottedKey":null}],"relations":{}}'
     headers:
       Cache-Control:
       - no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0
       Connection:
       - keep-alive
       Content-Length:
-      - '1134'
+      - '1163'
       Content-Type:
       - application/json
       Date:
-      - Fri, 18 Dec 2020 07:06:47 GMT
+      - Mon, 21 Dec 2020 15:12:07 GMT
       Expires:
       - '0'
       Location:
-      - https://archief-qas.viaa.be:443/mediahaven-rest-api/resources/media/6abc681363c74bbaa44ccae563d2abc3a448f330a0b946de99f28febc100caba9b3821da6847426ba75d876b808b5972
+      - https://archief-qas.viaa.be:443/mediahaven-rest-api/resources/media/b8aef1fde9984e7389ed4cb9d073160777f8637dea1849499d545916b297cc189617c7b4a14b49eea79147b8f07bf093
       Pragma:
       - no-cache
       Server:
@@ -173,11 +169,11 @@ interactions:
       Via:
       - kong/0.13.1
       X-Correlation-ID:
-      - 955089b3228217bc34aba20fd9cacc7b
+      - 2d52783b25231e95c0e70d1b6a6a58aa
       X-Kong-Proxy-Latency:
       - '0'
       X-Kong-Upstream-Latency:
-      - '1441'
+      - '1143'
       X-MediaHavenVersion:
       - '20.3'
       X-RateLimit-Limit-second:

@@ -6,8 +6,6 @@ interactions:
       - '*/*'
       Accept-Encoding:
       - gzip, deflate
-      Authorization:
-      - Basic dml
       Connection:
       - keep-alive
       Content-Type:
@@ -64,7 +62,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 18 Dec 2020 07:06:37 GMT
+      - Mon, 21 Dec 2020 15:12:00 GMT
       Expires:
       - '0'
       Pragma:
@@ -78,11 +76,11 @@ interactions:
       Via:
       - kong/0.13.1
       X-Correlation-ID:
-      - ced6aa96e7a494d6c8e8a13fd245196d
+      - 466aee009c03539b9d73029df5b8e3a3
       X-Kong-Proxy-Latency:
       - '0'
       X-Kong-Upstream-Latency:
-      - '804'
+      - '677'
       X-MediaHavenVersion:
       - '20.3'
       X-RateLimit-Limit-second:
