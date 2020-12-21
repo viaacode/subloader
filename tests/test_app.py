@@ -24,6 +24,8 @@ def setup():
 
 @pytest.fixture(scope="module")
 def vcr_config():
+    # important to add the filter_headers here to avoid exposing credentials
+    # in tests/cassettes!
     return {
         "record_mode": "once",
         "filter_headers": ["authorization"]
