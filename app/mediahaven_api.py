@@ -53,8 +53,7 @@ class MediahavenApi:
         return response.json()
 
     def list_objects(self, search='', offset=0, limit=25):
-        return self.get_proxy(
-            f"/resources/media?q={search}&startIndex={offset}&nrOfResults={limit}")
+        return self.get_proxy(f"/resources/media?q={search}&startIndex={offset}&nrOfResults={limit}")
 
     def get_object(self, object_id):
         self.get_proxy(f"/resources/media/{object_id}")
@@ -64,15 +63,11 @@ class MediahavenApi:
         return search_matches
 
     def list_videos(self, department='testbeeld'):
-        matched_videos = self.list_objects(
-            search=f"%2B(DepartmentName:{department})"
-        )
+        matched_videos = self.list_objects(search=f"%2B(DepartmentName:{department})")
         return matched_videos
 
     def find_video(self, pid, department='testbeeld'):
-        matched_videos = self.list_objects(
-            search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})"
-        )
+        matched_videos = self.list_objects(search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})")
 
         if matched_videos.get('totalNrOfResults') == 1:
             return matched_videos.get('mediaDataList', [{}])[0]
@@ -108,25 +103,12 @@ class MediahavenApi:
         xml_path = os.path.join(upload_folder, tp['xml_file'])
 
         file_fields = {
-            'file': (
-                tp['srt_file'],
-                open(
-                    srt_path,
-                    'rb')),
-            'metadata': (
-                tp['xml_file'],
-                open(
-                    xml_path,
-                    'rb')),
-            'externalId': (
-                '',
-                f"{metadata['externalId']}_{tp['subtitle_type']}"),
-            'departmentId': (
-                '',
-                'dd111b7a-efd0-44e3-8816-0905572421da'),
-            'autoPublish': (
-                '',
-                'true')}
+            'file': (tp['srt_file'], open(srt_path, 'rb')),
+            'metadata': (tp['xml_file'], open(xml_path, 'rb')),
+            'externalId': ('', f"{metadata['externalId']}_{tp['subtitle_type']}"),
+            'departmentId': ('', 'dd111b7a-efd0-44e3-8816-0905572421da'),
+            'autoPublish': ('', 'true')
+        }
 
         logger.info("posting to mam", data=file_fields)
 

@@ -34,10 +34,7 @@ def save_subtitles(upload_folder, pid, uploaded_file):
 
             # save srt and converted vtt file in uploads folder
             uploaded_file.save(os.path.join(upload_folder, srt_filename))
-            vtt_file = webvtt.from_srt(
-                os.path.join(
-                    upload_folder,
-                    srt_filename))
+            vtt_file = webvtt.from_srt(os.path.join(upload_folder, srt_filename))
             vtt_file.save()
 
             return srt_filename, vtt_filename
@@ -50,9 +47,7 @@ def save_subtitles(upload_folder, pid, uploaded_file):
 
 
 def not_deleted(upload_folder, f):
-    return os.path.exists(
-        os.path.join(upload_folder, f)
-    )
+    return os.path.exists(os.path.join(upload_folder, f))
 
 
 def delete_file(upload_folder, f):

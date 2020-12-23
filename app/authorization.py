@@ -61,11 +61,7 @@ def verify_token(jwt_token):
 
             # this not only checks signature but also if audience 'aud'
             # contains avo-subtitle
-            dt = jwt.decode(
-                jwt_token,
-                jwt_secret,
-                audience=[OAS_APPNAME],
-                algorithms=['HS256'])
+            dt = jwt.decode(jwt_token, jwt_secret, audience=[OAS_APPNAME], algorithms=['HS256'])
             return True
 
     except jwt.exceptions.DecodeError as de:

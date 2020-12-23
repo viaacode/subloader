@@ -4,8 +4,7 @@ python -m pytest -v
 echo "Running flake8 linter..."
 pip -q install flake8
 
-# flake8 --max-line-length=88 --exclude=.git,python_env,__pycache__ 
-flake8 --max-line-length=140 --exclude=.git,python_env,__pycache__ 
+flake8 --max-line-length=120 --exclude=.git,python_env,__pycache__ 
 
 status=$?
 [ $status -eq 0 ] && echo "ALL OK" && exit 0

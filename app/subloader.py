@@ -62,8 +62,7 @@ def login():
     if token:
         return redirect(url_for('.search_media', token=token['access_token']))
     else:
-        return render_template('index.html',
-                               validation_errors='Fout email of wachtwoord')
+        return render_template('index.html', validation_errors='Fout email of wachtwoord')
 
 
 @app.route('/search_media', methods=['GET'])
@@ -72,9 +71,8 @@ def search_media():
     token = request.args.get('token')
     validation_errors = request.args.get('validation_errors')
     logger.info('search_media')
-    return render_template(
-        'search_media.html', **locals()
-    )
+
+    return render_template('search_media.html', **locals())
 
 
 @app.route('/search_media', methods=['POST'])
@@ -88,9 +86,7 @@ def post_media():
         return pid_error(token, pid, 'Geef een PID')
     else:
         logger.info('post_media', data={'pid': pid})
-        return redirect(
-            url_for('.get_upload', **locals())
-        )
+        return redirect(url_for('.get_upload', **locals()))
 
 
 @app.route('/upload', methods=['GET'])
@@ -110,8 +106,8 @@ def get_upload():
     mh_api = MediahavenApi()
     mam_data = mh_api.find_video(pid, department)
     if not mam_data:
-        return pid_error(token, pid,
-                         f"PID niet gevonden in {department}")
+        return pid_error(token, pid, f"PID niet gevonden in {department}")
+
     return render_template(
         'upload.html',
         token=token,
@@ -123,8 +119,7 @@ def get_upload():
         created=get_property(mam_data, 'CreationDate'),
         archived=get_property(mam_data, 'created_on'),
         original_cp=get_property(mam_data, 'Original_CP'),
-        # for v2 mam_data['Internal']['PathToVideo']
-        video_url=mam_data.get('videoPath'),
+        video_url=mam_data.get('videoPath'),  # for v2 mam_data['Internal']['PathToVideo']
         flowplayer_token=os.environ.get('FLOWPLAYER_TOKEN', 'set_in_secrets'),
         validation_errors=errors)
 
@@ -145,11 +140,7 @@ def post_upload():
     if validation_error:
         return upload_error(tp, validation_error)
 
-    tp['subtitle_file'], tp['vtt_file'] = save_subtitles(
-        upload_folder(),
-        tp['pid'],
-        uploaded_file
-    )
+    tp['subtitle_file'], tp['vtt_file'] = save_subtitles(upload_folder(), tp['pid'], uploaded_file)
 
     conversion_error = validate_conversion(tp)
     if conversion_error:
@@ -195,13 +186,7 @@ def cancel_upload():
         'vtt_file': vtt_file
     })
 
-    return redirect(
-        url_for('.get_upload',
-                token=token,
-                pid=pid,
-                department=department
-                )
-    )
+    return redirect(url_for('.get_upload', token=token, pid=pid, department=department))
 
 
 @app.route('/send_to_mam', methods=['POST'])
