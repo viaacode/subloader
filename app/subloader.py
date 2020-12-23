@@ -27,7 +27,8 @@ from app.authorization import get_token, requires_authorization
 from app.mediahaven_api import MediahavenApi
 from app.subtitle_files import (save_subtitles, delete_files, save_sidecar_xml,
                                 move_subtitle, get_property, not_deleted)
-from app.validation import pid_error, upload_error, validate_input
+from app.validation import (pid_error, upload_error, validate_input,
+                            validate_upload, validate_conversion)
 
 
 app = Flask(__name__)
@@ -131,62 +132,44 @@ def get_upload():
 @app.route('/upload', methods=['POST'])
 @requires_authorization
 def post_upload():
-    token = request.form.get('token')
-    pid = request.form.get('pid')
-    department = request.form.get('department')
-    mam_data = request.form.get('mam_data')
-    video_url = request.form.get('video_url')
-    subtitle_type = request.form.get('subtitle_type')
+    tp = {
+        'token': request.form.get('token'),
+        'pid': request.form.get('pid'),
+        'department': request.form.get('department'),
+        'mam_data': request.form.get('mam_data'),
+        'video_url': request.form.get('video_url'),
+        'subtitle_type': request.form.get('subtitle_type')
+    }
 
-    if 'subtitle_file' not in request.files:
-        return upload_error(token, pid, department,
-                            'Geen ondertitels bestand')
-    if not pid:
-        return upload_error(token, pid, department,
-                            f"Foutieve pid {pid}")
+    validation_error, uploaded_file = validate_upload(tp, request.files)
+    if validation_error:
+        return upload_error(tp, validation_error)
 
-    uploaded_file = request.files['subtitle_file']
-    if uploaded_file.filename == '':
-        return upload_error(token, pid, department,
-                            'Geen ondertitels bestand geselecteerd')
-
-    srt_filename, vtt_filename = save_subtitles(
+    tp['subtitle_file'], tp['vtt_file'] = save_subtitles(
         upload_folder(),
-        pid,
+        tp['pid'],
         uploaded_file
     )
 
-    if not srt_filename:
-        return upload_error(token, pid, department,
-                            'Ondertitels moeten in SRT formaat')
-
-    if not vtt_filename:
-        return upload_error(token, pid, department,
-                            'Kon niet converteren naar webvtt formaat')
+    conversion_error = validate_conversion(tp)
+    if conversion_error:
+        return upload_error(tp, conversion_error)
 
     logger.info('preview', data={
-        'pid': pid,
-        'file': srt_filename
+        'pid': tp['pid'],
+        'file': tp['subtitle_file']
     })
-    video_data = json.loads(mam_data)
 
-    return render_template(
-        'preview.html',
-        token=token,
-        pid=pid,
-        department=department,
-        mam_data=mam_data,
-        subtitle_type=subtitle_type,
-        subtitle_file=srt_filename,
-        vtt_file=vtt_filename,
-        video_url=video_url,
-        title=video_data.get('title'),
-        description=video_data.get('description'),
-        created=get_property(video_data, 'CreationDate'),
-        archived=get_property(video_data, 'created_on'),
-        original_cp=get_property(video_data, 'Original_CP'),
-        flowplayer_token=os.environ.get('FLOWPLAYER_TOKEN', 'set_in_secrets')
-    )
+    video_data = json.loads(tp['mam_data'])
+    tp['title'] = video_data.get('title')
+    tp['description'] = video_data.get('description')
+    tp['created'] = get_property(video_data, 'CreationDate')
+    tp['archived'] = get_property(video_data, 'created_on')
+    tp['original_cp'] = get_property(video_data, 'Original_CP')
+    tp['flowplayer_token'] = os.environ.get(
+        'FLOWPLAYER_TOKEN', 'set_in_secrets')
+
+    return render_template('preview.html', **tp)
 
 
 def upload_folder():
