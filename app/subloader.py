@@ -53,12 +53,10 @@ def index():
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
-    logger.info("POST login =",
-                dictionary={
-                    'username': username,
-                    'password': '[FILTERED]'
-                }
-                )
+    logger.info("POST login =", dictionary={
+        'username': username,
+        'password': '[FILTERED]'
+    })
     token = get_token(username, password)
     if token:
         return redirect(url_for('.search_media', token=token['access_token']))
@@ -70,56 +68,52 @@ def login():
 @app.route('/search_media', methods=['GET'])
 @requires_authorization
 def search_media():
-    auth_token = request.args.get('token')
-    errors = request.args.get('validation_errors')
+    token = request.args.get('token')
+    validation_errors = request.args.get('validation_errors')
     logger.info('search_media')
     return render_template(
-        'search_media.html',
-        token=auth_token,
-        validation_errors=errors)
+        'search_media.html', **locals()
+    )
 
 
 @app.route('/search_media', methods=['POST'])
 @requires_authorization
 def post_media():
-    auth_token = request.form.get('token')
+    token = request.form.get('token')
     pid = request.form.get('pid')
     department = request.form.get('department')
 
     if not pid:
-        return pid_error(auth_token, pid,
-                         'Geef een PID')
+        return pid_error(token, pid, 'Geef een PID')
     else:
         logger.info('post_media', data={'pid': pid})
         return redirect(
-            url_for(
-                '.get_upload',
-                token=auth_token,
-                pid=pid,
-                department=department))
+            url_for('.get_upload', **locals())
+        )
 
 
 @app.route('/upload', methods=['GET'])
 @requires_authorization
 def get_upload():
     logger.info('get_upload')
-    auth_token = request.args.get('token')
+
+    token = request.args.get('token')
     pid = request.args.get('pid').strip()
     department = request.args.get('department')
     errors = request.args.get('validation_errors')
 
     validation_error = validate_input(pid, department)
     if validation_error:
-        return pid_error(auth_token, pid, validation_error)
+        return pid_error(token, pid, validation_error)
 
     mh_api = MediahavenApi()
     mam_data = mh_api.find_video(pid, department)
     if not mam_data:
-        return pid_error(auth_token, pid,
+        return pid_error(token, pid,
                          f"PID niet gevonden in {department}")
     return render_template(
         'upload.html',
-        token=auth_token,
+        token=token,
         pid=pid,
         department=department,
         mam_data=json.dumps(mam_data),
@@ -137,7 +131,7 @@ def get_upload():
 @app.route('/upload', methods=['POST'])
 @requires_authorization
 def post_upload():
-    auth_token = request.form.get('token')
+    token = request.form.get('token')
     pid = request.form.get('pid')
     department = request.form.get('department')
     mam_data = request.form.get('mam_data')
@@ -145,15 +139,15 @@ def post_upload():
     subtitle_type = request.form.get('subtitle_type')
 
     if 'subtitle_file' not in request.files:
-        return upload_error(auth_token, pid, department,
+        return upload_error(token, pid, department,
                             'Geen ondertitels bestand')
     if not pid:
-        return upload_error(auth_token, pid, department,
+        return upload_error(token, pid, department,
                             f"Foutieve pid {pid}")
 
     uploaded_file = request.files['subtitle_file']
     if uploaded_file.filename == '':
-        return upload_error(auth_token, pid, department,
+        return upload_error(token, pid, department,
                             'Geen ondertitels bestand geselecteerd')
 
     srt_filename, vtt_filename = save_subtitles(
@@ -163,11 +157,11 @@ def post_upload():
     )
 
     if not srt_filename:
-        return upload_error(auth_token, pid, department,
+        return upload_error(token, pid, department,
                             'Ondertitels moeten in SRT formaat')
 
     if not vtt_filename:
-        return upload_error(auth_token, pid, department,
+        return upload_error(token, pid, department,
                             'Kon niet converteren naar webvtt formaat')
 
     logger.info('preview', data={
@@ -178,7 +172,7 @@ def post_upload():
 
     return render_template(
         'preview.html',
-        token=auth_token,
+        token=token,
         pid=pid,
         department=department,
         mam_data=mam_data,
@@ -213,7 +207,10 @@ def cancel_upload():
     vtt_file = request.args.get('vtt_file')
     srt_file = request.args.get('srt_file')
 
-    delete_files(upload_folder(), srt_file, vtt_file)
+    delete_files(upload_folder(), {
+        'srt_file': srt_file,
+        'vtt_file': vtt_file
+    })
 
     return redirect(
         url_for('.get_upload',
@@ -227,103 +224,57 @@ def cancel_upload():
 @app.route('/send_to_mam', methods=['POST'])
 @requires_authorization
 def send_to_mam():
-    auth_token = request.form.get('token')
-    pid = request.form.get('pid')
-    subtitle_type = request.form.get('subtitle_type')
-    srt_file = request.form.get('subtitle_file')
-    vtt_file = request.form.get('vtt_file')
-    xml_file = request.form.get('xml_file')
-    xml_sidecar = request.form.get('xml_sidecar')
-    mh_response = request.form.get('mh_response')
-    mam_data = request.form.get('mam_data')
-    replace_existing = request.form.get('replace_existing')
+    tp = {
+        'token': request.form.get('token'),
+        'pid': request.form.get('pid'),
+        'subtitle_type': request.form.get('subtitle_type'),
+        'srt_file': request.form.get('subtitle_file'),
+        'vtt_file': request.form.get('vtt_file'),
+        'xml_file': request.form.get('xml_file'),
+        'xml_sidecar': request.form.get('xml_sidecar'),
+        'mh_response': request.form.get('mh_response'),
+        'mam_data': request.form.get('mam_data'),
+        'replace_existing': request.form.get('replace_existing')
+    }
 
-    metadata = json.loads(mam_data)
-
-    if replace_existing == 'cancel':
+    if tp['replace_existing'] == 'cancel':
         # abort and remove temporary files
-        delete_files(upload_folder(), srt_file, vtt_file, xml_file)
+        delete_files(upload_folder(), tp)
 
     # extra check to avoid re-sending if user refreshes page
-    if not_deleted(upload_folder(), srt_file):
-        # first request, generate xml_file
-        if not replace_existing:
-            srt_file = move_subtitle(
-                upload_folder(),
-                srt_file,
-                subtitle_type,
-                pid
-            )
+    if not_deleted(upload_folder(), tp['srt_file']):
+        metadata = json.loads(tp['mam_data'])
+        if not tp['replace_existing']:
+            # first request, generate xml_file
+            tp['srt_file'] = move_subtitle(upload_folder(), tp)
 
-            xml_file, xml_sidecar = save_sidecar_xml(
-                upload_folder(),
-                metadata,
-                pid,
-                srt_file,
-                subtitle_type
-            )
+            tp['xml_file'], tp['xml_sidecar'] = save_sidecar_xml(
+                upload_folder(), metadata, tp)
 
         mh_api = MediahavenApi()
-        if replace_existing == 'confirm':
-            mh_api.delete_old_subtitle(srt_file)
+        if tp['replace_existing'] == 'confirm':
+            mh_api.delete_old_subtitle(tp['srt_file'])
 
-        mh_response = mh_api.send_subtitles(
-            upload_folder(),
-            metadata,
-            xml_file,
-            srt_file,
-            subtitle_type
-        )
+        mh_response = mh_api.send_subtitles(upload_folder(), metadata, tp)
+        logger.info('send_to_mam', data=mh_response)
+        tp['mh_response'] = json.dumps(mh_response)
 
-        logger.info('send_to_mam', data={
-            'pid': pid,
-            'subtitle_type': subtitle_type,
-            'srt_file': srt_file,
-            'vtt_file': vtt_file,
-            'mh_response': mh_response
-        })
-
-        if not replace_existing and (
+        if not tp['replace_existing'] and (
             (mh_response.get('status') == 409)
             or
             (mh_response.get('status') == 400)
         ):  # duplicate error can give 409 or 400, show dialog
-            return render_template('confirm_replace.html',
-                                   token=auth_token,
-                                   pid=pid,
-                                   subtitle_type=subtitle_type,
-                                   srt_file=srt_file,
-                                   xml_file=xml_file,
-                                   vtt_file=vtt_file,
-                                   xml_sidecar=xml_sidecar,
-                                   mh_response=json.dumps(mh_response),
-                                   mam_data=mam_data
-                                   )
+            return render_template('confirm_replace.html', **tp)
 
         # cleanup temp files and show final page with mh request results
-        delete_files(upload_folder(), srt_file, vtt_file, xml_file)
-
-        return render_template('subtitles_sent.html',
-                               token=auth_token,
-                               pid=pid,
-                               subtitle_type=subtitle_type,
-                               srt_file=srt_file,
-                               xml_file=xml_file,
-                               xml_sidecar=xml_sidecar,
-                               mh_response=json.dumps(mh_response),
-                               mam_data=mam_data
-                               )
+        delete_files(upload_folder(), tp)
+        return render_template('subtitles_sent.html', **tp)
     else:
         # user refreshed page (tempfiles already deleted),
         # or user chose 'cancel' above. in both cases show
         # subtitles already sent
-        return render_template('subtitles_sent.html',
-                               token=auth_token,
-                               pid=pid,
-                               subtitle_type=subtitle_type,
-                               srt_file=srt_file,
-                               upload_cancelled=True
-                               )
+        tp['upload_cancelled'] = True
+        return render_template('subtitles_sent.html', **tp)
 
 
 @app.route("/health/live")

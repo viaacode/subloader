@@ -80,14 +80,15 @@ def verify_token(jwt_token):
 def requires_authorization(f):
     @wraps(f)
     def decorated(*args, **kwargs):
+        # token either on request.args for GET
         jwt_token = request.args.get('token')
+
+        # or on request.form for POST, PUT
         if not jwt_token or len(jwt_token) < 1:
             jwt_token = request.form.get('token')
 
-        # for PUT, POST, DELETE require jwt_token as this creates/destroys
-        # actual syncrator jobs
         if not jwt_token or not verify_token(jwt_token):
-            abort(401)
+            abort(401, jsonify(message='invalid jwt token'))
 
         return f(*args, **kwargs)
     return decorated

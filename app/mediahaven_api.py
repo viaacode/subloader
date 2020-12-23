@@ -101,26 +101,32 @@ class MediahavenApi:
             frag_id = sub['fragmentId']
             self.delete_fragment(frag_id)
 
-    def send_subtitles(
-            self,
-            upload_folder,
-            metadata,
-            xml_file,
-            srt_file,
-            subtitle_type):
-
+    def send_subtitles(self, upload_folder, metadata, tp):
         # sends srt_file and xml_file to mediahaven
         send_url = f"{self.API_SERVER}/resources/media/"
-        srt_path = os.path.join(upload_folder, srt_file)
-        xml_path = os.path.join(upload_folder, xml_file)
+        srt_path = os.path.join(upload_folder, tp['srt_file'])
+        xml_path = os.path.join(upload_folder, tp['xml_file'])
 
         file_fields = {
-            'file': (srt_file, open(srt_path, 'rb')),
-            'metadata': (xml_file, open(xml_path, 'rb')),
-            'externalId': ('', f"{metadata['externalId']}_{subtitle_type}"),
-            'departmentId': ('', 'dd111b7a-efd0-44e3-8816-0905572421da'),
-            'autoPublish': ('', 'true')
-        }
+            'file': (
+                tp['srt_file'],
+                open(
+                    srt_path,
+                    'rb')),
+            'metadata': (
+                tp['xml_file'],
+                open(
+                    xml_path,
+                    'rb')),
+            'externalId': (
+                '',
+                f"{metadata['externalId']}_{tp['subtitle_type']}"),
+            'departmentId': (
+                '',
+                'dd111b7a-efd0-44e3-8816-0905572421da'),
+            'autoPublish': (
+                '',
+                'true')}
 
         logger.info("posting to mam", data=file_fields)
 
