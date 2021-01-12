@@ -47,7 +47,13 @@ def verify_token(jwt_token):
             print(
                 "WARNING skipping jwt verification, configure OAS_JWT_SECRET!",
                 flush=True)
-            dt = jwt.decode(jwt_token, verify=False)
+            dt = jwt.decode(
+                jwt_token,
+                audience=[OAS_APPNAME],
+                algorithms=['HS256'],
+                verify=False,
+                options={'verify_signature': False}
+            )
 
             # check allowed apps contains our OAS_APPNAME
             allowed_apps = dt.get('aud')
@@ -61,7 +67,11 @@ def verify_token(jwt_token):
 
             # this not only checks signature but also if audience 'aud'
             # contains avo-subtitle
-            dt = jwt.decode(jwt_token, jwt_secret, audience=[OAS_APPNAME], algorithms=['HS256'])
+            dt = jwt.decode(
+                jwt_token,
+                jwt_secret,
+                audience=[OAS_APPNAME],
+                algorithms=['HS256'])
             return True
 
     except jwt.exceptions.DecodeError as de:
