@@ -27,6 +27,10 @@ class MediahavenApi:
     )
     API_USER = os.environ.get('MEDIAHAVEN_USER', 'apiUser')
     API_PASSWORD = os.environ.get('MEDIAHAVEN_PASS', 'password')
+    DEPARTMENT_ID = os.environ.get(
+        'DEPARTMENT_ID',
+        'dd111b7a-efd0-44e3-8816-0905572421da'
+    )
 
     def __init__(self, session=None):
         if session is None:
@@ -106,7 +110,7 @@ class MediahavenApi:
             'file': (tp['srt_file'], open(srt_path, 'rb')),
             'metadata': (tp['xml_file'], open(xml_path, 'rb')),
             'externalId': ('', f"{metadata['externalId']}_{tp['subtitle_type']}"),
-            'departmentId': ('', 'dd111b7a-efd0-44e3-8816-0905572421da'),
+            'departmentId': ('', self.DEPARTMENT_ID),
             'autoPublish': ('', 'true')
         }
 
