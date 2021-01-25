@@ -104,6 +104,7 @@ def save_sidecar_xml(upload_folder, metadata, tp):
     etree.SubElement(root, "description").text = description
 
     mdprops = etree.SubElement(root, "MDProperties")
+    etree.SubElement(mdprops, "sp_name").text = 'borndigital'
     etree.SubElement(mdprops, "CP").text = cp
     etree.SubElement(mdprops, "CP_id").text = cp_id
     etree.SubElement(mdprops, "PID").text = xml_pid
