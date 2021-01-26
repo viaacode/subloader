@@ -23,7 +23,7 @@ from viaa.configuration import ConfigParser
 from viaa.observability import logging
 
 from app.config import flask_environment
-from app.authorization import get_token, requires_authorization
+from app.authorization import get_token, requires_authorization, verify_token, OAS_APPNAME
 from app.mediahaven_api import MediahavenApi
 from app.subtitle_files import (save_subtitles, delete_files, save_sidecar_xml,
                                 move_subtitle, get_property, not_deleted)
@@ -60,7 +60,14 @@ def login():
     })
     token = get_token(username, password)
     if token:
-        return redirect(url_for('.search_media', token=token['access_token']))
+        if verify_token(token):
+            return redirect(url_for('.search_media', token=token['access_token']))
+        else:
+            return render_template(
+                'index.html',
+                validation_errors=f"Login correct, maar geen toegang tot {OAS_APPNAME}"
+            )
+
     else:
         return render_template('index.html', validation_errors='Fout email of wachtwoord')
 
