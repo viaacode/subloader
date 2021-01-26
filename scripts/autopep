@@ -6,6 +6,7 @@ autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/config.p
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/authorization.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/validation.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/mediahaven_api.py
+autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/ftp_uploader.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/subtitle_files.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/__init__.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive scripts/list_videos.py

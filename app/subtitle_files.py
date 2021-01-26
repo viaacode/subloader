@@ -108,7 +108,7 @@ def save_sidecar_xml(upload_folder, metadata, tp):
     etree.SubElement(mdprops, "CP").text = cp
     etree.SubElement(mdprops, "CP_id").text = cp_id
     etree.SubElement(mdprops, "PID").text = xml_pid
-    etree.SubElement(mdprops, "ExternalId").text = tp['pid']
+    etree.SubElement(mdprops, "external_id").text = tp['pid']
     relations = etree.SubElement(mdprops, "dc_relations")
     etree.SubElement(relations, "is_verwant_aan").text = tp['pid']
 

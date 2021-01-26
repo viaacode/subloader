@@ -25,6 +25,7 @@ from viaa.observability import logging
 from app.config import flask_environment
 from app.authorization import get_token, requires_authorization, verify_token, OAS_APPNAME
 from app.mediahaven_api import MediahavenApi
+from app.ftp_uploader import FtpUploader
 from app.subtitle_files import (save_subtitles, delete_files, save_sidecar_xml,
                                 move_subtitle, get_property, not_deleted)
 from app.validation import (pid_error, upload_error, validate_input,
@@ -226,20 +227,27 @@ def send_to_mam():
             tp['xml_file'], tp['xml_sidecar'] = save_sidecar_xml(
                 upload_folder(), metadata, tp)
 
-        mh_api = MediahavenApi()
-        if tp['replace_existing'] == 'confirm':
-            mh_api.delete_old_subtitle(tp['srt_file'])
+        # original implementation using MediahavenApi
 
-        mh_response = mh_api.send_subtitles(upload_folder(), metadata, tp)
-        logger.info('send_to_mam', data=mh_response)
-        tp['mh_response'] = json.dumps(mh_response)
+        # mh_api = MediahavenApi()
+        # if tp['replace_existing'] == 'confirm':
+        #     mh_api.delete_old_subtitle(tp['srt_file'])
 
-        if not tp['replace_existing'] and (
-            (mh_response.get('status') == 409)
-            or
-            (mh_response.get('status') == 400)
-        ):  # duplicate error can give 409 or 400, show dialog
-            return render_template('confirm_replace.html', **tp)
+        # mh_response = mh_api.send_subtitles(upload_folder(), metadata, tp)
+        # logger.info('send_to_mam', data=mh_response)
+        # tp['mh_response'] = json.dumps(mh_response)
+
+        # if not tp['replace_existing'] and (
+        #     (mh_response.get('status') == 409)
+        #     or
+        #     (mh_response.get('status') == 400)
+        # ):  # duplicate error can give 409 or 400, show dialog
+        #     return render_template('confirm_replace.html', **tp)
+
+        # upload subtitle and xml sidecar with ftp instead
+        ftp_uploader = FtpUploader()
+        ftp_response = ftp_uploader.upload_subtitles(upload_folder(), metadata, tp)
+        tp['mh_resonse'] = json.dumps(ftp_response)
 
         # cleanup temp files and show final page with mh request results
         delete_files(upload_folder(), tp)
