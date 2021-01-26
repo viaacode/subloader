@@ -54,7 +54,7 @@ class FtpUploader:
 
             # upload xml sidecar file
             xml_result = ftp.storbinary(
-                f"STOR {tp['srt_xml_file']}",
+                f"STOR {tp['xml_file']}",
                 fp=open(xml_path, 'rb')
             )
 
