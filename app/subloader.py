@@ -60,8 +60,7 @@ def login():
     })
     token = get_token(username, password)
     if token:
-        print(f"login correct, jwt_token={token}", flush=True)
-        if verify_token(token):
+        if verify_token(token['access_token']):
             return redirect(url_for('.search_media', token=token['access_token']))
         else:
             return render_template(

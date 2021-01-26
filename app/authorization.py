@@ -75,10 +75,13 @@ def verify_token(jwt_token):
             return True
 
     except jwt.exceptions.DecodeError as de:
+        print(f"jwt decode error {de}", flush=True)
         abort(401, jsonify(message=f"jwt token decode error {de}"))
     except jwt.exceptions.ExpiredSignatureError:
+        print("jwt expired error", flush=True)
         abort(401, jsonify(message='jwt token is expired'))
     except jwt.exceptions.InvalidAudienceError:
+        print("jwt Invalid Audience", flush=True)
         abort(401, jsonify(message='invalid audience in jwt token'))
 
 
