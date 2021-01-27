@@ -25,6 +25,13 @@ Ondertitels valideren
       <option value="closed" {{'selected="selected"' if subtitle_type=='closed'}}>Closed</option>
     </select>
 
+    <label>Opsturen met</label><br/>
+    <select name="transfer_method" id="transfer_method">
+      <option value="ftp" {{'selected="selected"'}}>FTP upload</option>
+      <option value="api">Mediahaven API</option>
+    </select>
+
+
     <input readonly=readonly name="subtitle_show_path" id="subtitle_file" value='{{subtitle_file}}'/>
 
     {% if validation_errors %}

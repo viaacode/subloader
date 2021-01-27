@@ -249,6 +249,7 @@ def test_send_to_mam_shows_confirmation(client):
         'subtitle_type': 'closed',
         'subtitle_file': 'qsxs5jbm5c.srt',
         'vtt_file': 'qsxs5jbm5c.vtt',
+        'transfer_method': 'api',
         'mam_data': json.dumps(mam_data)
     }, follow_redirects=True)
 
@@ -272,6 +273,7 @@ def test_send_to_mam_confirm_works(client):
         'subtitle_file': 'qsxs5jbm5c_closed.srt',
         'xml_file': 'qsxs5jbm5c_closed.xml',
         'mam_data': json.dumps(mam_data),
+        'transfer_method': 'api',
         'replace_existing': 'confirm'
     }, follow_redirects=True)
 

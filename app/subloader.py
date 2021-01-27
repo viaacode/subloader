@@ -210,7 +210,8 @@ def send_to_mam():
         'xml_sidecar': request.form.get('xml_sidecar'),
         'mh_response': request.form.get('mh_response'),
         'mam_data': request.form.get('mam_data'),
-        'replace_existing': request.form.get('replace_existing')
+        'replace_existing': request.form.get('replace_existing'),
+        'transfer_method': request.form.get('transfer_method')
     }
 
     if tp['replace_existing'] == 'cancel':
@@ -227,27 +228,26 @@ def send_to_mam():
             tp['xml_file'], tp['xml_sidecar'] = save_sidecar_xml(
                 upload_folder(), metadata, tp)
 
-        # original implementation using MediahavenApi
+        if tp['transfer_method'] == 'api':
+            mh_api = MediahavenApi()
+            if tp['replace_existing'] == 'confirm':
+                mh_api.delete_old_subtitle(tp['srt_file'])
 
-        # mh_api = MediahavenApi()
-        # if tp['replace_existing'] == 'confirm':
-        #     mh_api.delete_old_subtitle(tp['srt_file'])
+            mh_response = mh_api.send_subtitles(upload_folder(), metadata, tp)
+            logger.info('send_to_mam', data=mh_response)
+            tp['mh_response'] = json.dumps(mh_response)
 
-        # mh_response = mh_api.send_subtitles(upload_folder(), metadata, tp)
-        # logger.info('send_to_mam', data=mh_response)
-        # tp['mh_response'] = json.dumps(mh_response)
-
-        # if not tp['replace_existing'] and (
-        #     (mh_response.get('status') == 409)
-        #     or
-        #     (mh_response.get('status') == 400)
-        # ):  # duplicate error can give 409 or 400, show dialog
-        #     return render_template('confirm_replace.html', **tp)
-
-        # upload subtitle and xml sidecar with ftp instead
-        ftp_uploader = FtpUploader()
-        ftp_response = ftp_uploader.upload_subtitles(upload_folder(), metadata, tp)
-        tp['mh_resonse'] = json.dumps(ftp_response)
+            if not tp['replace_existing'] and (
+                (mh_response.get('status') == 409)
+                or
+                (mh_response.get('status') == 400)
+            ):  # duplicate error can give 409 or 400, show dialog
+                return render_template('confirm_replace.html', **tp)
+        else:
+            # upload subtitle and xml sidecar with ftp instead
+            ftp_uploader = FtpUploader()
+            ftp_response = ftp_uploader.upload_subtitles(upload_folder(), metadata, tp)
+            tp['mh_response'] = json.dumps(ftp_response)
 
         # cleanup temp files and show final page with mh request results
         delete_files(upload_folder(), tp)
