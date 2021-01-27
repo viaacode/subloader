@@ -372,10 +372,10 @@ textarea.subtitles {
   height: 10em;
 }
 
-#subtitle_type {
+#subtitle_type, #transfer_method {
   width: 140px;
+  margin-top: 5px;
 }
-
 
 .check {
   margin-left: 10px;

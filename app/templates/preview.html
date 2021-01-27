@@ -24,15 +24,15 @@ Ondertitels valideren
       <option value="open" {{'selected="selected"' if subtitle_type=='open'}}>Open</option>
       <option value="closed" {{'selected="selected"' if subtitle_type=='closed'}}>Closed</option>
     </select>
-
-    <label>Opsturen met</label><br/>
+    <input readonly=readonly name="subtitle_show_path" id="subtitle_file" value='{{subtitle_file}}'/>
+    <br/><br/>
+    <label>Toevoegen met</label><br/>
     <select name="transfer_method" id="transfer_method">
       <option value="ftp" {{'selected="selected"'}}>FTP upload</option>
-      <option value="api">Mediahaven API</option>
+      <!-- disable api mode until issue on mh_api side is fixed -->
+      <!-- option value="api">Mediahaven API</option -->
     </select>
-
-
-    <input readonly=readonly name="subtitle_show_path" id="subtitle_file" value='{{subtitle_file}}'/>
+    <br/>
 
     {% if validation_errors %}
     <span class="form_errors">{{validation_errors}}</span>

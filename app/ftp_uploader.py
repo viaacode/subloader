@@ -13,6 +13,7 @@ import os
 from viaa.configuration import ConfigParser
 from viaa.observability import logging
 from ftplib import FTP, error_perm
+import socket
 
 logger = logging.get_logger(__name__, config=ConfigParser())
 
@@ -66,3 +67,9 @@ class FtpUploader:
         except error_perm as msg:
             print(f"FTP error: {msg}", flush=True)
             return {'ftp_error': str(msg)}
+
+        except (socket.error, socket.gaierror):
+            print('FTP host error "{}"'.format(self.FTP_SERVER), flush=True)
+            return {
+                'ftp_error': f"FTP connect error, could not connect to {self.FTP_SERVER}"
+            }
