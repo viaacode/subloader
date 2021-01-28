@@ -93,6 +93,10 @@ def get_property(mam_data, attribute):
 
 
 def save_sidecar_xml(upload_folder, metadata, tp):
+    TESTBEELD_PERM_ID = os.environ.get('TESTBEELD_PERM_ID', 'dd111b7a-efd0-44e3-8816-0905572421da')
+    ONDERWIJS_PERM_ID = os.environ.get('ONDERWIJS_PERM_ID', '26276bde-be5f-4e17-a40a-49dceb722c64')
+    ADMIN_PERM_ID = os.environ.get('ADMIN_PERM_ID', 'b75571b1-d7a3-4d6f-939e-deb345c1078a')
+
     cp_id = get_property(metadata, 'CP_id')
     cp = get_property(metadata, 'CP')
     xml_pid = f"{tp['pid']}_{tp['subtitle_type']}"
@@ -102,6 +106,16 @@ def save_sidecar_xml(upload_folder, metadata, tp):
 
     description = f"Subtitles for item {tp['pid']}"
     etree.SubElement(root, "description").text = description
+
+    rights = etree.SubElement(root, 'RightsManagement')  # of Structural?
+    permissions = etree.SubElement(rights, 'Permissions')
+    etree.SubElement(permissions, 'Read').text = TESTBEELD_PERM_ID
+    etree.SubElement(permissions, 'Read').text = ONDERWIJS_PERM_ID
+    etree.SubElement(permissions, 'Read').text = ADMIN_PERM_ID
+    etree.SubElement(permissions, 'Write').text = TESTBEELD_PERM_ID
+    etree.SubElement(permissions, 'Write').text = ADMIN_PERM_ID
+    etree.SubElement(permissions, 'Export').text = TESTBEELD_PERM_ID
+    etree.SubElement(permissions, 'Export').text = ADMIN_PERM_ID
 
     mdprops = etree.SubElement(root, "MDProperties")
     etree.SubElement(mdprops, "sp_name").text = 'borndigital'
