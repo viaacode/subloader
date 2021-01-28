@@ -21,17 +21,14 @@ logger = logging.get_logger(__name__, config=ConfigParser())
 class FtpUploader:
     FTP_SERVER = os.environ.get(
         'FTP_SERVER',
-        'dg-qas-tra-01.dg.viaa.be'
+        'ftp.localhost'
     )
     FTP_USER = os.environ.get('FTP_USER', 'anonymous')
     FTP_PASS = os.environ.get('FTP_PASS', '')
     FTP_DIR = os.environ.get('FTP_DIR', '/testbeeld/DISK-RESTRICTED-EVENTS/')
 
-    # is not used here?
-    # DEPARTMENT_ID = os.environ.get(
-    #     'DEPARTMENT_ID',
-    #     'dd111b7a-efd0-44e3-8816-0905572421da'
-    # )
+    def ftp_client(self, server):
+        return FTP(server)
 
     def upload_subtitles(self, upload_folder, metadata, tp):
         try:
@@ -41,7 +38,7 @@ class FtpUploader:
 
             logger.info(f"Uploading to {self.FTP_SERVER} in folder #{self.FTP_DIR}")
 
-            ftp = FTP(self.FTP_SERVER)
+            ftp = self.ftp_client(self.FTP_SERVER)
             ftp.login(self.FTP_USER, self.FTP_PASS)
 
             # change to correct ftp dir

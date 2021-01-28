@@ -62,7 +62,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Mon, 21 Dec 2020 15:12:01 GMT
+      - Thu, 28 Jan 2021 11:54:45 GMT
       Expires:
       - '0'
       Pragma:
@@ -76,11 +76,11 @@ interactions:
       Via:
       - kong/0.13.1
       X-Correlation-ID:
-      - 8b732e6de068fc9defe06656c671d357
+      - 81b7bf890f5803eb407233096d694370
       X-Kong-Proxy-Latency:
       - '0'
       X-Kong-Upstream-Latency:
-      - '665'
+      - '1112'
       X-MediaHavenVersion:
       - '20.3'
       X-RateLimit-Limit-second:

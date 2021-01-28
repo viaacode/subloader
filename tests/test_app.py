@@ -5,7 +5,7 @@
 #  tests/test_app.py
 #
 import pytest
-
+from unittest.mock import MagicMock
 from flask_api import status
 from app.subloader import app
 from .fixtures import jwt_token
@@ -317,3 +317,76 @@ def test_random_404(client, setup):
 
     resp = client.put('/somepage')
     assert resp.status_code == 404
+
+
+@pytest.mark.vcr
+def test_valid_subtitle_for_ftp(client):
+    filename = 'testing_good.srt'
+    filepath = os.path.join('./tests/test_subs', filename)
+
+    with open('./tests/test_subs/mam_data.yml', "r") as f:
+        mam_data = json.loads(yaml.safe_load(f)['response'])[
+            'mediaDataList'][0]
+
+    res = client.post("/upload", data={
+        'token': jwt_token(),
+        'pid': 'qsxs5jbm5c',
+        'department': 'testbeeld',
+        'mam_data': json.dumps(mam_data),
+        'video_url': 'http://somevideopath',
+        'subtitle_type': 'closed',
+        'subtitle_file': (open(filepath, 'rb'), filename)
+    }, follow_redirects=True)
+
+    assert res.status_code == 200
+    assert '<h1>Ondertitelbestand</h1>' in res.data.decode()
+    assert 'qsxs5jbm5c' in res.data.decode()
+    assert 'qsxs5jbm5c.srt' in res.data.decode()
+    assert 'Toevoegen' in res.data.decode()
+    assert 'Wissen' in res.data.decode()
+
+
+@pytest.mark.vcr
+def test_subtitle_ftp_upload(client, mocker):
+    with open('./tests/test_subs/mam_data.yml', "r") as f:
+        mam_data = json.loads(yaml.safe_load(f)['response'])[
+            'mediaDataList'][0]
+
+    # mock ftp calls
+    ftp_mock = MagicMock()
+
+    def mock_ftp_client(self, server):
+        assert server == 'ftp.localhost'
+        ftp_mock.login.return_value = 'login ok'
+        ftp_mock.cwd.return_value = 'dir changed'
+        ftp_mock.storbinary.return_value = '226 Transfer complete.'
+
+        return ftp_mock
+
+    mocker.patch(
+        'app.ftp_uploader.FtpUploader.ftp_client',
+        mock_ftp_client
+    )
+
+    # replace existing subtitle now
+    res = client.post("/send_to_mam", data={
+        'token': jwt_token(),
+        'pid': 'qsxs5jbm5c',
+        'department': 'testbeeld',
+        'subtitle_type': 'closed',
+        'subtitle_file': 'qsxs5jbm5c.srt',
+        'xml_file': 'qsxs5jbm5c.xml',
+        'mam_data': json.dumps(mam_data),
+        'transfer_method': 'ftp'
+
+    }, follow_redirects=True)
+
+    assert ftp_mock.login.called
+    assert ftp_mock.cwd.called
+    ftp_mock.cwd.assert_called_with('/testbeeld/DISK-RESTRICTED-EVENTS/')
+    assert ftp_mock.storbinary.called_twice
+
+    assert res.status_code == 200
+    print(res.data.decode(), flush=True)
+    assert '<h2>Ondertitels en sidecar zijn verstuurd</h2>' in res.data.decode()
+    assert '226 Transfer complete' in res.data.decode()
