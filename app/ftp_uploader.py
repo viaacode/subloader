@@ -25,7 +25,7 @@ class FtpUploader:
     )
     FTP_USER = os.environ.get('FTP_USER', 'anonymous')
     FTP_PASS = os.environ.get('FTP_PASS', '')
-    FTP_DIR = os.environ.get('FTP_DIR', '/testbeeld/DISK-RESTRICTED-EVENTS/')
+    FTP_DIR = os.environ.get('FTP_DIR', '/FTP_DIR/')
 
     def ftp_client(self, server):
         return FTP(server)

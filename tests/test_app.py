@@ -383,7 +383,7 @@ def test_subtitle_ftp_upload(client, mocker):
 
     assert ftp_mock.login.called
     assert ftp_mock.cwd.called
-    ftp_mock.cwd.assert_called_with('/testbeeld/DISK-RESTRICTED-EVENTS/')
+    ftp_mock.cwd.assert_called_with('/FTP_DIR/')
     assert ftp_mock.storbinary.called_twice
 
     assert res.status_code == 200

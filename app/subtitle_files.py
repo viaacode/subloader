@@ -93,9 +93,9 @@ def get_property(mam_data, attribute):
 
 
 def save_sidecar_xml(upload_folder, metadata, tp):
-    TESTBEELD_PERM_ID = os.environ.get('TESTBEELD_PERM_ID', 'dd111b7a-efd0-44e3-8816-0905572421da')
-    ONDERWIJS_PERM_ID = os.environ.get('ONDERWIJS_PERM_ID', '26276bde-be5f-4e17-a40a-49dceb722c64')
-    ADMIN_PERM_ID = os.environ.get('ADMIN_PERM_ID', 'b75571b1-d7a3-4d6f-939e-deb345c1078a')
+    TESTBEELD_PERM_ID = os.environ.get('TESTBEELD_PERM_ID', 'config_testbeeld_uuid')
+    ONDERWIJS_PERM_ID = os.environ.get('ONDERWIJS_PERM_ID', 'config_onderwijs_uuid')
+    ADMIN_PERM_ID = os.environ.get('ADMIN_PERM_ID', 'config_admin_uuid')
 
     cp_id = get_property(metadata, 'CP_id')
     cp = get_property(metadata, 'CP')
