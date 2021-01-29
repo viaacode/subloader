@@ -201,7 +201,7 @@ def save_sidecar_xml(upload_folder, metadata, tp):
     etree.SubElement(relations, "is_verwant_aan").text = tp['pid']
     etree.SubElement(mdprops, "CP_id").text = cp_id
     # mediahaven computes external_id for us.
-    # etree.SubElement(mdprops, "external_id").text = tp['pid']
+    # etree.SubElement(mdprops, "external_id").text = xml_pid
     etree.SubElement(mdprops, "PID").text = xml_pid
     etree.SubElement(mdprops, "CP").text = cp
     etree.SubElement(mdprops, "sp_name").text = 'borndigital'
