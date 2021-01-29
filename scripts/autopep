@@ -10,6 +10,7 @@ autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/ftp_uplo
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/subtitle_files.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/__init__.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive scripts/list_videos.py
+autopep8 --max-line-length=120 --in-place --aggressive --aggressive scripts/test_newformat.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/fixtures.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/test_app.py
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/conftest.py
