@@ -92,7 +92,7 @@ def get_property(mam_data, attribute):
     return result
 
 
-def save_sidecar_xml(upload_folder, metadata, tp):
+def save_sidecar_xml_oldformat(upload_folder, metadata, tp):
     TESTBEELD_PERM_ID = os.environ.get('TESTBEELD_PERM_ID', 'config_testbeeld_uuid')
     ONDERWIJS_PERM_ID = os.environ.get('ONDERWIJS_PERM_ID', 'config_onderwijs_uuid')
     ADMIN_PERM_ID = os.environ.get('ADMIN_PERM_ID', 'config_admin_uuid')
@@ -107,7 +107,8 @@ def save_sidecar_xml(upload_folder, metadata, tp):
     description = f"Subtitles for item {tp['pid']}"
     etree.SubElement(root, "description").text = description
 
-    rights = etree.SubElement(root, 'RightsManagement')  # of Structural?
+    # rights = etree.SubElement(root, 'RightsManagement')  # of Structural?
+    rights = etree.SubElement(root, 'Structural')
     permissions = etree.SubElement(rights, 'Permissions')
     etree.SubElement(permissions, 'Read').text = TESTBEELD_PERM_ID
     etree.SubElement(permissions, 'Read').text = ONDERWIJS_PERM_ID
@@ -125,6 +126,84 @@ def save_sidecar_xml(upload_folder, metadata, tp):
     etree.SubElement(mdprops, "external_id").text = tp['pid']
     relations = etree.SubElement(mdprops, "dc_relations")
     etree.SubElement(relations, "is_verwant_aan").text = tp['pid']
+
+    xml_data = etree.tostring(
+        root, pretty_print=True, encoding="UTF-8", xml_declaration=True
+    ).decode()
+
+    # now write data to correct filename
+    xml_filename = f"{xml_pid}.xml"
+    sf = open(os.path.join(upload_folder, xml_filename), 'w')
+    sf.write(xml_data)
+    sf.close()
+
+    return xml_filename, xml_data
+
+
+def sidecar_root():
+    MH_NS = 'https://zeticon.mediahaven.com/metadata/20.3/mh/'
+    MHS_NS = 'https://zeticon.mediahaven.com/metadata/20.3/mhs/'
+    XSI_NS = 'http://www.w3.org/2001/XMLSchema-instance'  # version="20.3"
+
+    schema_loc = etree.QName("http://www.w3.org/2001/XMLSchema-instance", "schemaLocation")
+    zeticon_mhs = 'https://zeticon.mediahaven.com/metadata/20.3/mhs/'
+    zeticon_mhs_xsd = 'https://zeticon.mediahaven.com/metadata/20.3/mhs.xsd'
+    zeticon_mh = 'https://zeticon.mediahaven.com/metadata/20.3/mh/'
+    zeticon_mh_xsd = 'https://zeticon.mediahaven.com/metadata/20.3/mh.xsd'
+    XSI_LOC = f"{zeticon_mhs} {zeticon_mhs_xsd} {zeticon_mh} {zeticon_mh_xsd}"
+
+    NSMAP = {
+        'mh': MH_NS,
+        'mhs': MHS_NS,
+        'xsi': XSI_NS
+    }
+
+    root = etree.Element(
+        "{%s}Sidecar" % MHS_NS,
+        {
+            'version': '20.3',
+            schema_loc: XSI_LOC
+        },
+        nsmap=NSMAP
+    )
+
+    return root, MH_NS, MHS_NS, XSI_NS
+
+
+def save_sidecar_xml(upload_folder, metadata, tp):
+    TESTBEELD_PERM_ID = os.environ.get('TESTBEELD_PERM_ID', 'config_testbeeld_uuid')
+    ONDERWIJS_PERM_ID = os.environ.get('ONDERWIJS_PERM_ID', 'config_onderwijs_uuid')
+    ADMIN_PERM_ID = os.environ.get('ADMIN_PERM_ID', 'config_admin_uuid')
+
+    cp_id = get_property(metadata, 'CP_id')
+    cp = get_property(metadata, 'CP')
+    xml_pid = f"{tp['pid']}_{tp['subtitle_type']}"
+
+    root, MH_NS, MHS_NS, XSI_NS = sidecar_root()
+
+    descriptive = etree.SubElement(root, '{%s}Descriptive' % MHS_NS)
+    etree.SubElement(descriptive, '{%s}Title' % MH_NS).text = tp['srt_file']
+    description = f"Subtitles for item {tp['pid']}"
+    etree.SubElement(descriptive, '{%s}Description' % MH_NS).text = description
+
+    rights = etree.SubElement(root, '{%s}RightsManagement' % MHS_NS)  # of Structural?
+    permissions = etree.SubElement(rights, '{%s}Permissions' % MH_NS)
+    etree.SubElement(permissions, '{%s}Read' % MH_NS).text = TESTBEELD_PERM_ID
+    etree.SubElement(permissions, '{%s}Read' % MH_NS).text = ONDERWIJS_PERM_ID
+    etree.SubElement(permissions, '{%s}Read' % MH_NS).text = ADMIN_PERM_ID
+    etree.SubElement(permissions, '{%s}Write' % MH_NS).text = TESTBEELD_PERM_ID
+    etree.SubElement(permissions, '{%s}Write' % MH_NS).text = ADMIN_PERM_ID
+    etree.SubElement(permissions, '{%s}Export' % MH_NS).text = TESTBEELD_PERM_ID
+    etree.SubElement(permissions, '{%s}Export' % MH_NS).text = ADMIN_PERM_ID
+
+    mdprops = etree.SubElement(root, "{%s}Dynamic" % MHS_NS)
+    relations = etree.SubElement(mdprops, "dc_relations")
+    etree.SubElement(relations, "is_verwant_aan").text = tp['pid']
+    etree.SubElement(mdprops, "CP_id").text = cp_id
+    etree.SubElement(mdprops, "external_id").text = tp['pid']
+    etree.SubElement(mdprops, "PID").text = xml_pid
+    etree.SubElement(mdprops, "CP").text = cp
+    etree.SubElement(mdprops, "sp_name").text = 'borndigital'
 
     xml_data = etree.tostring(
         root, pretty_print=True, encoding="UTF-8", xml_declaration=True
