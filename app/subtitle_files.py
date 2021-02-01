@@ -92,7 +92,7 @@ def get_property(mam_data, attribute):
     return result
 
 
-def save_sidecar_xml_oldformat(upload_folder, metadata, tp):
+def save_sidecar_xml_v1(upload_folder, metadata, tp):
     TESTBEELD_PERM_ID = os.environ.get('TESTBEELD_PERM_ID', 'config_testbeeld_uuid')
     ONDERWIJS_PERM_ID = os.environ.get('ONDERWIJS_PERM_ID', 'config_onderwijs_uuid')
     ADMIN_PERM_ID = os.environ.get('ADMIN_PERM_ID', 'config_admin_uuid')

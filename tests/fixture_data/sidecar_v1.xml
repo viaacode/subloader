@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<MediaHAVEN_external_metadata>
+  <title>qsf7664p39_closed.srt</title>
+  <description>Subtitles for item qsf7664p39</description>
+  <Structural>
+    <Permissions>
+      <Read>config_testbeeld_uuid</Read>
+      <Read>config_onderwijs_uuid</Read>
+      <Read>config_admin_uuid</Read>
+      <Write>config_testbeeld_uuid</Write>
+      <Write>config_admin_uuid</Write>
+      <Export>config_testbeeld_uuid</Export>
+      <Export>config_admin_uuid</Export>
+    </Permissions>
+  </Structural>
+  <MDProperties>
+    <sp_name>borndigital</sp_name>
+    <CP>testbeeld</CP>
+    <CP_id>OR-h41jm1d</CP_id>
+    <PID>qsf7664p39_closed</PID>
+    <external_id>qsf7664p39</external_id>
+    <dc_relations>
+      <is_verwant_aan>qsf7664p39</is_verwant_aan>
+    </dc_relations>
+  </MDProperties>
+</MediaHAVEN_external_metadata>

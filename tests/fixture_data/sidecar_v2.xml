@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mhs:Sidecar xmlns:mh="https://zeticon.mediahaven.com/metadata/20.3/mh/" xmlns:mhs="https://zeticon.mediahaven.com/metadata/20.3/mhs/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="20.3" xsi:schemaLocation="https://zeticon.mediahaven.com/metadata/20.3/mhs/ https://zeticon.mediahaven.com/metadata/20.3/mhs.xsd https://zeticon.mediahaven.com/metadata/20.3/mh/ https://zeticon.mediahaven.com/metadata/20.3/mh.xsd">
+  <mhs:Descriptive>
+    <mh:Title>qsf7664p39_closed.srt</mh:Title>
+    <mh:Description>Subtitles for item qsf7664p39</mh:Description>
+  </mhs:Descriptive>
+  <mhs:RightsManagement>
+    <mh:Permissions>
+      <mh:Read>config_testbeeld_uuid</mh:Read>
+      <mh:Read>config_onderwijs_uuid</mh:Read>
+      <mh:Read>config_admin_uuid</mh:Read>
+      <mh:Write>config_testbeeld_uuid</mh:Write>
+      <mh:Write>config_admin_uuid</mh:Write>
+      <mh:Export>config_testbeeld_uuid</mh:Export>
+      <mh:Export>config_admin_uuid</mh:Export>
+    </mh:Permissions>
+  </mhs:RightsManagement>
+  <mhs:Dynamic>
+    <dc_relations>
+      <is_verwant_aan>qsf7664p39</is_verwant_aan>
+    </dc_relations>
+    <CP_id>OR-h41jm1d</CP_id>
+    <PID>qsf7664p39_closed</PID>
+    <CP>testbeeld</CP>
+    <sp_name>borndigital</sp_name>
+  </mhs:Dynamic>
+</mhs:Sidecar>
