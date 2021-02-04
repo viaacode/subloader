@@ -40,6 +40,8 @@ def save_subtitles(upload_folder, pid, uploaded_file):
             fsrt = open(srt_path, 'rt')
             content = fsrt.read()
             content = content.replace('<br>', '\n')
+            content = content.replace('<br/>', '\n')
+            content = content.replace('<br />', '\n')
             fsrt.close()
             fsrt = open(srt_path, 'wt')
             fsrt.write(content)
