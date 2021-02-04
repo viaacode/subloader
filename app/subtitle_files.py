@@ -33,8 +33,20 @@ def save_subtitles(upload_folder, pid, uploaded_file):
             vtt_filename = pid + '.vtt'
 
             # save srt and converted vtt file in uploads folder
-            uploaded_file.save(os.path.join(upload_folder, srt_filename))
-            vtt_file = webvtt.from_srt(os.path.join(upload_folder, srt_filename))
+            srt_path = os.path.join(upload_folder, srt_filename)
+            uploaded_file.save(srt_path)
+
+            # convert <br> into newlines
+            fsrt = open(srt_path, 'rt')
+            content = fsrt.read()
+            content = content.replace('<br>', '\n')
+            fsrt.close()
+            fsrt = open(srt_path, 'wt')
+            fsrt.write(content)
+            fsrt.close()
+
+            # create vtt file
+            vtt_file = webvtt.from_srt(srt_path)
             vtt_file.save()
 
             return srt_filename, vtt_filename
