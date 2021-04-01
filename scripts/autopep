@@ -1,17 +1,6 @@
 source python_env/bin/activate
 
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/__init__.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/subloader.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/config.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/authorization.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/validation.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/mediahaven_api.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/ftp_uploader.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive app/subtitle_files.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/__init__.py
+autopep8 --max-line-length=120 --in-place --aggressive --aggressive --in-place -r app;
+autopep8 --max-line-length=120 --in-place --aggressive --aggressive --in-place -r tests
 autopep8 --max-line-length=120 --in-place --aggressive --aggressive scripts/list_videos.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/test_sidecar.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/fixtures.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/test_app.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/conftest.py
-autopep8 --max-line-length=120 --in-place --aggressive --aggressive tests/test_authorization.py
+
