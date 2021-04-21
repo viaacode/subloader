@@ -60,7 +60,7 @@ class MediahavenApi:
         return self.get_proxy(f"/resources/media?q={search}&startIndex={offset}&nrOfResults={limit}")
 
     def get_object(self, object_id):
-        self.get_proxy(f"/resources/media/{object_id}")
+        return self.get_proxy(f"/resources/media/{object_id}")
 
     def find_by(self, object_key, value):
         search_matches = self.list_objects(search=f"+({object_key}:{value})")
