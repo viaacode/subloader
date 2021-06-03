@@ -216,8 +216,6 @@ def send_to_mam():
         'transfer_method': request.form.get('transfer_method')
     }
 
-    print(f"tp={tp}, department={tp['department']}", flush=True)
-
     if tp['replace_existing'] == 'cancel':
         # abort and remove temporary files
         delete_files(upload_folder(), tp)

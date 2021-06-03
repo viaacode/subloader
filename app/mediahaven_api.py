@@ -117,13 +117,9 @@ class MediahavenApi:
         }
 
         logger.info("posting to mam", data=file_fields)
-
-        department = tp['department']
-        print("used api user = {self.api_user(department)}", flush=True)
-
         response = self.session.post(
             url=send_url,
-            auth=(self.api_user(department), self.API_PASSWORD),
+            auth=(self.api_user(tp['department']), self.API_PASSWORD),
             files=file_fields,
         )
 
