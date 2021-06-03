@@ -2,11 +2,13 @@
 #
 #  @Author: Walter Schreppers
 #
-#  file: app/subtitle_files.py
+#  app/subtitle_files.py
+#
 #   description: methods to create temporary srt, vtt and xml files
 #   used for sending to mediahaven and streaming in the flowplayer preview.html
 #   get_property is easy helper method to iterate mdProperties inside
 #   returned data from find_video call.
+#
 
 import os
 import webvtt

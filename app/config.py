@@ -2,8 +2,10 @@
 #
 #  @Author: Walter Schreppers
 #
-#  file: app/config.py
-#  description: configuration per environment
+#  app/config.py
+#
+#   configuration per environment
+#
 
 import os
 

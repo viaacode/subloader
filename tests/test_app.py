@@ -4,6 +4,7 @@
 #
 #  tests/test_app.py
 #
+
 import pytest
 from unittest.mock import MagicMock
 from flask_api import status

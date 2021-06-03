@@ -2,11 +2,13 @@
 #
 #  @Author: Walter Schreppers
 #
-#  file: app/validation.py
-#  description:
-#    Some simple input validation and error handling
-#    in a later refactor we might use something like Marshmallow
-#    but for this simple case, this is good enough
+#  app/validation.py
+#
+#   Some simple input validation and error handling
+#   in a later refactor we might use something like Marshmallow
+#   but for this simple case, this is good enough
+#
+
 import re
 from flask import redirect, url_for
 from viaa.configuration import ConfigParser

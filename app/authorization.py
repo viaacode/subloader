@@ -2,9 +2,11 @@
 #
 #  @Author: Walter Schreppers
 #
-#  file: app/authorization.py
-# description: methods to get jwt token and validate/authenticate token in
-# requests a decorater is also defined called requires_authorization
+#  app/authorization.py
+#
+#   methods to get jwt token and validate/authenticate token in
+#   requests a decorater is also defined called requires_authorization
+#
 
 import os
 import requests

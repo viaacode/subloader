@@ -8,6 +8,7 @@
 #   FTP upload subtitle file and sidecar xml files.
 #   as temporary workaround to get this working until
 #   mh-api v2 solution is available.
+#
 
 import os
 from viaa.configuration import ConfigParser

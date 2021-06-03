@@ -4,6 +4,7 @@
 #
 #  tests/test_sidecar.py
 #
+
 import pytest
 from app.subtitle_files import save_sidecar_xml_v1
 from app.subtitle_files import save_sidecar_xml

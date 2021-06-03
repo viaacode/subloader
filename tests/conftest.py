@@ -2,9 +2,11 @@
 #
 #  @Author: Walter Schreppers
 #
-#  file: tests/conftest.py
-#  description: shared fixtures and basic setup, (also look at __init__.py)
+#  tests/conftest.py
 #
+#   shared fixtures and basic setup, (also look at __init__.py)
+#
+
 import pytest
 from app.subloader import app
 

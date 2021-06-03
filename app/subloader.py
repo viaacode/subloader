@@ -3,8 +3,8 @@
 #
 #  @Author: Walter Schreppers
 #
-#  file: app/subloader.py
-#  description:
+#  app/subloader.py
+#
 #   Application to upload srt file and push into mediahaven.
 #   It stores and converts an uploaded srt file to webvtt format,
 #   shows preview with flowplayer and subtitles.
@@ -13,6 +13,7 @@
 #   jwt between forms and pages as 'token'. This token is verified in the
 #   authorization.py module, using decorator @requires_authorization
 #
+
 import os
 import json
 
