@@ -13,7 +13,7 @@ interactions:
       User-Agent:
       - python-requests/2.25.1
     method: GET
-    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media?q=%2B(DepartmentName:testbeeld)%2B(ExternalId:qsxs5jbm5c)&startIndex=0&nrOfResults=25
+    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media?q=%2B(ExternalId:qsxs5jbm5c)&startIndex=0&nrOfResults=25
   response:
     body:
       string: '{"totalNrOfResults":1,"startIndex":0,"mediaDataList":[{"offsetFrames":0,"fragmentStartFrames":0,"fragmentEndFrames":174,"fragmentDurationFrames":174,"offsetTimeCode":"00:00:00.000","fragmentStartTimeCode":"00:00:00.000","fragmentEndTimeCode":"00:00:06.960","fragmentDurationTimeCode":"00:00:06.960","mediaObjectId":"77b87e7238084ea195608310060fa834927ffb6c019e4eec8a20866ff9c2dfb4","fragmentId":"77b87e7238084ea195608310060fa834927ffb6c019e4eec8a20866ff9c2dfb401edfc6f7a3b466fbd52c7d29a88a1f3","externalId":"qsxs5jbm5c","title":"Meivaart

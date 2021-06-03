@@ -72,7 +72,9 @@ class MediahavenApi:
         return matched_videos
 
     def find_video(self, pid, department='testbeeld'):
-        matched_videos = self.list_objects(search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})")
+        # per request Athina, we drop the department filtering
+        # self.list_objects(search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})")
+        matched_videos = self.list_objects(search=f"%2B(ExternalId:{pid})")
 
         if matched_videos.get('totalNrOfResults') == 1:
             return matched_videos.get('mediaDataList', [{}])[0]

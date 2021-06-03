@@ -13,7 +13,7 @@ interactions:
       User-Agent:
       - python-requests/2.25.1
     method: GET
-    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media?q=%2B(DepartmentName:testbeeld)%2B(ExternalId:abc123)&startIndex=0&nrOfResults=25
+    uri: https://archief-qas.viaa.be/mediahaven-rest-api/resources/media?q=%2B(ExternalId:abc123)&startIndex=0&nrOfResults=25
   response:
     body:
       string: '{"totalNrOfResults":0,"startIndex":0,"mediaDataList":[]}'
