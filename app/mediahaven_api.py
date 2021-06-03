@@ -27,7 +27,6 @@ class MediahavenApi:
         'https://archief-qas.viaa.be/mediahaven-rest-api'
     )
     API_USER_PREFIX = os.environ.get('MEDIAHAVEN_USER_PREFIX', 'viaa@')
-    # API_USER = os.environ.get('MEDIAHAVEN_USER', 'apiUser')
     API_PASSWORD = os.environ.get('MEDIAHAVEN_PASS', 'password')
     DEPARTMENT_ID = os.environ.get(
         'DEPARTMENT_ID',
@@ -41,7 +40,7 @@ class MediahavenApi:
             self.session = session
 
     def api_user(self, department):
-        return f"{self.API_USER}{department}"
+        return f"{self.API_USER_PREFIX}{department}"
 
     # generic get request to mediahaven api
     def get_proxy(self, department, api_route):
@@ -120,7 +119,7 @@ class MediahavenApi:
         logger.info("posting to mam", data=file_fields)
 
         department = tp['department']
-        print("self.API_USER={self.api_user(department)}", flush=True)
+        print("used api user = {self.api_user(department)}", flush=True)
 
         response = self.session.post(
             url=send_url,
