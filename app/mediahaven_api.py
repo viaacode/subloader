@@ -26,7 +26,8 @@ class MediahavenApi:
         'MEDIAHAVEN_API',
         'https://archief-qas.viaa.be/mediahaven-rest-api'
     )
-    API_USER = os.environ.get('MEDIAHAVEN_USER', 'apiUser')
+    API_USER_PREFIX = os.environ.get('MEDIAHAVEN_USER_PREFIX', 'viaa@')
+    # API_USER = os.environ.get('MEDIAHAVEN_USER', 'apiUser')
     API_PASSWORD = os.environ.get('MEDIAHAVEN_PASS', 'password')
     DEPARTMENT_ID = os.environ.get(
         'DEPARTMENT_ID',
@@ -39,8 +40,11 @@ class MediahavenApi:
         else:
             self.session = session
 
+    def api_user(self, department):
+        return f"{self.API_USER}{department}"
+
     # generic get request to mediahaven api
-    def get_proxy(self, api_route):
+    def get_proxy(self, department, api_route):
         get_url = f"{self.API_SERVER}{api_route}"
         headers = {
             'Content-Type': 'application/json',
@@ -52,40 +56,26 @@ class MediahavenApi:
         response = self.session.get(
             url=get_url,
             headers=headers,
-            auth=(self.API_USER, self.API_PASSWORD)
+            auth=(self.api_user(department), self.API_PASSWORD)
         )
 
         return response.json()
 
-    def list_objects(self, search='', offset=0, limit=25):
-        return self.get_proxy(f"/resources/media?q={search}&startIndex={offset}&nrOfResults={limit}")
+    def list_objects(self, department, search='', offset=0, limit=25):
+        return self.get_proxy(
+            department,
+            f"/resources/media?q={search}&startIndex={offset}&nrOfResults={limit}"
+        )
 
-    def get_object(self, object_id):
-        return self.get_proxy(f"/resources/media/{object_id}")
-
-    def find_by(self, object_key, value):
-        search_matches = self.list_objects(search=f"+({object_key}:{value})")
+    def find_by(self, department, object_key, value):
+        search_matches = self.list_objects(department, search=f"+({object_key}:{value})")
         return search_matches
 
-    def list_videos(self, department='testbeeld'):
-        matched_videos = self.list_objects(search=f"%2B(DepartmentName:{department})")
-        return matched_videos
-
-    def find_video(self, pid, department='testbeeld'):
-        # per request Athina, we drop the department filtering
-        # self.list_objects(search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})")
-        matched_videos = self.list_objects(search=f"%2B(ExternalId:{pid})")
-
-        if matched_videos.get('totalNrOfResults') == 1:
-            return matched_videos.get('mediaDataList', [{}])[0]
-        else:
-            return None
-
-    def delete_fragment(self, frag_id):
+    def delete_fragment(self, department, frag_id):
         del_url = f"{self.API_SERVER}/resources/media/{frag_id}"
         del_resp = self.session.delete(
             url=del_url,
-            auth=(self.API_USER, self.API_PASSWORD)
+            auth=(self.api_user(department), self.API_PASSWORD)
         )
 
         logger.info(
@@ -96,12 +86,22 @@ class MediahavenApi:
             }
         )
 
-    def delete_old_subtitle(self, subtitle_file):
-        items = self.find_by('originalFileName', subtitle_file)
+    def find_video(self, department, pid):
+        # per request Athina, we drop the department filtering here
+        # self.list_objects(search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})")
+        matched_videos = self.list_objects(department, search=f"%2B(ExternalId:{pid})")
+
+        if matched_videos.get('totalNrOfResults') == 1:
+            return matched_videos.get('mediaDataList', [{}])[0]
+        else:
+            return None
+
+    def delete_old_subtitle(self, department, subtitle_file):
+        items = self.find_by(department, 'originalFileName', subtitle_file)
         if items.get('totalNrOfResults') >= 1:
             sub = items.get('mediaDataList')[0]
             frag_id = sub['fragmentId']
-            self.delete_fragment(frag_id)
+            self.delete_fragment(department, frag_id)
 
     def send_subtitles(self, upload_folder, metadata, tp):
         # sends srt_file and xml_file to mediahaven
@@ -119,10 +119,21 @@ class MediahavenApi:
 
         logger.info("posting to mam", data=file_fields)
 
+        department = tp['department']
+        print("self.API_USER={self.api_user(department)}", flush=True)
+
         response = self.session.post(
             url=send_url,
-            auth=(self.API_USER, self.API_PASSWORD),
+            auth=(self.api_user(department), self.API_PASSWORD),
             files=file_fields,
         )
 
         return response.json()
+
+    # below two methods are extra helpers only used by maintenance scripts
+    def get_object(self, object_id, department='testbeeld'):
+        return self.get_proxy(department, f"/resources/media/{object_id}")
+
+    def list_videos(self, department='testbeeld'):
+        matched_videos = self.list_objects(department, search=f"%2B(DepartmentName:{department})")
+        return matched_videos

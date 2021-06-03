@@ -113,7 +113,7 @@ def get_upload():
         return pid_error(token, pid, validation_error)
 
     mh_api = MediahavenApi()
-    mam_data = mh_api.find_video(pid, department)
+    mam_data = mh_api.find_video(department, pid)
     if not mam_data:
         return pid_error(token, pid, f"PID niet gevonden in {department}")
 
@@ -204,6 +204,7 @@ def send_to_mam():
     tp = {
         'token': request.form.get('token'),
         'pid': request.form.get('pid'),
+        'department': request.form.get('department'),
         'subtitle_type': request.form.get('subtitle_type'),
         'srt_file': request.form.get('subtitle_file'),
         'vtt_file': request.form.get('vtt_file'),
@@ -214,6 +215,8 @@ def send_to_mam():
         'replace_existing': request.form.get('replace_existing'),
         'transfer_method': request.form.get('transfer_method')
     }
+
+    print(f"tp={tp}, department={tp['department']}", flush=True)
 
     if tp['replace_existing'] == 'cancel':
         # abort and remove temporary files
@@ -232,7 +235,7 @@ def send_to_mam():
         if tp['transfer_method'] == 'api':
             mh_api = MediahavenApi()
             if tp['replace_existing'] == 'confirm':
-                mh_api.delete_old_subtitle(tp['srt_file'])
+                mh_api.delete_old_subtitle(tp['department'], tp['srt_file'])
 
             mh_response = mh_api.send_subtitles(upload_folder(), metadata, tp)
             logger.info('send_to_mam', data=mh_response)
