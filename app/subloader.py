@@ -17,8 +17,9 @@
 import os
 import json
 
-from flask import (Flask, request, render_template,
+from flask import (Flask, request, render_template, session, make_response,
                    redirect, url_for, send_from_directory)
+
 from flask_api import status
 from viaa.configuration import ConfigParser
 from viaa.observability import logging
@@ -290,8 +291,8 @@ def prepare_flask_request(request):
     }
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/login_with_saml', methods=['GET', 'POST'])
+def login_with_saml():
     req = prepare_flask_request(request)
     auth = init_saml_auth(req)
     errors = []
