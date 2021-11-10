@@ -471,3 +471,21 @@ input[type=submit]:disabled.cancel{
   margin-left: 0px;
 }
 
+
+.login_logout {
+    float: right;
+    padding-top: 10px;
+}
+
+.login_logout a {
+  border: 1px solid #bac7d1;
+  background-color: #26a4cf;
+  padding: 10px;
+  border-radius: 4px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.login_logout a:hover {
+  background-color: #46a4ff;
+}

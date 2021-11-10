@@ -18,7 +18,7 @@ Login
   <div class="alert alert-success" role="alert">Successfully logged out</div>
 {% endif %}
 
-
+<!--
 DEBUG template params (not for release, just for extra security checking): <br/>
 <pre>
 {{ errors }}
@@ -28,39 +28,19 @@ DEBUG template params (not for release, just for extra security checking): <br/>
 {{ attributes }}
 {{ paint_logout }}
 </pre>
+-->
 
 
-{% if paint_logout %}
-  {% if attributes %}
-    <table class="table table-striped">
-      <thead>
-        <th>Name</th><th>Values</th>
-      </thead>
-      <tbody>
-        {% for attr in attributes %}
-          <tr><td>{{ attr.0 }}</td>
-          <td><ul class="list-unstyled">
-            {% for val in attr.1 %}
-              <li>{{ val }}</li>
-            {% endfor %}
-          </ul></td></tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <div class="alert alert-danger" role="alert">You don't have any attributes</div>
-  {% endif %}
-  <a href="?slo" class="btn btn-danger">Logout</a>
-{% else %}
-  <a href="?sso" class="btn btn-primary">Login</a> <a href="?sso2" class="btn btn-info">Login and access to attrs page</a>
-{% endif %}
 
 
+  <!-- styling to be done with bulma soon... -->
   <div class="center_page">
   <p>
-   Login met je meemoo account.
+  <pre>
+   Login met je meemoo account door 
+   rechtsboven op de login knop te clicken.</pre>
 
-   <form action="/login" class="login_form" method="POST">
+   <!-- form action="/login" class="login_form" method="POST">
 
       <label>E-mailadres</label>
       <input name="username"/> <br/>
@@ -92,7 +72,7 @@ DEBUG template params (not for release, just for extra security checking): <br/>
         onClick="loginSubmit(this);"
         type="submit" 
         value="Login"/>
-  </form>
+  </form -->
 
   </p>
   </div>
