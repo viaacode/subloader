@@ -9,6 +9,41 @@ Login
 
 {% block content %}
 
+{# TODO: refactor this later on, right now as POC its nice to test login/logout integrated in subloader... #}
+{% if not_auth_warn %}
+  <div class="alert alert-danger" role="alert">Not authenticated</div>
+{% endif %}
+
+{% if success_slo %}
+  <div class="alert alert-success" role="alert">Successfully logged out</div>
+{% endif %}
+
+{% if paint_logout %}
+  {% if attributes %}
+    <table class="table table-striped">
+      <thead>
+        <th>Name</th><th>Values</th>
+      </thead>
+      <tbody>
+        {% for attr in attributes %}
+          <tr><td>{{ attr.0 }}</td>
+          <td><ul class="list-unstyled">
+            {% for val in attr.1 %}
+              <li>{{ val }}</li>
+            {% endfor %}
+          </ul></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-danger" role="alert">You don't have any attributes</div>
+  {% endif %}
+  <a href="?slo" class="btn btn-danger">Logout</a>
+{% else %}
+  <a href="?sso" class="btn btn-primary">Login</a> <a href="?sso2" class="btn btn-info">Login and access to attrs page</a>
+{% endif %}
+
+
   <div class="center_page">
   <p>
    Login met je meemoo account.
@@ -25,12 +60,26 @@ Login
       <span class="form_errors">{{validation_errors}}</span>
       {% endif %}
 
-    <input 
-      id="login_submit"
-      onClick="loginSubmit(this);"
-      type="submit" 
-      value="Login"/>
 
+      {% if errors %}
+        <div class="alert alert-danger" role="alert">
+          <strong>Errors:</strong>
+          <ul class="list-unstyled">
+              {% for err in errors %}
+                <li>{{err}}</li>
+              {% endfor %}
+          </ul>
+          {% if error_reason %}
+              <span>{{error_reason}}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <input 
+        id="login_submit"
+        onClick="loginSubmit(this);"
+        type="submit" 
+        value="Login"/>
   </form>
 
   </p>
@@ -41,4 +90,5 @@ Login
 
    </body>
 </html> 
+
 
