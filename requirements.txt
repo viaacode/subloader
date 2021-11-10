@@ -7,3 +7,9 @@ requests>=2.23.0
 pyjwt>=1.7.0
 webvtt-py>=0.4.6
 Werkzeug==1.0.0
+# added packages for flask/saml
+# flask==1.0
+onelogin
+rdflib
+lxml
+python3-saml
