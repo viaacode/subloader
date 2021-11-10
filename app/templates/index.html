@@ -18,6 +18,18 @@ Login
   <div class="alert alert-success" role="alert">Successfully logged out</div>
 {% endif %}
 
+
+DEBUG template params (not for release, just for extra security checking): <br/>
+<pre>
+{{ errors }}
+{{ error_reason }}
+{{ not_auth_warn }}
+{{ success_slo }}
+{{ attributes }}
+{{ paint_logout }}
+</pre>
+
+
 {% if paint_logout %}
   {% if attributes %}
     <table class="table table-striped">

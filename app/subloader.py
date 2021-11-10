@@ -47,8 +47,9 @@ app.config.from_object(flask_environment())
 # disables caching of srt and other files
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-# TODO: ofcourse replace these ASAP soon:
-app.config['SECRET_KEY'] = 'onelogindemopytoolkit'
+# TODO: replace these with some ENV vars soon:
+# app.config['SECRET_KEY'] = 'onelogindemopytoolkit'
+app.config['SECRET_KEY'] = 'meemoo_saml_secret_to_be_set_using_configmap_or_secrets'
 app.config['SAML_PATH'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'saml')
 
 
@@ -378,7 +379,7 @@ def login_with_saml():
         not_auth_warn=not_auth_warn,
         success_slo=success_slo,
         attributes=attributes,
-        paint_logout=paint_logout
+        paint_logout=paint_logout,
     )
 
 
@@ -404,6 +405,7 @@ def metadata():
     metadata = settings.get_sp_metadata()
     errors = settings.validate_metadata(metadata)
 
+    # make_response is needed here to set correct header and response code
     if len(errors) == 0:
         resp = make_response(metadata, 200)
         resp.headers['Content-Type'] = 'text/xml'
