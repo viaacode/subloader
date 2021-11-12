@@ -1,6 +1,0 @@
-flask==1.0
-onelogin
-rdflib
-lxml
-python3-saml
-
