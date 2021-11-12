@@ -26,7 +26,7 @@ from viaa.observability import logging
 
 from app.config import flask_environment
 from app.authorization import (get_token, requires_authorization,
-                                verify_token, OAS_APPNAME)
+                               verify_token, OAS_APPNAME)
 from app.mediahaven_api import MediahavenApi
 from app.ftp_uploader import FtpUploader
 from app.subtitle_files import (save_subtitles, delete_files, save_sidecar_xml,
@@ -53,7 +53,7 @@ app.config['SECRET_KEY'] = 'meemoo_saml_secret_to_be_set_using_configmap_or_secr
 app.config['SAML_PATH'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'saml')
 
 
-############################# SUBLOADER RELATED ROUTES #############################
+# ======================== SUBLOADER RELATED ROUTES ===========================
 @app.route('/', methods=['GET'])
 def index():
     logger.info(
@@ -273,7 +273,7 @@ def send_to_mam():
         return render_template('subtitles_sent.html', **tp)
 
 
-############################# SAML Authentication #############################
+# ========================== SAML Authentication ==============================
 def init_saml_auth(req):
     auth = OneLogin_Saml2_Auth(req, custom_base_path=app.config['SAML_PATH'])
     return auth
@@ -286,7 +286,8 @@ def prepare_flask_request(request):
         'http_host': request.host,
         'script_name': request.path,
         'get_data': request.args.copy(),
-        # Uncomment if using ADFS as IdP, https://github.com/onelogin/python-saml/pull/144
+        # Uncomment if using ADFS as IdP,
+        # https://github.com/onelogin/python-saml/pull/144
         # 'lowercase_urlencoding': True,
         'post_data': request.form.copy()
     }
@@ -325,7 +326,15 @@ def saml_login():
         if 'samlNameIdSPNameQualifier' in session:
             name_id_spnq = session['samlNameIdSPNameQualifier']
 
-        return redirect(auth.logout(name_id=name_id, session_index=session_index, nq=name_id_nq, name_id_format=name_id_format, spnq=name_id_spnq))
+        return redirect(
+            auth.logout(
+                name_id=name_id,
+                session_index=session_index,
+                nq=name_id_nq,
+                name_id_format=name_id_format,
+                spnq=name_id_spnq
+            )
+        )
     elif 'acs' in request.args:
         request_id = None
         if 'AuthNRequestID' in session:
@@ -418,8 +427,7 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8000, debug=True)
 
 
-
-#################### HEALTH CHECK ROUTES AND ERROR HANDLING ###################
+# =================== HEALTH CHECK ROUTES AND ERROR HANDLING ==================
 @app.route("/health/live")
 def liveness_check():
     return "OK", status.HTTP_200_OK
