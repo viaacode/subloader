@@ -1,0 +1,16 @@
+1
+00:00:01,000 --> 00:00:03,023
+Vierde subtitle test
+
+2
+00:00:03,676 --> 00:00:05,930
+Testing permissions op sidecar
+
+3
+00:00:06,972 --> 00:50:16,350
+Gewone tekst hier 50 minuten lang... 
+
+4
+00:00:51,972 --> 00:55:16,350
+Laatste 5 minuten...
+

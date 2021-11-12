@@ -1,0 +1,21 @@
+1
+00:00:01,000 --> 00:00:04,023
+Twee br1 lijnen met <br> tweede lijn
+
+2
+00:00:05,676 --> 00:00:08,930
+Twee br2 lijnen met <br/> tweede lijn
+
+3
+00:00:09,972 --> 00:00:12,350
+Twee br3 lijnen met <br /> tweede lijn
+
+4
+00:00:13,972 --> 00:00:15,350
+Twee lijnen door gewoon een backslash n char \n tweede lijn
+
+5
+00:00:16,000 --> 00:00:20,350
+Twee lijnen door gewoon een linebreak
+tweede lijn
+
