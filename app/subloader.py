@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-#  @Author: Walter Schreppers
+#  @Author: Walter Schreppers and integrated code from python-saml3 flask demo
 #
 #  app/subloader.py
 #
