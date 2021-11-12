@@ -292,8 +292,8 @@ def prepare_flask_request(request):
     }
 
 
-@app.route('/login_with_saml', methods=['GET', 'POST'])
-def login_with_saml():
+@app.route('/saml_login', methods=['GET', 'POST'])
+def saml_login():
     req = prepare_flask_request(request)
     auth = init_saml_auth(req)
     errors = []
@@ -373,7 +373,7 @@ def login_with_saml():
             attributes = session['samlUserdata'].items()
 
     return render_template(
-        'index.html',
+        'saml_login.html',
         errors=errors,
         error_reason=error_reason,
         not_auth_warn=not_auth_warn,

@@ -9,38 +9,10 @@ Login
 
 {% block content %}
 
-{# TODO: refactor this later on, right now as POC its nice to test login/logout integrated in subloader... #}
-{% if not_auth_warn %}
-  <div class="alert alert-danger" role="alert">Not authenticated</div>
-{% endif %}
-
-{% if success_slo %}
-  <div class="alert alert-success" role="alert">Successfully logged out</div>
-{% endif %}
-
-<!--
-DEBUG template params (not for release, just for extra security checking): <br/>
-<pre>
-{{ errors }}
-{{ error_reason }}
-{{ not_auth_warn }}
-{{ success_slo }}
-{{ attributes }}
-{{ paint_logout }}
-</pre>
--->
-
-
-
-
   <!-- styling to be done with bulma soon... -->
   <div class="center_page">
   <p>
-  <pre>
-   Login met je meemoo account door 
-   rechtsboven op de login knop te clicken.</pre>
-
-   <!-- form action="/login" class="login_form" method="POST">
+   <form action="/login" class="login_form" method="POST">
 
       <label>E-mailadres</label>
       <input name="username"/> <br/>
@@ -72,7 +44,19 @@ DEBUG template params (not for release, just for extra security checking): <br/>
         onClick="loginSubmit(this);"
         type="submit" 
         value="Login"/>
-  </form -->
+
+
+    <hr/>
+    <p>
+      De toekomstige authenticatie is met SAML zodat je meerdere Meemoo websites
+      kunt gebruiken met 1 login/logout.
+    </p>
+    <a href="{{ url_for('.saml_login')}}" 
+      class="button saml">
+      SAML Login
+    </a>
+
+  </form>
 
   </p>
   </div>
