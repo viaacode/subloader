@@ -50,7 +50,8 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 # TODO: replace these with some ENV vars soon:
 # app.config['SECRET_KEY'] = 'onelogindemopytoolkit'
 app.config['SECRET_KEY'] = 'meemoo_saml_secret_to_be_set_using_configmap_or_secrets'
-app.config['SAML_PATH'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'saml')
+app.config['SAML_PATH'] = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), 'saml')
 
 
 # ======================== SUBLOADER RELATED ROUTES ===========================
@@ -139,7 +140,8 @@ def get_upload():
         created=get_property(mam_data, 'CreationDate'),
         archived=get_property(mam_data, 'created_on'),
         original_cp=get_property(mam_data, 'Original_CP'),
-        video_url=mam_data.get('videoPath'),  # for v2 mam_data['Internal']['PathToVideo']
+        # for v2 mam_data['Internal']['PathToVideo']
+        video_url=mam_data.get('videoPath'),
         flowplayer_token=os.environ.get('FLOWPLAYER_TOKEN', 'set_in_secrets'),
         validation_errors=errors)
 
@@ -160,7 +162,8 @@ def post_upload():
     if validation_error:
         return upload_error(tp, validation_error)
 
-    tp['subtitle_file'], tp['vtt_file'] = save_subtitles(upload_folder(), tp['pid'], uploaded_file)
+    tp['subtitle_file'], tp['vtt_file'] = save_subtitles(
+        upload_folder(), tp['pid'], uploaded_file)
 
     conversion_error = validate_conversion(tp)
     if conversion_error:
@@ -259,7 +262,8 @@ def send_to_mam():
         else:
             # upload subtitle and xml sidecar with ftp instead
             ftp_uploader = FtpUploader()
-            ftp_response = ftp_uploader.upload_subtitles(upload_folder(), metadata, tp)
+            ftp_response = ftp_uploader.upload_subtitles(
+                upload_folder(), metadata, tp)
             tp['mh_response'] = json.dumps(ftp_response)
 
         # cleanup temp files and show final page with mh request results
@@ -363,7 +367,8 @@ def saml_login():
         request_id = None
         if 'LogoutRequestID' in session:
             request_id = session['LogoutRequestID']
-        dscb = lambda: session.clear()
+
+        def dscb(): return session.clear()
         url = auth.process_slo(request_id=request_id, delete_session_cb=dscb)
         errors = auth.get_errors()
         if len(errors) == 0:

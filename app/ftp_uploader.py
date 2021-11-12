@@ -37,7 +37,8 @@ class FtpUploader:
             srt_path = os.path.join(upload_folder, tp['srt_file'])
             xml_path = os.path.join(upload_folder, tp['xml_file'])
 
-            logger.info(f"Uploading to {self.FTP_SERVER} in folder #{self.FTP_DIR}")
+            logger.info(
+                f"Uploading to {self.FTP_SERVER} in folder #{self.FTP_DIR}")
 
             ftp = self.ftp_client(self.FTP_SERVER)
             ftp.login(self.FTP_USER, self.FTP_PASS)

@@ -109,8 +109,10 @@ def get_property(mam_data, attribute):
 
 
 def save_sidecar_xml_v1(upload_folder, metadata, tp):
-    TESTBEELD_PERM_ID = os.environ.get('TESTBEELD_PERM_ID', 'config_testbeeld_uuid')
-    ONDERWIJS_PERM_ID = os.environ.get('ONDERWIJS_PERM_ID', 'config_onderwijs_uuid')
+    TESTBEELD_PERM_ID = os.environ.get(
+        'TESTBEELD_PERM_ID', 'config_testbeeld_uuid')
+    ONDERWIJS_PERM_ID = os.environ.get(
+        'ONDERWIJS_PERM_ID', 'config_onderwijs_uuid')
     ADMIN_PERM_ID = os.environ.get('ADMIN_PERM_ID', 'config_admin_uuid')
 
     cp_id = get_property(metadata, 'CP_id')
@@ -161,7 +163,8 @@ def sidecar_root():
     MHS_NS = 'https://zeticon.mediahaven.com/metadata/20.3/mhs/'
     XSI_NS = 'http://www.w3.org/2001/XMLSchema-instance'  # version="20.3"
 
-    schema_loc = etree.QName("http://www.w3.org/2001/XMLSchema-instance", "schemaLocation")
+    schema_loc = etree.QName(
+        "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation")
     zeticon_mhs = 'https://zeticon.mediahaven.com/metadata/20.3/mhs/'
     zeticon_mhs_xsd = 'https://zeticon.mediahaven.com/metadata/20.3/mhs.xsd'
     zeticon_mh = 'https://zeticon.mediahaven.com/metadata/20.3/mh/'
@@ -187,8 +190,10 @@ def sidecar_root():
 
 
 def save_sidecar_xml(upload_folder, metadata, tp):
-    TESTBEELD_PERM_ID = os.environ.get('TESTBEELD_PERM_ID', 'config_testbeeld_uuid')
-    ONDERWIJS_PERM_ID = os.environ.get('ONDERWIJS_PERM_ID', 'config_onderwijs_uuid')
+    TESTBEELD_PERM_ID = os.environ.get(
+        'TESTBEELD_PERM_ID', 'config_testbeeld_uuid')
+    ONDERWIJS_PERM_ID = os.environ.get(
+        'ONDERWIJS_PERM_ID', 'config_onderwijs_uuid')
     ADMIN_PERM_ID = os.environ.get('ADMIN_PERM_ID', 'config_admin_uuid')
 
     cp_id = get_property(metadata, 'CP_id')
@@ -202,14 +207,16 @@ def save_sidecar_xml(upload_folder, metadata, tp):
     description = f"Subtitles for item {tp['pid']}"
     etree.SubElement(descriptive, '{%s}Description' % MH_NS).text = description
 
-    rights = etree.SubElement(root, '{%s}RightsManagement' % MHS_NS)  # of Structural?
+    rights = etree.SubElement(
+        root, '{%s}RightsManagement' % MHS_NS)  # of Structural?
     permissions = etree.SubElement(rights, '{%s}Permissions' % MH_NS)
     etree.SubElement(permissions, '{%s}Read' % MH_NS).text = TESTBEELD_PERM_ID
     etree.SubElement(permissions, '{%s}Read' % MH_NS).text = ONDERWIJS_PERM_ID
     etree.SubElement(permissions, '{%s}Read' % MH_NS).text = ADMIN_PERM_ID
     etree.SubElement(permissions, '{%s}Write' % MH_NS).text = TESTBEELD_PERM_ID
     etree.SubElement(permissions, '{%s}Write' % MH_NS).text = ADMIN_PERM_ID
-    etree.SubElement(permissions, '{%s}Export' % MH_NS).text = TESTBEELD_PERM_ID
+    etree.SubElement(permissions, '{%s}Export' %
+                     MH_NS).text = TESTBEELD_PERM_ID
     etree.SubElement(permissions, '{%s}Export' % MH_NS).text = ADMIN_PERM_ID
 
     mdprops = etree.SubElement(root, "{%s}Dynamic" % MHS_NS)

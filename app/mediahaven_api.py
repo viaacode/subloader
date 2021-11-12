@@ -67,7 +67,8 @@ class MediahavenApi:
         )
 
     def find_by(self, department, object_key, value):
-        search_matches = self.list_objects(department, search=f"+({object_key}:{value})")
+        search_matches = self.list_objects(
+            department, search=f"+({object_key}:{value})")
         return search_matches
 
     def delete_fragment(self, department, frag_id):
@@ -88,7 +89,8 @@ class MediahavenApi:
     def find_video(self, department, pid):
         # per request Athina, we drop the department filtering here
         # self.list_objects(search=f"%2B(DepartmentName:{department})%2B(ExternalId:{pid})")
-        matched_videos = self.list_objects(department, search=f"%2B(ExternalId:{pid})")
+        matched_videos = self.list_objects(
+            department, search=f"%2B(ExternalId:{pid})")
 
         if matched_videos.get('totalNrOfResults') == 1:
             return matched_videos.get('mediaDataList', [{}])[0]
@@ -130,5 +132,6 @@ class MediahavenApi:
         return self.get_proxy(department, f"/resources/media/{object_id}")
 
     def list_videos(self, department='testbeeld'):
-        matched_videos = self.list_objects(department, search=f"%2B(DepartmentName:{department})")
+        matched_videos = self.list_objects(
+            department, search=f"%2B(DepartmentName:{department})")
         return matched_videos

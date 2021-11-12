@@ -24,10 +24,12 @@ def vcr_config():
 
 
 def test_sidecar_v1():
-    xml_filename, xml_data = save_sidecar_xml_v1("./tests/test_subs", sub_meta(), sub_params())
+    xml_filename, xml_data = save_sidecar_xml_v1(
+        "./tests/test_subs", sub_meta(), sub_params())
     assert xml_data == sidecar_v1_output()
 
 
 def test_sidecar_v2():
-    xml_filename, xml_data = save_sidecar_xml("./tests/test_subs", sub_meta(), sub_params())
+    xml_filename, xml_data = save_sidecar_xml(
+        "./tests/test_subs", sub_meta(), sub_params())
     assert xml_data == sidecar_v2_output()
