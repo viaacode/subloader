@@ -1,4 +1,4 @@
-# Subloader
+# Subloader en Redactie tool
 
 ## Synopsis
 Upload form for subtitles as collateral for mediaobject. Searches
@@ -26,35 +26,61 @@ Allows basically to upload both closed and open srt files to videos for 'testbee
 
 ### Running locally
 
-1. Start by installing pip packages and setting up environment:
-    `scripts/install`
+There is a Makefile included now. If you run make without arguments you can
+see all available commands.
 
-2. Activate the virtual environment:
+1. Start by running make install which installs the pip packages and sets up the environment.
 
-    `$ source python_env/bin/activate`
+2. Start the server in debug mode like so:
 
-4. Run the tests with:
+```
+$ make debug
+__________           .___              __  .__         ___________           .__   
+\______   \ ____   __| _/____    _____/  |_|__| ____   \__    ___/___   ____ |  |  
+ |       _// __ \ / __ |\__  \ _/ ___\   __\  |/ __ \    |    | /  _ \ /  _ \|  |  
+ |    |   \  ___// /_/ | / __ \\  \___|  | |  \  ___/    |    |(  <_> |  <_> )  |__
+ |____|_  /\___  >____ |(____  /\___  >__| |__|\___  >   |____| \____/ \____/|____/
+        \/     \/     \/     \/     \/             \/                              
 
-    `$ scripts/test`
+                 Develop mode, running on http://localhost:8080 
 
-5. Run the application:
 
-   `$ scrits/run`
+ * Serving Flask app "app.subloader" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+{"message": " * Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)"}
+{"message": " * Restarting with stat"}
+{"message": " * Debugger is active!"}
+
+```
+
+
+3. Run the tests with:
+
+    `$ make test`
+
+5. Run the web application in optimal mode for benchmarking :
+
+   `$ make server`
 
 The application is now serving requests on `localhost:8080`. Try it with:
 
     `$ curl -v -X GET http://127.0.0.1:8080/`
 
+Or just visit this url in your browser http://127.0.0.1:8080
+
 ### Running using Docker
 
 1. Build the container and run it:
 
-   `$ scripts/build`
+   `$ make dockerrun`
 
 ### Helper scripts
 To run the tests locally and also run flake8 linter/code checking:
 ```
-$ scripts/test    
+$ make test    
 ================================ test session starts =================================
 platform darwin -- Python 3.8.5, pytest-5.4.1, py-1.10.0, pluggy-0.13.1 
 cachedir: .pytest_cache
@@ -96,10 +122,12 @@ If you get flake8 warnings during development there's a scripts/autopep command 
 that will auto-fix most styling issues (basically a python equivalent to rubocop -a used in ruby projects).
 
 
-Test coverage report can be generated with following script/coverage:
+### Tests code coverage
+
+Test coverage report can be generated with following coverage makefile command:
 
 ```
-$ scripts/coverage
+$ make coverage
 ================================ test session starts =================================
 platform darwin -- Python 3.8.5, pytest-5.4.1, py-1.10.0, pluggy-0.13.1
 rootdir: /Users/wschrep/FreelanceWork/VIAA/subloader
@@ -154,21 +182,23 @@ This env var is exposed to javascript code starting flowplayer in app/templates/
 To run a server on port 8080:
 
 ```
-$ scripts/run
+$ make server
 ```
-The root page is login screen for configured oas server.
+The root page is now a login screen that both supports a form based login and a one button/saml authentication
+which shares your login with other Meemoo applications.
 
 following this link <a href="http://127.0.0.1:8080/">Subloader</a> after you have the server running.
 
 
-During development you can autoformat using scripts/autopep and to make changes and see response instantly without restarting the application
-theres the scripts/debug helper script now
+During development you can autoformat and check linting errors like so:
 ```
-$ scripts/debug
+$ make lint
 ```
-It also runs on port 8080 like the scripts/run and docker builds
 
-
+Auto reformatting (a lot like rubocop but then with python):
+```
+$ make format
+```
 
 ### Verification of bearer token
 
@@ -177,6 +207,8 @@ and it is stored here for qas: https://do-prd-okp-m0.do.viaa.be:8443/console/pro
 and here for prd: https://do-prd-okp-m0.do.viaa.be:8443/console/project/public-api/browse/secrets/avo-oas-prd-master-config.
 
 The k value for the respective environment is stored in OAS_JWT_SECRET and the syncrator-api decodes + verifies the jwt signature from OAS in the verify_token method in app/authorization.py we also verify the audience == 'syncrator' this is the 'aud' in the jwt token. When signature verification is enabled this verifies also the audience and throws an exception if it does not match (which is caught and results in a 401 access denied). Without the OAS_JWT_SECRET a fallback mode decodes the jwt token and checks the 'aud' value but this is unsecure and therefore a warning message will be printed to setup the secret properly.
+
+However this above bearer and oas_jwt will soon become deprecated as we will fully switch to SAML authentication once this is up and running on the QAS instance of the 'Ondertitel en redactie tool'
 
 
 ### Dislaimer regarding pytest pyvcr recordings.
