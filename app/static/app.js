@@ -75,9 +75,3 @@ function newUploadClicked(ref){
 }
 
 
-function main(){
-  console.log("subloader ready.")
-}
-
-main();
-

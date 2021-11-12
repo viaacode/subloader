@@ -61,9 +61,17 @@ Login
   </p>
   </div>
 
+  <script>
+    function hide_saml_auth(){
+      console.log("temporarely hide saml auth when on original login page.")
+      saml_header_block = document.getElementById('saml_auth_block');
+      saml_header_block.style.display='none'
+    }
+
+    hide_saml_auth();
+  </script>
+
 {% endblock %}
-
-
    </body>
 </html> 
 
