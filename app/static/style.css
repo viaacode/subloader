@@ -82,7 +82,7 @@ nav img.avo_logo {
 }
 nav .apptitle{
   font-size: 24px;
-  margin-top: -4px;
+  line-height: 34px;
 }
 nav .appname a {
   padding: 1em;
@@ -98,6 +98,7 @@ section.content {
   padding: 1em;
   margin:auto;
   width: 1024px;
+  height: 100vh;
 }
 
 pre {
