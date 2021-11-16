@@ -51,7 +51,8 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 # app.config['SECRET_KEY'] = 'onelogindemopytoolkit'
 app.config['SECRET_KEY'] = 'meemoo_saml_secret_to_be_set_using_configmap_or_secrets'
 app.config['SAML_PATH'] = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), 'saml')
+    os.path.dirname(os.path.abspath(__file__)), 'saml'
+)
 
 
 # ======================== SUBLOADER RELATED ROUTES ===========================

@@ -3,9 +3,25 @@
 <html>
   <head>
     <title>Subloader</title>
+    
+
+    <!-- old version of vanilla style.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- bulma css framework -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bulma/bulma.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bulma/core.min.css') }}">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='flowplayer.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"></script>
+
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='flowplayer.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"></script>
+
+
     <script type="text/javascript" src="{{ url_for('static', filename='flowplayer.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='subtitles.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
