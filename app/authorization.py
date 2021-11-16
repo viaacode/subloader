@@ -44,7 +44,7 @@ def skip_signature_check():
 
 def verify_token(jwt_token):
     try:
-        return True # TEMP DISABLE FOR RESTYLING
+        # return True # -> DISABLE DURING CSS RE-STYLING
         # we only validate signature if OAS_JWT_SECRET is supplied
         if skip_signature_check():
             print(
