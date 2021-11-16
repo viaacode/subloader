@@ -37,6 +37,8 @@ from app.validation import (pid_error, upload_error, validate_input,
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from onelogin.saml2.utils import OneLogin_Saml2_Utils
 
+from flask_login import UserMixin, current_user  # , login_required
+
 
 app = Flask(__name__)
 config = ConfigParser()
@@ -55,6 +57,13 @@ app.config['SAML_PATH'] = os.path.join(
 )
 
 
+# POC user mixin/model for current_user method of flask login
+class User(UserMixin):
+    def __init__():
+        self.name = 'Walter Schreppers'
+        self.email = 'wstest@meemoo.be'
+
+
 # ======================== SUBLOADER RELATED ROUTES ===========================
 @app.route('/', methods=['GET'])
 def index():
@@ -67,6 +76,9 @@ def index():
 
 @app.route('/login', methods=['POST'])
 def login():
+    user = User()
+    login_user(user)
+    return redirect(url_for('.search_media', token='all_your_base_are_belong_to_us')) # DISABLE FOR CSS RESTYLE
     username = request.form.get('username')
     password = request.form.get('password')
     logger.info("POST login =", dictionary={
