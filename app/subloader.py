@@ -80,9 +80,10 @@ def login():
     # login_user(user) # todo import login_manager here and wire up with SAML
 
     # DISABLE login check FOR CSS RESTYLE
-    # return redirect(
-    #   url_for('.search_media', token='all_your_base_are_belong_to_us')
-    # )
+    if app.config['DEBUG']:
+        return redirect(
+          url_for('.search_media', token='debug_authorization_disabled')
+        )
 
     username = request.form.get('username')
     password = request.form.get('password')

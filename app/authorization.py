@@ -15,6 +15,8 @@ import base64
 
 from functools import wraps
 from flask import request, abort, jsonify
+from flask import current_app
+
 
 OAS_SERVER = os.environ.get('OAS_SERVER', 'https://oas-qas.viaa.be')
 OAS_APPNAME = os.environ.get('OAS_APPNAME', 'mediahaven')
@@ -44,7 +46,10 @@ def skip_signature_check():
 
 def verify_token(jwt_token):
     try:
-        # return True # -> DISABLE DURING CSS RE-STYLING
+        # IN DEBUG MODE, DISABLE AUTH DURING CSS RE-STYLING
+        if current_app.config['DEBUG']:
+            return True
+
         # we only validate signature if OAS_JWT_SECRET is supplied
         if skip_signature_check():
             print(
